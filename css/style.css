@@ -293,4 +293,39 @@ h1{
     grid-template-columns: 1fr !important;
   }
 }
+/* ===== Hard fix: prevent “content pushed to the right” on iPad ===== */
+@media (max-width: 1024px){
+
+  html, body { width: 100%; overflow-x: hidden; }
+
+  /* Make main container center and fill */
+  main.wrap{
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 18px 16px !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  /* Force every section/card block to occupy full width */
+  main.wrap > section,
+  main.wrap > div{
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* If any layout uses grid/flex with empty left column, collapse to one column */
+  .heroShell{
+    grid-template-columns: 1fr !important;
+  }
+
+  /* If any grids exist, stack them */
+  .grid, .cards3, .cards4, .twoCol, .kpiRow{
+    grid-template-columns: 1fr !important;
+  }
+}
 
