@@ -219,4 +219,46 @@ h1{
   background: linear-gradient(135deg, rgba(59,130,246,.18), rgba(0,209,193,.12));
   border-color: rgba(59,130,246,.45);
 }  
+/* ===== Mobile + iPad layout fix (prevents “empty left space” + ugly footer nav) ===== */
+
+@media (max-width: 1024px){
+
+  /* Make layout use full screen width */
+  .wrap{
+    padding: 18px 16px !important;
+  }
+
+  /* Ensure main cards stretch */
+  .panel, .card{
+    width: 100% !important;
+  }
+
+  /* If any nav-like chips appear in footer, hide them */
+  footer .links,
+  footer nav,
+  footer .navInner{
+    display: none !important;
+  }
+
+  /* Make any grid stacks cleanly */
+  .grid, .cards3, .cards4, .twoCol, .kpiRow{
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Hero: stack image under copy properly */
+  .heroShell{
+    grid-template-columns: 1fr !important;
+  }
+
+  .heroPhoto{
+    min-height: 320px !important;
+    max-height: 320px !important;
+  }
+
+  /* Reduce headline slightly for tablet */
+  h1{
+    font-size: 30px !important;
+    line-height: 1.12 !important;
+  }
+}
 
