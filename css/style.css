@@ -432,4 +432,13 @@ h1{
     letter-spacing: -0.02em !important;
   }
 }
+/* =========================
+   MOBILE – KICKER ALIGNMENT FIX
+   ========================= */
+@media (max-width: 900px){
+  .kicker{
+    margin-bottom: 6px !important;
+    opacity: .85 !important;
+  }
+}
 
