@@ -417,4 +417,19 @@ h1{
     letter-spacing: -0.02em !important;
   }
 }
+/* =========================
+   RESPONSIVE HEADLINE CONTROL
+   ========================= */
+.desktop-only{ display: block; }
+.mobile-only{ display: none; }
+
+@media (max-width: 900px){
+  .desktop-only{ display: none !important; }
+  .mobile-only{
+    display: block !important;
+    font-size: 26px !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.02em !important;
+  }
+}
 
