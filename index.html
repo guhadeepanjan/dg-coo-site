@@ -3,10 +3,91 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Overview | Deepanjan Guha</title>
-  <meta name="description" content="COO / Head of Operations — Banking — Regulatory Governance • Operational Risk & Resilience • Payments & Digital Transformation" />
-  <link rel="stylesheet" href="css/style.css?v=300" />
+  <title>Deepanjan Guha | COO / Operations Leadership</title>
+  <meta name="description" content="COO / Head of Operations — Banking | Governance-first operating model, operational risk & resilience, payments modernisation and transformation delivery." />
+  <link rel="stylesheet" href="css/style.css?v=400" />
+
+  <!-- Page-only polish (keeps your main CSS intact) -->
+  <style>
+    /* soften overall hero feel */
+    .hero { padding: 30px 0 8px; }
+    .heroCopy{ position:relative; overflow:hidden; }
+    .heroCopy:after{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(700px 300px at 20% 0%, rgba(47,125,255,.18), transparent 55%),
+        radial-gradient(700px 300px at 95% 10%, rgba(0,209,193,.12), transparent 60%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .heroCopy > *{ position:relative; z-index:1; }
+
+    /* calmer headline rhythm */
+    h1{ max-width: 20ch; }
+    .sub{ max-width: 78ch; }
+
+    /* premium badge row */
+    .badgeRow{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin-top:14px;
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: rgba(234,240,255,.78);
+      font-weight:900;
+      font-size:12px;
+      letter-spacing:.02em;
+      white-space:nowrap;
+    }
+    .badge i{
+      width:8px; height:8px; border-radius:50%;
+      background: linear-gradient(135deg, rgba(47,125,255,.95), rgba(0,209,193,.85));
+      display:inline-block;
+      box-shadow:0 0 0 5px rgba(47,125,255,.14);
+    }
+
+    /* make KPI boxes feel less chunky */
+    .kpiRow .kpi{
+      background: rgba(255,255,255,.045);
+      border-color: rgba(255,255,255,.10);
+    }
+
+    /* improve section spacing */
+    .section{ padding: 28px 0; }
+    .section h2{ margin-bottom: 8px; }
+
+    /* simple grid helpers (if not defined already) */
+    .grid{ display:grid; gap:14px; }
+    .cards3{ grid-template-columns: repeat(3, 1fr); }
+    .twoCol{ grid-template-columns: 1fr 1fr; }
+
+    /* recruiter quick scan strip */
+    .scanStrip{
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:18px;
+      background: linear-gradient(135deg, rgba(47,125,255,.10), rgba(0,209,193,.07));
+      padding:18px;
+      box-shadow: 0 18px 60px rgba(0,0,0,.32);
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px; flex-wrap:wrap;
+    }
+    .scanStrip b{ font-size:16px; }
+    .scanStrip .small{ max-width: 80ch; }
+
+    /* mobile polish */
+    @media (max-width: 980px){
+      h1{ max-width: 26ch; }
+      .cards3, .twoCol{ grid-template-columns: 1fr; }
+      .heroPhoto{ max-height: 360px; }
+    }
+  </style>
 </head>
+
 <body>
 
   <div class="nav">
@@ -29,6 +110,7 @@
 
   <main class="wrap">
 
+    <!-- HERO -->
     <section class="hero">
       <div class="heroShell">
 
@@ -36,164 +118,160 @@
           <div class="kicker">COO / Head of Operations — Banking</div>
 
           <h1 class="desktop-only">
-            A control-strong COO trusted with<br>
-            regulated banking operations
+            Governance-first operations leadership for regulated banking
           </h1>
 
           <h1 class="mobile-only">
-            Control-strong COO for<br>
-            regulated banking
+            Governance-first<br/>operations leadership
           </h1>
 
           <p class="sub">
-            I lead banking operations with a governance-first mindset — owning day-to-day execution, regulatory posture,
-            and modernisation across payments, risk, and service without disrupting customers.
+            I run operations with a control-strong mindset — owning day-to-day execution, regulatory posture,
+            and modernisation across payments, risk and service, without disrupting customer outcomes.
           </p>
 
-          <ul class="heroList">
-            <li>Enterprise-scale operations leadership across Retail, Corporate, Trade, Treasury &amp; Wealth banking.</li>
-            <li>Evidence-led governance covering audits, remediation, outsourcing oversight, BCM, and payments change.</li>
-          </ul>
-
-          <div class="kpiRow">
-            <div class="panel kpi">
-              <div class="n">20+ yrs</div>
-              <div class="l">Cross-border ops</div>
-            </div>
-            <div class="panel kpi">
-              <div class="n">MAS/ABS</div>
-              <div class="l">Reg-ready governance</div>
-            </div>
-            <div class="panel kpi">
-              <div class="n">ISO 20022</div>
-              <div class="l">Payments readiness</div>
-            </div>
-            <div class="panel kpi">
-              <div class="n">TPRM/BCM</div>
-              <div class="l">Resilience</div>
-            </div>
+          <div class="badgeRow">
+            <span class="badge"><i></i>Regulatory governance</span>
+            <span class="badge"><i></i>Operational risk & resilience</span>
+            <span class="badge"><i></i>Payments modernisation (ISO 20022)</span>
+            <span class="badge"><i></i>Outsourcing / TPRM governance</span>
+            <span class="badge"><i></i>BAU-safe transformation</span>
           </div>
 
+          <div class="kpiRow">
+            <div class="panel kpi"><div class="n">20+ yrs</div><div class="l">Cross-border leadership</div></div>
+            <div class="panel kpi"><div class="n">MAS/ABS</div><div class="l">Reg-ready posture</div></div>
+            <div class="panel kpi"><div class="n">ISO 20022</div><div class="l">Payments readiness</div></div>
+            <div class="panel kpi"><div class="n">TPRM/BCM</div><div class="l">Resilience governance</div></div>
+          </div>
+
+          <ul class="heroList">
+            <li>Enterprise operations coverage across Retail, Corporate, Trade, Treasury and Wealth.</li>
+            <li>Evidence-led controls: audit readiness, remediation governance, senior escalation discipline.</li>
+            <li>Transformation delivered safely: change governance, cutovers, vendor oversight, operational readiness from day one.</li>
+          </ul>
+
           <div class="ctaRow">
-            <a class="btn primary" href="contact.html">Recruiter Contact</a>
-            <a class="btn" href="skills.html">Explore Skills</a>
+            <a class="btn primary" href="contact.html">Confidential Recruiter Contact</a>
+            <a class="btn" href="skills.html">View Capability Map</a>
             <a class="btn ghost" href="assets/resume.pdf" target="_blank" rel="noreferrer">Download Resume</a>
           </div>
         </div>
 
-        <div class="panel heroPhoto">
+        <div class="panel heroPhoto" aria-label="Portrait">
           <img src="assets/headshot.jpg" alt="Deepanjan Guha headshot" />
         </div>
 
       </div>
     </section>
 
+    <!-- QUICK SCAN STRIP -->
     <section class="section">
-      <h2>Leadership Pillars</h2>
-      <p class="muted">How I operate as a COO / Head of Operations — governance first, transformation owned end-to-end.</p>
-
-      <div class="grid cards4" style="margin-top:14px;">
-        <div class="card">
-          <b>Regulatory &amp; Audit Readiness</b>
-          <div class="small muted" style="margin-top:8px;">
-            Regulatory reporting discipline, audit liaison, control evidence, remediation governance, and senior escalation handling.
+      <div class="scanStrip">
+        <div>
+          <b>Recruiter quick scan</b>
+          <div class="small muted" style="margin-top:6px;">
+            Best fit: COO / Deputy COO / Head of Operations / Director–SVP Operations roles in regulated BFSI & FinTech,
+            where governance strength and transformation execution must coexist.
           </div>
         </div>
-
-        <div class="card">
-          <b>Operational Risk &amp; Resilience</b>
-          <div class="small muted" style="margin-top:8px;">
-            RCSA/KRIs, incident governance, root-cause leadership, BCM testing, crisis playbooks, and team coaching.
-          </div>
-        </div>
-
-        <div class="card">
-          <b>Payments &amp; Digital Transformation</b>
-          <div class="small muted" style="margin-top:8px;">
-            Payments operations modernisation (ISO 20022 readiness), STP uplift, controls uplift, and change governance.
-          </div>
-        </div>
-
-        <div class="card">
-          <b>Outsourcing &amp; Third-Party Governance</b>
-          <div class="small muted" style="margin-top:8px;">
-            SLA/KPI/KRI monitoring, onsite reviews, cost governance, performance management, resilience, and exit planning.
-          </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn" href="experience.html">Career Journey</a>
+          <a class="btn" href="transformation.html">Transformation Proof</a>
         </div>
       </div>
     </section>
 
+    <!-- WHAT I DELIVER -->
     <section class="section">
-      <h2>Featured Transformation Work</h2>
-      <p class="muted">Case-study style projects covering payments modernization, AI governance, outsourcing controls, and security uplift.</p>
+      <h2>What I deliver</h2>
+      <p class="muted">Four outcomes recruiters and CEOs typically hire me for.</p>
 
       <div class="grid cards3" style="margin-top:14px;">
         <div class="card">
-          <b>ISO 20022 Readiness &amp; Payments Modernisation</b>
+          <b>Audit-ready operating discipline</b>
           <div class="small muted" style="margin-top:8px;">
-            Operational readiness, control uplift, cutover governance and stakeholder alignment across payments processing.
+            Clear ownership, evidence-led controls, and remediation governance — with predictable regulator and auditor engagement.
           </div>
         </div>
 
         <div class="card">
-          <b>MAS MindForge — AI Governance Contribution</b>
+          <b>Resilience that holds under stress</b>
           <div class="small muted" style="margin-top:8px;">
-            Participation / contribution to responsible AI governance initiatives with risk-first operating principles.
+            Practical RCSA/KRI posture, incident governance, BCM testing, crisis playbooks and escalation discipline.
           </div>
         </div>
 
         <div class="card">
-          <b>ABS Trade Finance Registry</b>
+          <b>Payments modernisation without BAU shock</b>
           <div class="small muted" style="margin-top:8px;">
-            Operational input and governance alignment for trade finance digital registry initiatives.
+            Change governance, cutover readiness, STP uplift, and safe delivery across payments and clearing.
           </div>
         </div>
 
         <div class="card">
-          <b>Payments Security Uplift — Bio Quest Integration</b>
+          <b>TPRM / outsourcing governance</b>
           <div class="small muted" style="margin-top:8px;">
-            Integrating Bio Quest for added security on internet banking payments and money transfers (process + risk + tech coordination).
+            SLA/KPI/KRI monitoring, onsite reviews, cost discipline, performance management, and exit resilience planning.
           </div>
         </div>
 
         <div class="card">
-          <b>Outsourcing Oversight Operating Model</b>
+          <b>Operational visibility and execution cadence</b>
           <div class="small muted" style="margin-top:8px;">
-            KPI/SLA/KRI frameworks and structured vendor governance for offshore processing support.
+            Dashboards, bottleneck control, measurable service outcomes, and a weekly operating rhythm that scales.
           </div>
         </div>
 
         <div class="card">
-          <b>BCM &amp; Crisis Management Testing</b>
+          <b>Leadership that builds calm, capable teams</b>
           <div class="small muted" style="margin-top:8px;">
-            Branch-wide continuity testing, scenario readiness, and operational response coordination.
+            Coaching + governance + clarity — teams that execute consistently, even through change and scrutiny.
           </div>
         </div>
       </div>
     </section>
 
+    <!-- HOW TO USE THIS SITE -->
     <section class="section">
-      <h2>Fast Recruiter Actions</h2>
+      <h2>How to use this site</h2>
+      <p class="muted">Designed for fast recruiter navigation — deep enough for diligence, simple enough for quick scan.</p>
 
       <div class="grid twoCol" style="margin-top:14px;">
         <div class="card">
-          <b>Confidential roles welcome</b>
+          <b>Capability map (fast)</b>
           <div class="small muted" style="margin-top:8px;">
-            For COO / Head of Operations mandates, the fastest route is via email or LinkedIn message. I respond quickly and keep discussions confidential.
+            Go to <a href="skills.html" style="text-decoration:underline;">Core Capabilities</a> to see the COO-grade capability map built for scanning.
           </div>
-          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
-            <a class="btn primary" href="contact.html">Recruiter Contact</a>
-            <a class="btn" href="experience.html">View Experience</a>
+          <div style="margin-top:12px;">
+            <a class="btn" href="skills.html">Open Capability Map</a>
           </div>
         </div>
 
         <div class="card">
-          <b>Download center</b>
-          <div class="small muted" style="margin-top:8px;">Resume, leadership summary, and role-fit talking points in one place.</div>
-          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
-            <a class="btn" href="assets/resume.pdf" target="_blank" rel="noreferrer">Resume (PDF)</a>
-            <a class="btn" href="leadership.html">Leadership Profile</a>
+          <b>Proof of delivery (deep)</b>
+          <div class="small muted" style="margin-top:8px;">
+            Go to <a href="transformation.html" style="text-decoration:underline;">Transformation Portfolio</a> for case-study style proof: governance + execution + outcomes.
           </div>
+          <div style="margin-top:12px;">
+            <a class="btn" href="transformation.html">Open Transformations</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECRUITER CTA -->
+    <section class="section">
+      <div class="panel" style="padding:22px; text-align:center;">
+        <h2 style="margin:0 0 10px;">Confidential recruiter outreach welcome</h2>
+        <p class="muted" style="margin:0 auto; max-width:90ch;">
+          If you’re hiring for a COO / Head of Operations mandate in BFSI or FinTech, the fastest path is a short note
+          with scope, location, and compensation band (if available). I respond quickly and keep discussions confidential.
+        </p>
+        <div style="margin-top:14px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
+          <a class="btn primary" href="contact.html">Recruiter Contact</a>
+          <a class="btn" href="experience.html">Executive Experience</a>
+          <a class="btn" href="assets/resume.pdf" target="_blank" rel="noreferrer">Resume (PDF)</a>
         </div>
       </div>
     </section>
