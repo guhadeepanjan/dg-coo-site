@@ -314,3 +314,30 @@ h1{
   .section h2{font-size:22px;}
   .footer{text-align:center;}
 }
+/* =========================
+   MOBILE TRUNCATION / OVERFLOW FIX
+   ========================= */
+@media (max-width: 900px){
+
+  /* Stop grid children from forcing overflow */
+  .heroShell,
+  .heroShell > * ,
+  .panel,
+  .heroCopy,
+  .heroPhoto{
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* Make long headings wrap nicely */
+  h1{
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+
+  /* Safety: ensure nothing can push the page wider */
+  body, main, section{
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+}
