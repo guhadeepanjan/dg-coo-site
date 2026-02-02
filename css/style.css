@@ -328,4 +328,78 @@ h1{
     grid-template-columns: 1fr !important;
   }
 }
+/* =========================
+   MOBILE OPTIMISATION
+   ========================= */
+@media (max-width: 900px) {
+
+  body {
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  .navInner {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* HERO */
+  .heroShell {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .heroCopy {
+    padding: 24px;
+  }
+
+  .heroPhoto img {
+    max-width: 260px;
+    margin: 0 auto;
+    display: block;
+  }
+
+  h1 {
+    font-size: 28px;
+    line-height: 1.3;
+  }
+
+  /* KPI CARDS */
+  .kpiRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* GENERAL SECTIONS */
+  .section {
+    padding: 40px 20px;
+  }
+
+  /* GRIDS */
+  .grid.cards4,
+  .grid.cards3,
+  .grid.twoCol {
+    grid-template-columns: 1fr;
+  }
+
+  /* BUTTONS */
+  .ctaRow {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+  }
+}
 
