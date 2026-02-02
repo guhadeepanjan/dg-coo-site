@@ -3,111 +3,283 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Transformation | Deepanjan Guha</title>
-  <meta name="description" content="COO / Head of Operations — Banking — Regulatory Governance • Operational Risk & Resilience • Payments & Digital Transformation" />
-<link rel="stylesheet" href="css/style.css?v=301" />
+  <title>Transformation Portfolio | Deepanjan Guha</title>
+  <meta name="description" content="Operations-led transformation portfolio — payments modernisation, regulatory change, risk uplift and BAU-safe execution across regulated banking environments." />
+  <link rel="stylesheet" href="css/style.css?v=300" />
+
+  <!-- Page-specific futuristic polish -->
+  <style>
+    .timeline{
+      position:relative;
+      padding-left:26px;
+      border-left:2px solid rgba(255,255,255,.14);
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+    .node{
+      position:relative;
+    }
+    .node:before{
+      content:"";
+      position:absolute;
+      left:-36px;
+      top:6px;
+      width:14px;
+      height:14px;
+      border-radius:50%;
+      background:linear-gradient(135deg, rgba(47,125,255,.95), rgba(0,209,193,.85));
+      box-shadow:0 0 0 6px rgba(47,125,255,.18);
+    }
+    .node .card{
+      padding:18px;
+    }
+    .tagRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:10px;
+    }
+    .tag{
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.05);
+      font-size:12px;
+      font-weight:800;
+      color:rgba(234,240,255,.8);
+      white-space:nowrap;
+    }
+    .metric{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .metric span{
+      font-size:12px;
+      font-weight:900;
+      color:#06101b;
+      background:linear-gradient(135deg, rgba(47,125,255,.95), rgba(0,209,193,.85));
+      padding:6px 10px;
+      border-radius:999px;
+    }
+    @media(max-width:900px){
+      .timeline{padding-left:18px;}
+      .node:before{left:-30px;}
+    }
+  </style>
 </head>
+
 <body>
 
-    <div class="nav">
-      <div class="navInner">
-        <div class="brand">Deepanjan Guha</div>
-        <div class="links">
-  <a href="index.html" class="active">Overview</a>
-  <a href="leadership.html">Leadership Profile</a>
-  <a href="skills.html">Core Capabilities</a>
-  <a href="transformation.html">Transformation Portfolio</a>
-  <a href="experience.html">Executive Experience</a>
-  <a href="credentials.html">Credentials & Certifications</a>
-  <a href="contact.html">Recruiter Contact</a>
-</div>
-        <a class="btn primary" href="contact.html">Recruiter Contact</a>
+  <div class="nav">
+    <div class="navInner">
+      <div class="brand">Deepanjan Guha</div>
+
+      <div class="links">
+        <a href="index.html">Overview</a>
+        <a href="leadership.html">Leadership Profile</a>
+        <a href="skills.html">Core Capabilities</a>
+        <a href="transformation.html" class="active">Transformation Portfolio</a>
+        <a href="experience.html">Executive Experience</a>
+        <a href="credentials.html">Credentials & Certifications</a>
+        <a href="contact.html">Recruiter Contact</a>
       </div>
+
+      <a class="btn primary" href="contact.html">Recruiter Contact</a>
     </div>
-    
-<main class="wrap">
-
-<section class="section">
-  <div class="kicker">Transformation Portfolio</div>
-  <h1 style="margin-top:10px;">Modernisation delivered with governance intact</h1>
-  <p class="sub">
-    A selection of transformation and control uplift initiatives that demonstrate how I deliver change safely in regulated banking environments.
-  </p>
-</section>
-
-<section class="section">
-  <h2>Featured case studies</h2>
-  <div class="grid cards3" style="margin-top:14px;">
-    
-<div class="card">
-  <b>ISO 20022 Readiness & Payments Modernisation</b>
-  <div class="small muted" style="margin-top:8px;">Operational readiness, control uplift, cutover governance and stakeholder alignment across payments processing.</div>
-  <div class="small" style="margin-top:12px;">
-    <b>Case-study template:</b>
-    <div class="muted">Context → Risk/Controls → Execution → Outcomes → Residual risks & next steps</div>
   </div>
-</div>
 
-<div class="card">
-  <b>MAS MindForge — AI Governance Contribution</b>
-  <div class="small muted" style="margin-top:8px;">Participation / contribution to responsible AI governance initiatives with risk-first operating principles.</div>
-  <div class="small" style="margin-top:12px;">
-    <b>Case-study template:</b>
-    <div class="muted">Context → Risk/Controls → Execution → Outcomes → Residual risks & next steps</div>
-  </div>
-</div>
+  <main class="wrap">
 
-<div class="card">
-  <b>ABS Trade Finance Registry</b>
-  <div class="small muted" style="margin-top:8px;">Operational input and governance alignment for trade finance digital registry initiatives.</div>
-  <div class="small" style="margin-top:12px;">
-    <b>Case-study template:</b>
-    <div class="muted">Context → Risk/Controls → Execution → Outcomes → Residual risks & next steps</div>
-  </div>
-</div>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="panel heroCopy">
+        <div class="kicker">Transformation Portfolio</div>
 
-<div class="card">
-  <b>Payments Security Uplift — Bio Quest Integration</b>
-  <div class="small muted" style="margin-top:8px;">Integrating Bio Quest for added security on internet banking payments and money transfers (process + risk + tech coordination).</div>
-  <div class="small" style="margin-top:12px;">
-    <b>Case-study template:</b>
-    <div class="muted">Context → Risk/Controls → Execution → Outcomes → Residual risks & next steps</div>
-  </div>
-</div>
+        <h1 class="desktop-only">
+          Operations-led transformation<br>
+          delivered on the floor
+        </h1>
 
-<div class="card">
-  <b>Outsourcing Oversight Operating Model</b>
-  <div class="small muted" style="margin-top:8px;">KPI/SLA/KRI frameworks and structured vendor governance for offshore processing support.</div>
-  <div class="small" style="margin-top:12px;">
-    <b>Case-study template:</b>
-    <div class="muted">Context → Risk/Controls → Execution → Outcomes → Residual risks & next steps</div>
-  </div>
-</div>
+        <h1 class="mobile-only">
+          Operations-led transformation<br>
+          delivered on the floor
+        </h1>
 
-<div class="card">
-  <b>BCM & Crisis Management Testing</b>
-  <div class="small muted" style="margin-top:8px;">Branch-wide continuity testing, scenario readiness, and operational response coordination.</div>
-  <div class="small" style="margin-top:12px;">
-    <b>Case-study template:</b>
-    <div class="muted">Context → Risk/Controls → Execution → Outcomes → Residual risks & next steps</div>
-  </div>
-</div>
+        <p class="sub">
+          These initiatives were not advisory or conceptual. I owned execution within live banking environments —
+          stabilising BAU, strengthening controls, and delivering change without disrupting customers or regulatory posture.
+        </p>
 
-  </div>
-</section>
+        <div class="ctaRow" style="margin-top:16px;">
+          <a class="btn primary" href="contact.html">Discuss a mandate</a>
+          <a class="btn" href="experience.html">View Executive Experience</a>
+        </div>
+      </div>
+    </section>
 
-<section class="section">
-  <h2>What recruiters can expect in discussion</h2>
-  <div class="grid twoCol" style="margin-top:14px;">
-    <div class="card"><b>Operating model depth</b><div class="small muted" style="margin-top:8px;">How I structure ownership, controls, metrics, escalation routes and governance rhythms.</div></div>
-    <div class="card"><b>Cutover + stabilisation playbook</b><div class="small muted" style="margin-top:8px;">Readiness, sign-offs, contingency planning, and BAU embedding to prevent service shocks.</div></div>
-  </div>
-</section>
+    <!-- HOW I DRIVE TRANSFORMATION -->
+    <section class="section">
+      <h2>How I drive transformation</h2>
+      <p class="muted">
+        Every initiative follows the same discipline: problem ownership, control-first design, execution on the floor,
+        and measurable outcomes.
+      </p>
 
-</main>
-<footer class="footer">
-  <div class="wrap">© <span id="y"></span> Deepanjan Guha. Built for confidential recruiter outreach.</div>
-</footer>
-<script src="js/main.js"></script>
+      <div class="grid cards4" style="margin-top:14px;">
+        <div class="card">
+          <b>Own the problem</b>
+          <div class="small muted">Queue pain points, risk events, audit findings or regulatory gaps — clearly framed and prioritised.</div>
+        </div>
+        <div class="card">
+          <b>Design with controls</b>
+          <div class="small muted">Process, evidence, sign-offs and governance designed upfront, not bolted on later.</div>
+        </div>
+        <div class="card">
+          <b>Execute in BAU</b>
+          <div class="small muted">Change delivered alongside live processing with cutover discipline and fallback readiness.</div>
+        </div>
+        <div class="card">
+          <b>Stabilise & measure</b>
+          <div class="small muted">Post-implementation monitoring, issue tracking and clear outcome reporting.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRANSFORMATION TIMELINE -->
+    <section class="section">
+      <h2>Selected transformation initiatives</h2>
+      <p class="muted">Representative examples that show hands-on ownership, not slideware.</p>
+
+      <div class="timeline" style="margin-top:14px;">
+
+        <!-- ISO 20022 -->
+        <div class="node">
+          <div class="card">
+            <b>Payments modernisation & ISO 20022 readiness</b>
+            <div class="small muted" style="margin-top:8px;">
+              Led operational readiness across payments processing — aligning controls, data fields, exception handling,
+              reconciliation and cutover governance while maintaining BAU stability.
+            </div>
+            <div class="tagRow">
+              <span class="tag">Payments Ops</span>
+              <span class="tag">ISO 20022</span>
+              <span class="tag">STP uplift</span>
+              <span class="tag">Control evidence</span>
+            </div>
+            <div class="metric">
+              <span>BAU safe</span>
+              <span>Zero customer disruption</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Outsourcing -->
+        <div class="node">
+          <div class="card">
+            <b>Outsourcing & offshore operations governance</b>
+            <div class="small muted" style="margin-top:8px;">
+              Designed and ran SLA/KPI/KRI frameworks, onsite reviews, issue escalation and cost governance
+              for offshore processing — strengthening control without slowing throughput.
+            </div>
+            <div class="tagRow">
+              <span class="tag">TPRM</span>
+              <span class="tag">SLA / KPI / KRI</span>
+              <span class="tag">Offshore ops</span>
+              <span class="tag">Cost governance</span>
+            </div>
+            <div class="metric">
+              <span>Risk reduced</span>
+              <span>Predictable delivery</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Security -->
+        <div class="node">
+          <div class="card">
+            <b>Payments security uplift — Bio Quest integration</b>
+            <div class="small muted" style="margin-top:8px;">
+              Drove integration of additional authentication for internet banking payments and transfers —
+              coordinating technology, risk, compliance and operations with clear go-live controls.
+            </div>
+            <div class="tagRow">
+              <span class="tag">Security uplift</span>
+              <span class="tag">Internet banking</span>
+              <span class="tag">Risk & controls</span>
+            </div>
+            <div class="metric">
+              <span>Fraud risk reduced</span>
+              <span>Customer impact controlled</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- BCM -->
+        <div class="node">
+          <div class="card">
+            <b>BCM & crisis readiness transformation</b>
+            <div class="small muted" style="margin-top:8px;">
+              Implemented and tested branch-wide BCP scenarios — ensuring operational continuity,
+              communication readiness and regulator-safe evidence.
+            </div>
+            <div class="tagRow">
+              <span class="tag">BCM</span>
+              <span class="tag">Crisis management</span>
+              <span class="tag">Scenario testing</span>
+            </div>
+            <div class="metric">
+              <span>Audit ready</span>
+              <span>Operational resilience</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI / Governance -->
+        <div class="node">
+          <div class="card">
+            <b>Responsible AI & automation governance</b>
+            <div class="small muted" style="margin-top:8px;">
+              Contributed to governance frameworks for responsible AI adoption — ensuring risk-first controls,
+              human oversight and operational transparency.
+            </div>
+            <div class="tagRow">
+              <span class="tag">AI governance</span>
+              <span class="tag">Automation</span>
+              <span class="tag">Risk-first design</span>
+            </div>
+            <div class="metric">
+              <span>Controls embedded</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section">
+      <div class="panel" style="padding:22px; text-align:center;">
+        <h2 style="margin:0 0 10px;">Looking for execution, not slideware?</h2>
+        <p class="muted" style="margin:0 auto; max-width:80ch;">
+          If your organisation needs a COO / Head of Operations who can run live operations
+          while delivering transformation safely, let’s have a confidential discussion.
+        </p>
+        <div style="margin-top:14px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
+          <a class="btn primary" href="contact.html">Recruiter Contact</a>
+          <a class="btn" href="experience.html">Executive Experience</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">© <span id="y"></span> Deepanjan Guha. Built for confidential recruiter outreach.</div>
+  </footer>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
