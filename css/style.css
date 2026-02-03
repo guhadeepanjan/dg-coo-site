@@ -27,7 +27,14 @@ body{
 }
 
 a{color:inherit;text-decoration:none}
-.wrap{max-width:var(--max); margin:0 auto; padding:22px 22px 42px; width:100%;}
+
+.wrap{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:22px 22px 42px;
+  width:100%;
+  min-width:0;
+}
 
 /* ---------------------------
    NAV
@@ -46,20 +53,15 @@ a{color:inherit;text-decoration:none}
   align-items:center;
   justify-content:space-between;
   gap:14px;
+  min-width:0;
 }
 .brand{
-  font-weight: 900;
-  font-size: 20px;              /* desktop authority */
-  letter-spacing: -0.01em;
-  line-height: 1.1;
-  color: #ffffff;
-}
-/* Mobile emphasis */
-@media (max-width: 900px){
-  .brand{
-    font-size: 22px;            /* slightly larger on mobile */
-    letter-spacing: -0.015em;
-  }
+  font-weight:900;
+  font-size:22px;              /* stronger presence */
+  letter-spacing:-0.01em;
+  line-height:1.1;
+  color:#fff;
+  white-space:nowrap;
 }
 .links{
   display:flex;
@@ -68,6 +70,7 @@ a{color:inherit;text-decoration:none}
   color:var(--muted);
   font-weight:800;
   font-size:13px;
+  min-width:0;
 }
 .links a{
   padding:10px 12px;
@@ -86,12 +89,16 @@ a{color:inherit;text-decoration:none}
 }
 
 .btn{
-  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
   padding:12px 16px;
   border-radius:999px;
   border:1px solid var(--border);
   background:rgba(255,255,255,.05);
-  font-weight:900; font-size:14px;
+  font-weight:900;
+  font-size:14px;
   white-space:nowrap;
 }
 .btn:hover{background:rgba(255,255,255,.08)}
@@ -112,6 +119,8 @@ a{color:inherit;text-decoration:none}
   border:1px solid rgba(255,255,255,.12);
   background:linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.06));
   box-shadow:var(--shadow2);
+  min-width:0;
+  max-width:100%;
 }
 
 .heroShell{
@@ -119,9 +128,12 @@ a{color:inherit;text-decoration:none}
   grid-template-columns: 1.35fr .65fr;
   gap:22px;
   align-items:stretch;
+  min-width:0;
 }
+.heroShell > *{min-width:0;}
 
 .heroCopy{padding:28px;}
+
 .kicker{
   font-size:12px;
   letter-spacing:.22em;
@@ -136,6 +148,8 @@ h1{
   font-size:40px;
   letter-spacing:-.02em;
   line-height:1.06;
+  overflow-wrap:anywhere;
+  word-break:break-word;
 }
 
 .sub{
@@ -151,6 +165,7 @@ h1{
   grid-template-columns: repeat(4, 1fr);
   gap:12px;
   margin-top:14px;
+  min-width:0;
 }
 .kpi{padding:14px;}
 .kpi .n{font-size:18px; font-weight:900;}
@@ -169,7 +184,13 @@ h1{
 }
 .heroList li{margin:8px 0;}
 
-.ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px;}
+.ctaRow{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:18px;
+  min-width:0;
+}
 
 .heroPhoto{
   overflow:hidden;
@@ -196,6 +217,8 @@ h1{
   border-radius:var(--radius);
   padding:18px;
   box-shadow:var(--shadow);
+  min-width:0;
+  max-width:100%;
 }
 
 .small{font-size:13px; line-height:1.7; color:var(--muted);}
@@ -208,7 +231,7 @@ h1{
 }
 
 /* ---------------------------
-   RESPONSIVE HEADLINE CONTROL (optional)
+   RESPONSIVE HEADLINE CONTROL
 ---------------------------- */
 .desktop-only{ display:block; }
 .mobile-only{ display:none; }
@@ -221,30 +244,26 @@ h1{
   .heroShell{grid-template-columns:1fr;}
   .heroPhoto{min-height:360px; max-height:360px;}
   h1{font-size:34px; line-height:1.10;}
-  .kpiRow{grid-template-columns: repeat(2, 1fr);}
+  .kpiRow{grid-template-columns: repeat(2, minmax(0,1fr));}
 }
 
 /* ---------------------------
-   MOBILE (<=900) – EXECUTIVE POLISH
+   MOBILE (<=900) – CLEAN, NO CONFLICTS
 ---------------------------- */
 @media (max-width:900px){
 
-  /* Make brand feel like identity */
-  .brand{
-    font-size:18px;
-    font-weight:900;
-    letter-spacing:-0.01em;
-    line-height:1.1;
-  }
+  /* Stop ANY overflow at source */
+  html, body, main, section { overflow-x:hidden; }
+  .wrap{padding-left:14px; padding-right:14px;}
 
-  /* Nav: stop it looking like a sitemap */
+  /* NAV: clean, not “sitemap” */
   .navInner{
     flex-wrap:wrap;
     gap:10px;
     padding:12px 14px;
   }
+  .brand{font-size:20px;}
 
-  /* Keep only active tab visible + recruiter CTA (clean look) */
   .links{
     width:100%;
     justify-content:flex-start;
@@ -260,24 +279,20 @@ h1{
     border-color:var(--border);
     color:var(--text);
   }
-
   .nav .btn.primary{
     margin-left:auto;
     padding:10px 14px;
     font-size:13px;
   }
 
-  /* Hero */
+  /* HERO */
   .hero{padding:18px 0 6px;}
+  .heroShell{grid-template-columns:1fr;}
   .heroCopy{padding:18px;}
-  h1{
-    font-size:26px;
-    line-height:1.15;
-    letter-spacing:-0.02em;
-  }
+  h1{font-size:26px; line-height:1.15;}
   .sub{font-size:15px; line-height:1.6;}
 
-  /* KPI row becomes swipeable (premium, not cramped) */
+  /* KPI: premium horizontal scroll (keep this, don’t override later) */
   .kpiRow{
     display:flex;
     gap:10px;
@@ -297,57 +312,19 @@ h1{
   .kpi .n{font-size:16px;}
   .kpi .l{font-size:12px;}
 
-  /* Photo becomes a contained portrait card, not huge */
-  .heroPhoto{
-    min-height:320px;
-    max-height:320px;
-  }
-  .heroPhoto img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    object-position:50% 18%;
-  }
+  /* Photo */
+  .heroPhoto{min-height:300px; max-height:300px;}
+  .heroPhoto img{object-position:50% 18%;}
 
-  /* CTAs: clean 2-up grid */
+  /* CTA: 2-up grid + last full width */
   .ctaRow{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:10px;
   }
-  .ctaRow .btn{width:auto; padding:12px 12px;}
+  .ctaRow .btn{width:100%; padding:12px 12px;}
   .ctaRow .btn:nth-child(3){grid-column:1 / -1;}
 
-  /* Sections */
-  .section{padding:26px 0;}
-  .section h2{font-size:22px;}
+  /* Footer */
   .footer{text-align:center;}
 }
-/* =========================
-   MOBILE TRUNCATION / OVERFLOW FIX
-   ========================= */
-@media (max-width: 900px){
-
-  /* Stop grid children from forcing overflow */
-  .heroShell,
-  .heroShell > * ,
-  .panel,
-  .heroCopy,
-  .heroPhoto{
-    min-width: 0 !important;
-    max-width: 100% !important;
-  }
-
-  /* Make long headings wrap nicely */
-  h1{
-    overflow-wrap: anywhere !important;
-    word-break: break-word !important;
-  }
-
-  /* Safety: ensure nothing can push the page wider */
-  body, main, section{
-    max-width: 100% !important;
-    overflow-x: hidden !important;
-  }
-}
-
