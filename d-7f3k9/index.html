@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deepanshi's University Shortlist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Nunito", -apple-system, "Segoe UI", sans-serif;
+    background: linear-gradient(180deg, #fdfbff 0%, #eef5ff 55%, #e9fbf3 100%);
+    color: #26304a; min-height: 100vh; padding: 16px 14px 40px;
+  }
+  h1, h2, h3 { font-family: "Baloo 2", "Nunito", sans-serif; }
+  /* ---------- Passcode gate ---------- */
+  #gate { max-width: 420px; margin: 12vh auto 0; background: #fff; border-radius: 22px;
+    padding: 34px 26px 30px; text-align: center; box-shadow: 0 12px 34px rgba(60,70,140,.14); }
+  #gate .emoji { font-size: 44px; }
+  #gate h1 { font-size: 26px; color: #3730a3; margin: 8px 0 6px; }
+  #gate p { font-size: 15px; color: #5b657d; margin-bottom: 18px; }
+  #gate input { width: 100%; font-size: 17px; padding: 12px 14px; border: 2px solid #c7d2fe;
+    border-radius: 12px; text-align: center; font-family: inherit; }
+  #gate input:focus { outline: none; border-color: #6366f1; }
+  #gate button { width: 100%; margin-top: 12px; font-size: 17px; font-weight: 800; padding: 12px;
+    border: none; border-radius: 12px; background: #6366f1; color: #fff; cursor: pointer; font-family: inherit; }
+  #gate button:hover { background: #4f46e5; }
+  #gateErr { color: #dc2626; font-size: 14px; font-weight: 700; margin-top: 12px; display: none; }
+  /* ---------- App layout ---------- */
+  #app { max-width: 1060px; margin: 0 auto; }
+  header.top { text-align: center; padding: 10px 0 4px; }
+  header.top h1 { font-size: clamp(26px, 5vw, 38px); color: #3730a3; }
+  header.top p { color: #5b657d; font-size: 15px; margin-top: 2px; }
+  .panel { background: #fff; border-radius: 20px; padding: 20px; margin-top: 18px;
+    box-shadow: 0 8px 24px rgba(60,70,140,.10); }
+  .panel h2 { font-size: 20px; color: #3730a3; margin-bottom: 4px; }
+  .panel .hint { font-size: 13.5px; color: #6b7690; margin-bottom: 14px; }
+  .subj-row { display: grid; grid-template-columns: 44px 1fr 76px; gap: 8px; align-items: center; margin-bottom: 9px; }
+  .lvl { font-weight: 800; font-size: 13px; text-align: center; padding: 7px 0; border-radius: 9px; }
+  .lvl.hl { background: #e0e7ff; color: #3730a3; }
+  .lvl.sl { background: #dcfce7; color: #166534; }
+  select { width: 100%; font-family: inherit; font-size: 15px; padding: 9px 8px;
+    border: 2px solid #dbe2f1; border-radius: 10px; background: #fbfcff; color: #26304a; }
+  select:focus { outline: none; border-color: #6366f1; }
+  .extras { display: grid; grid-template-columns: 44px 1fr 76px; gap: 8px; align-items: center; margin-top: 4px; }
+  .extras .lbl { grid-column: 2; font-size: 14.5px; font-weight: 700; }
+  .totalbar { margin-top: 16px; background: linear-gradient(90deg, #6366f1, #0ea5e9);
+    color: #fff; border-radius: 14px; padding: 13px 16px; display: flex;
+    justify-content: space-between; align-items: center; font-weight: 800; font-size: 16px; }
+  .totalbar .big { font-size: 24px; font-family: "Baloo 2", sans-serif; }
+  /* ---------- Country tabs ---------- */
+  #countries { display: flex; gap: 8px; overflow-x: auto; padding: 18px 2px 6px; -webkit-overflow-scrolling: touch; }
+  #countries button { flex: 0 0 auto; font-family: inherit; font-size: 15px; font-weight: 800;
+    padding: 10px 16px; border-radius: 999px; border: 2px solid #c7d2fe; background: #fff;
+    color: #3730a3; cursor: pointer; }
+  #countries button.on { background: #6366f1; border-color: #6366f1; color: #fff; }
+  #entrynote { font-size: 13.5px; color: #7c4a03; background: #fef9e7; border: 1px solid #fde68a;
+    border-radius: 10px; padding: 9px 12px; margin-top: 8px; }
+  #banner { display: none; margin-top: 12px; background: #fff7ed; border: 1px solid #fed7aa;
+    border-radius: 14px; padding: 14px 16px; font-size: 14.5px; line-height: 1.5; }
+  #banner h3 { color: #9a3412; font-size: 16px; margin-bottom: 4px; }
+  #banner .kmk { margin-top: 8px; font-weight: 800; }
+  /* ---------- Cards ---------- */
+  #results { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 16px; }
+  @media (min-width: 760px) { #results { grid-template-columns: 1fr 1fr; } }
+  .card { background: #fff; border-radius: 18px; padding: 18px; box-shadow: 0 8px 22px rgba(60,70,140,.09);
+    display: flex; flex-direction: column; }
+  .card h3 { font-size: 19px; color: #1e2a4a; line-height: 1.25; }
+  .card .city { font-size: 13.5px; color: #8490ab; font-weight: 700; margin: 2px 0 10px; }
+  .course { border-top: 1px solid #eef1f8; padding: 11px 0 4px; }
+  .course:first-of-type { border-top: none; padding-top: 2px; }
+  .cname { font-weight: 800; font-size: 15px; color: #33406b; }
+  .req { font-size: 14px; color: #4c5875; line-height: 1.5; margin-top: 3px; }
+  .chip { display: inline-block; font-size: 10.5px; font-weight: 800; letter-spacing: .04em;
+    text-transform: uppercase; padding: 2px 7px; border-radius: 6px; margin-right: 6px; vertical-align: 1px; }
+  .chip.pc { background: #e0e7ff; color: #3730a3; }
+  .chip.gen { background: #fef3c7; color: #92400e; }
+  .chip.cred { background: #e0f2fe; color: #075985; }
+  .chip.np { background: #f1f5f9; color: #64748b; }
+  .badge { display: inline-block; font-size: 13px; font-weight: 800; padding: 5px 11px;
+    border-radius: 999px; margin-top: 8px; }
+  .b-reach { background: #dcfce7; color: #15803d; }
+  .b-stretch { background: #fef3c7; color: #b45309; }
+  .b-below { background: #fee2e2; color: #b91c1c; }
+  .cnote { font-size: 13px; color: #71809f; line-height: 1.5; margin-top: 7px; }
+  .card .uninote { font-size: 13px; color: #71809f; line-height: 1.5; margin-top: 10px;
+    background: #f8fafc; border-radius: 10px; padding: 9px 11px; }
+  .cardfoot { margin-top: auto; padding-top: 13px; display: flex; justify-content: space-between;
+    align-items: center; gap: 10px; flex-wrap: wrap; }
+  .verified { font-size: 12.5px; color: #94a3b8; font-weight: 700; }
+  a.visit { font-size: 13.5px; font-weight: 800; text-decoration: none; color: #fff;
+    background: #0ea5e9; padding: 8px 13px; border-radius: 999px; }
+  a.visit:hover { background: #0284c7; }
+  footer { text-align: center; color: #8490ab; font-size: 13.5px; font-weight: 700; margin-top: 28px; }
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="emoji">🎓</div>
+  <h1>Deepanshi's University Shortlist</h1>
+  <p>This page is just for you. Type the passcode to open it.</p>
+  <input type="password" id="pw" placeholder="Passcode" autocomplete="off">
+  <button id="unlockBtn">Open my shortlist</button>
+  <div id="gateErr">That passcode doesn't match — try again.</div>
+</div>
+
+<div id="app" style="display:none">
+  <header class="top">
+    <h1>🎓 Deepanshi's University Shortlist</h1>
+    <p>Set your target grades, pick a country, and see which universities fit.</p>
+  </header>
+
+  <section class="panel" id="profilePanel">
+    <h2>Your subjects &amp; target grades</h2>
+    <p class="hint">These are the grades you are aiming for — not your real results. Change anything and the badges below update straight away.</p>
+    <div id="hlRows"></div>
+    <div id="slRows"></div>
+    <div class="extras">
+      <span></span>
+      <span class="lbl">TOK + Extended Essay bonus points</span>
+      <select id="tokSel"></select>
+    </div>
+    <div class="totalbar"><span>Your projected total</span><span class="big"><span id="totalNum">0</span> / 45</span></div>
+  </section>
+
+  <nav id="countries"></nav>
+  <p id="entrynote">Figures are for 2026/2027 entry — 2028 requirements are not published yet.</p>
+  <div id="banner"></div>
+  <section id="results"></section>
+
+  <footer>Made for Deepanshi · Data from official university websites only</footer>
+</div>
+
+<script>
+"use strict";
+/* ================= Subjects ================= */
+const SUBJECTS = [
+  {k:"maa", n:"Mathematics: Analysis and Approaches"},
+  {k:"mai", n:"Mathematics: Applications and Interpretation"},
+  {k:"physics", n:"Physics"},
+  {k:"chemistry", n:"Chemistry"},
+  {k:"biology", n:"Biology"},
+  {k:"cs", n:"Computer Science"},
+  {k:"dt", n:"Design Technology"},
+  {k:"ess", n:"Environmental Systems & Societies"},
+  {k:"economics", n:"Economics"},
+  {k:"business", n:"Business Management"},
+  {k:"psychology", n:"Psychology"},
+  {k:"geography", n:"Geography"},
+  {k:"history", n:"History"},
+  {k:"globalpolitics", n:"Global Politics"},
+  {k:"english", n:"English (Language A or B)"},
+  {k:"french", n:"French"},
+  {k:"spanish", n:"Spanish"},
+  {k:"german", n:"German"},
+  {k:"mandarin", n:"Mandarin"},
+  {k:"hindi", n:"Hindi"},
+  {k:"visualarts", n:"Visual Arts"},
+  {k:"music", n:"Music"},
+  {k:"theatre", n:"Theatre"},
+  {k:"film", n:"Film"},
+  {k:"sehs", n:"Sports, Exercise & Health Science"}
+];
+const GROUPS = {
+  maths: ["maa","mai"],
+  maa: ["maa"],
+  physics: ["physics"],
+  chemistry: ["chemistry"],
+  biology: ["biology"],
+  cs: ["cs"],
+  english: ["english"],
+  economics: ["economics"],
+  french: ["french"],
+  science: ["physics","chemistry","biology"],
+  chemBio: ["chemistry","biology"],
+  sciOrCs: ["physics","chemistry","biology","cs"]
+};
+/* ================= Profile state ================= */
+const profile = {
+  hl: [ {s:"maa", g:6}, {s:"physics", g:6}, {s:"english", g:6} ],
+  sl: [ {s:"economics", g:6}, {s:"cs", g:6}, {s:"french", g:6} ],
+  tok: 2
+};
+let curCountry = "US";
+let P = null; // computed profile, refreshed on every render
+
+function computeProfile() {
+  const map = {};
+  profile.sl.forEach(e => { map[e.s] = {level:"SL", grade:e.g}; });
+  profile.hl.forEach(e => { map[e.s] = {level:"HL", grade:e.g}; }); // HL wins if duplicated
+  const hlGrades = profile.hl.map(e => e.g);
+  const slGrades = profile.sl.map(e => e.g);
+  const total = hlGrades.concat(slGrades).reduce((a,b)=>a+b,0) + profile.tok;
+  return { map, hlGrades, slGrades,
+    hlSum: hlGrades.reduce((a,b)=>a+b,0), total };
+}
+
+/* ================= Profile editor ================= */
+function subjectOptions(sel) {
+  return SUBJECTS.map(o => '<option value="' + o.k + '"' + (o.k===sel ? " selected" : "") + ">" + o.n + "</option>").join("");
+}
+function gradeOptions(sel) {
+  let h = "";
+  for (let g = 7; g >= 1; g--) h += '<option value="' + g + '"' + (g===sel ? " selected" : "") + ">" + g + "</option>";
+  return h;
+}
+function buildProfile() {
+  const mk = (lvl, arr) => arr.map((e, i) =>
+    '<div class="subj-row"><span class="lvl ' + lvl.toLowerCase() + '">' + lvl + "</span>" +
+    '<select data-lvl="' + lvl + '" data-i="' + i + '" class="subjSel">' + subjectOptions(e.s) + "</select>" +
+    '<select data-lvl="' + lvl + '" data-i="' + i + '" class="gradeSel">' + gradeOptions(e.g) + "</select></div>"
+  ).join("");
+  document.getElementById("hlRows").innerHTML = mk("HL", profile.hl);
+  document.getElementById("slRows").innerHTML = mk("SL", profile.sl);
+  const tok = document.getElementById("tokSel");
+  tok.innerHTML = [0,1,2,3].map(v => '<option value="' + v + '"' + (v===profile.tok ? " selected" : "") + ">" + v + "</option>").join("");
+  document.querySelectorAll(".subjSel").forEach(sel => sel.addEventListener("change", () => {
+    profile[sel.dataset.lvl.toLowerCase()][+sel.dataset.i].s = sel.value; renderResults();
+  }));
+  document.querySelectorAll(".gradeSel").forEach(sel => sel.addEventListener("change", () => {
+    profile[sel.dataset.lvl.toLowerCase()][+sel.dataset.i].g = +sel.value; renderResults();
+  }));
+  tok.addEventListener("change", () => { profile.tok = +tok.value; renderResults(); });
+}
+
+/* ================= University data (verified 2026-11-17) ================= */
+const DATA = {
+"US": { "label": "United States", "intro": "US universities don't publish IB cut-off scores — admission is holistic (they look at everything). The notes show each university's published IB credit policy instead.", "unis": [
+  { "name": "Massachusetts Institute of Technology (MIT)", "city": "Cambridge, Massachusetts",
+    "url": "https://mitadmissions.org/apply/",
+    "courses": [ { "name": "Computer Science and Engineering (Course 6-3) · Electrical Engineering with Computing (6-5) · Computer Science, Economics, and Data Science (6-14) · Physics · Mathematics · Economics",
+      "req": "No published IB admission threshold — credit policy only.", "type": "credit",
+      "note": "IB credit is for Higher Level exams only (no SL credit). Maths HL 7 = credit for Calculus I (18.01). Physics HL 7 = credit for 8.01. English HL 7 places you out of the First Year Essay Evaluation." } ] },
+  { "name": "Stanford University", "city": "Stanford, California",
+    "url": "https://admission.stanford.edu/",
+    "courses": [ { "name": "Computer Science · Electrical Engineering · Engineering · Physics · Mathematics · Economics · Data Science",
+      "req": "No published IB admission threshold — credit policy only.", "type": "credit",
+      "note": "IB credit: HL exams only, score 5 or more. Computer Science HL 5+ = 5 units. Maths AA HL 6+ = 6 units. Physics HL 5 = 4 units, 6+ = 8 units. Maximum 45 units of test credit." } ] },
+  { "name": "Carnegie Mellon University", "city": "Pittsburgh, Pennsylvania",
+    "url": "https://www.cmu.edu/admission/admission/undergraduate-admission-requirements",
+    "courses": [ { "name": "Computer Science · Electrical and Computer Engineering · Engineering · Physics · Mathematics · Economics",
+      "req": "No published IB admission threshold — credit policy only.", "type": "credit",
+      "note": "IB credit: advanced standing and/or credit is possible for HL scores of 6 or 7 — each college decides after you enrol. CMU's test-flexible policy also accepts IB scores as a test option." } ] },
+  { "name": "University of California, Berkeley", "city": "Berkeley, California",
+    "url": "http://admissions.berkeley.edu/apply-to-berkeley/",
+    "courses": [ { "name": "Electrical Engineering and Computer Sciences (EECS) · Computer Science · Data Science · Engineering · Physics · Mathematics · Economics",
+      "req": "No published IB admission threshold — credit policy only.", "type": "credit",
+      "note": "IB credit: HL exams with 5, 6 or 7 earn unit credit (no SL credit). HL Maths AA 5–7 satisfies MATH 51, and a 7 also satisfies MATH 52." } ] },
+  { "name": "University of California, Los Angeles (UCLA)", "city": "Los Angeles, California",
+    "url": "https://admission.ucla.edu/index%2Ephp/apply",
+    "courses": [ { "name": "Computer Science · Computer Science and Engineering · Electrical Engineering · Engineering · Mathematics · Physics · Economics",
+      "req": "No published IB admission threshold — credit policy only.", "type": "credit",
+      "note": "IB credit: most HL exams at 5 or more earn credit (no SL credit). Computer Science HL 5–7 = 8.0 units. An IB Diploma score of 30 or more earns 6.0 units of unassigned credit." } ] },
+  { "name": "Georgia Institute of Technology (Georgia Tech)", "city": "Atlanta, Georgia",
+    "url": "https://admission.gatech.edu/first-year/deadlines",
+    "courses": [ { "name": "Computer Science · Computer Engineering · Electrical Engineering · Engineering · Physics · Mathematics · Economics",
+      "req": "No published IB admission threshold — credit policy only.", "type": "credit",
+      "note": "IB credit examples: Computer Science HL 5–7 = CS 1301. Economics HL 5–7 = ECON 2105 and 2106. English A HL 5–7 = LMC 2060. IB exams must be finished before you enrol." } ] },
+  { "name": "University of Illinois Urbana-Champaign (UIUC)", "city": "Urbana, Illinois",
+    "url": "https://www.admissions.illinois.edu/first-year-admission-policies/",
+    "courses": [ { "name": "Computer Science · Electrical Engineering · Computer Engineering · Engineering · Data Science · Physics · Mathematics · Economics",
+      "req": "No published IB admission threshold — credit policy only.", "type": "credit",
+      "note": "Illinois publishes IB credit and placement cut-offs, and state law requires credit for IB scores of 4, 5, 6 and 7. Subject tables cover both HL and SL exams." } ] },
+  { "name": "The University of Texas at Austin (UT Austin)", "city": "Austin, Texas",
+    "url": "https://admissions.utexas.edu/apply/international-students/",
+    "courses": [ { "name": "Computer Science · Electrical and Computer Engineering · Engineering · Data Science · Physics · Mathematics · Economics",
+      "req": "No published IB admission threshold — credit policy only.", "type": "credit",
+      "note": "IB credit: HL exams earn course credit — e.g. Physics HL 5–7 = the PHY 302K/302L sequence. IB Diploma holders also earn credit for scores of 4 or more on HL and SL exams under Texas law." } ] },
+  { "name": "University of Washington", "city": "Seattle, Washington",
+    "url": "https://admit.washington.edu/apply/dates-deadlines/",
+    "courses": [ { "name": "Computer Science · Computer Engineering · Electrical Engineering · Engineering · Physics · Mathematics · Economics",
+      "req": "No published IB admission threshold — credit policy only.", "type": "credit",
+      "note": "IB credit: in most cases, credits are awarded for grades of 4 or higher. Earning the full IB Diploma (not a certificate) adds 5 extra quarter credits." } ] },
+  { "name": "Purdue University", "city": "West Lafayette, Indiana",
+    "url": "https://admissions.purdue.edu/become-student/first-year-criteria/",
+    "courses": [ { "name": "Computer Science · Data Science · Electrical Engineering · Computer Engineering · Engineering · Physics · Mathematics · Economics",
+      "req": "No published IB admission threshold — credit policy only.", "type": "credit",
+      "note": "IB credit: both HL and SL exams may earn transfer credit. From fall 2025, you need a score of 4 or higher to receive Purdue credit." } ] }
+] },
+"UK": { "label": "United Kingdom", "unis": [
+  { "name": "University of Oxford", "city": "Oxford",
+    "url": "https://www.ox.ac.uk/admissions/undergraduate/courses/undergraduate-course-listing-a-z",
+    "courses": [
+      { "name": "Computer Science (BA / MCompSci)", "type": "pc", "total": 39, "pattern": [7,6,6],
+        "req": "39 points including core points, with 766 at HL — the 7 must be in HL Mathematics. Either HL Maths course is accepted.",
+        "subj": [ {"g":"maths","level":"HL","min":7} ] },
+      { "name": "Engineering Science (MEng)", "type": "pc", "total": 40, "pattern": [7,7,6],
+        "req": "40 points including core points, with 776 at HL — 7s in HL Mathematics and Physics. ESAT test also required.",
+        "subj": [ {"g":"maths","level":"HL","min":7}, {"g":"physics","level":"HL","min":7} ] },
+      { "name": "Economics and Management (BA)", "type": "pc", "total": 39, "pattern": [7,6,6],
+        "req": "39 points including core points, with 766 at HL. Mathematics at HL (6 or 7) is required — Economics is not required beforehand.",
+        "subj": [ {"g":"maths","level":"HL","min":6} ] }
+    ] },
+  { "name": "University of Cambridge", "city": "Cambridge",
+    "url": "https://www.kings.cam.ac.uk/subjects/computer-science",
+    "note": "Offers are set by individual Colleges — some Colleges publish 42 points as their minimum, and one publishes 43 points / 777. The exact figure depends on the College you apply to.",
+    "courses": [
+      { "name": "Computer Science (BA / MEng)", "type": "pc", "total": 41, "pattern": [7,7,6],
+        "req": "41–42 points overall, with 776 at Higher Level. Colleges normally ask for a 7 in HL Mathematics: Analysis and Approaches.",
+        "subj": [ {"g":"maths","level":"HL","min":7} ] },
+      { "name": "Engineering", "type": "pc", "total": 41, "pattern": [7,7,6],
+        "req": "41–42 points overall, with 776 at Higher Level. Needs HL Mathematics (Analysis and Approaches) and HL Physics. ESAT test also required.",
+        "subj": [ {"g":"maa","level":"HL","min":null}, {"g":"physics","level":"HL","min":null} ] }
+    ] },
+  { "name": "Imperial College London", "city": "London",
+    "url": "https://www.imperial.ac.uk/study/courses/undergraduate/computing-beng/?removeCourse=1221138",
+    "courses": [
+      { "name": "Computing (BEng)", "type": "pc", "total": 41, "check": "impComp",
+        "req": "Minimum 41 points overall, including 7 in HL Mathematics and 7 in another relevant HL subject. TMUA test also required.",
+        "subj": [ {"g":"maths","level":"HL","min":7} ] },
+      { "name": "Electrical and Electronic Engineering (BEng)", "type": "pc", "total": 40,
+        "req": "Minimum 40 points overall, including 7 in HL Mathematics and 7 in HL Physics. ESAT test also required.",
+        "subj": [ {"g":"maths","level":"HL","min":7}, {"g":"physics","level":"HL","min":7} ] }
+    ] },
+  { "name": "UCL (University College London)", "city": "London",
+    "url": "https://www.ucl.ac.uk/prospective-students/undergraduate/degrees/computer-science-bsc-2026",
+    "courses": [
+      { "name": "Computer Science (BSc)", "type": "pc", "total": 40, "hlSum": 20,
+        "req": "40 points, with a total of 20 points in your three HL subjects, including grade 7 in HL Mathematics.",
+        "subj": [ {"g":"maths","level":"HL","min":7} ] },
+      { "name": "Economics (BSc (Econ))", "type": "pc", "total": 39, "hlSum": 19, "minHL": 5,
+        "req": "39 points, with a total of 19 points in your three HL subjects, including grade 7 in HL Mathematics, and no HL score below 5. (A grade 6 in Economics is only needed if Economics is taken at HL.)",
+        "subj": [ {"g":"maths","level":"HL","min":7} ] }
+    ] },
+  { "name": "The University of Edinburgh", "city": "Edinburgh",
+    "url": "https://study.ed.ac.uk/programmes/undergraduate/57-computer-science/entry-requirements",
+    "courses": [
+      { "name": "Computer Science (BSc (Hons))", "type": "pc", "total": 34, "pattern": [6,6,5],
+        "req": "Standard range: from 34 points with 665 at HL, up to 43 points with 777 at HL. Must include HL Mathematics (Analysis and Approaches only) at 6, and English at 5 — SL English is enough, and yours is HL.",
+        "subj": [ {"g":"maa","level":"HL","min":6}, {"g":"english","level":"any","min":5} ] },
+      { "name": "Artificial Intelligence (BSc (Hons))", "type": "pc", "total": 34, "pattern": [6,6,5],
+        "req": "Standard range: from 34 points with 665 at HL, up to 43 points with 777 at HL. Must include HL Mathematics (Analysis and Approaches only) at 6, and English at 5 — SL English is enough, and yours is HL.",
+        "subj": [ {"g":"maa","level":"HL","min":6}, {"g":"english","level":"any","min":5} ] }
+    ] },
+  { "name": "The University of Manchester", "city": "Manchester",
+    "url": "https://www.manchester.ac.uk/study/undergraduate/courses/2025/00560/bsc-computer-science/all-content/COMP15111",
+    "note": "Manchester's 2027-entry page may show a lower figure (37 points with 766) — that change could not be confirmed on manchester.ac.uk in this check, so the verified 2026 figure is shown.",
+    "courses": [
+      { "name": "Computer Science (BSc)", "type": "pc", "total": 38, "pattern": [7,7,6],
+        "req": "38 points overall with 776 in HL subjects, including 7 in Mathematics: Analysis and Approaches, and at least one science subject at HL (Physics counts).",
+        "subj": [ {"g":"maa","level":"HL","min":7}, {"g":"science","level":"HL","min":null} ] }
+    ] },
+  { "name": "King's College London", "city": "London",
+    "url": "https://www.kcl.ac.uk/study/undergraduate/courses/computer-science-bsc/requirements",
+    "courses": [
+      { "name": "Computer Science (BSc)", "type": "pc", "total": 39, "totalAltHLSum": 20,
+        "req": "39 points overall, or an aggregate of 20 points from your three Higher Level subjects. Must include grade 6 in HL Mathematics.",
+        "subj": [ {"g":"maths","level":"HL","min":6} ] }
+    ] },
+  { "name": "University of Bristol", "city": "Bristol",
+    "url": "https://www.bristol.ac.uk/study/undergraduate/2027/computer-science/bsc-computer-science/",
+    "courses": [
+      { "name": "Computer Science (BSc)", "type": "pc", "total": 38, "hlSum": 18,
+        "req": "38 points overall with 18 points at Higher Level, including 7 at HL in Mathematics.",
+        "subj": [ {"g":"maths","level":"HL","min":7} ] },
+      { "name": "Physics (BSc)", "type": "pc", "total": 38, "hlSum": 18, "check": "brisPhys",
+        "req": "38 points overall with 18 points at Higher Level, including 7 and 6 (in any order) at HL in Mathematics and Physics." }
+    ] },
+  { "name": "University of Warwick", "city": "Coventry",
+    "url": "https://warwick.ac.uk/study/undergraduate/courses-2026/bsc-computer-science/content-blocks/",
+    "courses": [
+      { "name": "Computer Science (BSc)", "type": "pc", "total": 39, "pattern": [7,6,6],
+        "req": "Typical offer: 39 points with 766 in three HL subjects, including 7 in HL Mathematics (Analysis and Approaches only). Most applicants also take the TMUA.",
+        "subj": [ {"g":"maa","level":"HL","min":7} ] },
+      { "name": "Economics (BSc)", "type": "pc", "total": 38,
+        "req": "Typical offer: 38 points including 6 in HL Mathematics. English condition: IB grade 5 in English A (HL or SL) is one published way to meet it.",
+        "subj": [ {"g":"maths","level":"HL","min":6}, {"g":"english","level":"any","min":5} ] }
+    ] },
+  { "name": "Durham University", "city": "Durham",
+    "url": "https://www.durham.ac.uk/study/undergraduate/how-to-apply/entry-requirements/",
+    "note": "This figure comes from Durham's UCAS course listing — re-check it directly on durham.ac.uk before relying on it.",
+    "courses": [
+      { "name": "Computer Science (BSc)", "type": "pc", "total": 37, "pattern": [7,6,6],
+        "req": "37 points, with 766 at Higher Level including Mathematics.",
+        "subj": [ {"g":"maths","level":"HL","min":6} ] }
+    ] }
+] },
+"AU": { "label": "Australia", "unis": [
+  { "name": "University of Melbourne", "city": "Melbourne",
+    "url": "https://study.unimelb.edu.au/how-to-apply/undergraduate-study/recognised-vce-equivalent-qualifications/qualifications/general-international-qualifications-international-baccalaureate-ib-diploma",
+    "note": "Engineering at Melbourne is postgraduate — you would do a bachelor's degree first, then the Master of Engineering.",
+    "courses": [
+      { "name": "Bachelor of Science (majors include Computer Science, Data Science, Mathematics, Physics)", "type": "pc", "total": 31,
+        "req": "IB 31 (published indicative entry score). Needs grade 4 or more in Maths (your AA HL counts), grade 4 or more in one of Biology, Chemistry or Physics (HL or SL), and grade 4 or more in English.",
+        "subj": [ {"g":"maths","level":"any","min":4}, {"g":"science","level":"any","min":4}, {"g":"english","level":"any","min":4} ] },
+      { "name": "Bachelor of Commerce (Economics major)", "type": "pc", "total": 34,
+        "req": "IB 34 (published indicative entry score). Needs English, and grade 4 or more in Maths (your AA HL counts).",
+        "subj": [ {"g":"maths","level":"any","min":4}, {"g":"english","level":"any","min":4} ] }
+    ] },
+  { "name": "University of Sydney", "city": "Sydney",
+    "url": "https://www.sydney.edu.au/content/dam/corporate/documents/study/how-to-apply/domestic-admission-guide.pdf",
+    "courses": [
+      { "name": "Bachelor of Science · Bachelor of Advanced Computing · Bachelor of Economics", "type": "np",
+        "note": "IB totals are not published — entry is shown in ATAR: Science 80, Advanced Computing 90, Economics 91. Sydney says IB entry is based on your total IB Diploma score, but the per-course IB figures were not in the official pages checked, so there is no badge here. (Do not convert ATAR to IB yourself.)" }
+    ] },
+  { "name": "UNSW Sydney", "city": "Sydney (Kensington)",
+    "url": "https://www.unsw.edu.au/study/undergraduate/bachelor-of-computer-science?studentType=International",
+    "courses": [
+      { "name": "Bachelor of Science (Computer Science)", "type": "pc", "total": 34,
+        "req": "IB 34 — the published international direct-entry requirement. (A higher figure, 37, on the same page is the domestic selection rank, not the international requirement.)" },
+      { "name": "Bachelor of Engineering (Honours) / Computer Science", "type": "pc", "total": 35,
+        "req": "IB 35 — the published international direct-entry requirement." }
+    ] },
+  { "name": "Monash University", "city": "Melbourne (Clayton)",
+    "url": "http://monash.edu/study/courses/find-a-course/computer-science-c2001?gad_source=5&gclid=EAIaIQobChMI8vv2_c3oiQMVqIfpBR08eQq0EAEYASAAEgKwkfD_BwE&international=true",
+    "courses": [
+      { "name": "Bachelor of Computer Science", "type": "pc", "total": 28,
+        "req": "IB 28. Prerequisites in IB terms: Maths — at least 3 in AA or AI at HL, or at least 4 in AA at SL; English — at least 3 at HL or at least 4 at SL.",
+        "subj": [ {"g":"maths","hlMin":3,"slMin":4}, {"g":"english","hlMin":3,"slMin":4} ] },
+      { "name": "Bachelor of Science", "type": "pc", "total": 28,
+        "req": "IB 28. Needs English, plus a science or mathematics subject.",
+        "subj": [ {"g":"english","hlMin":3,"slMin":4} ] },
+      { "name": "Bachelor of Engineering (Honours), incl. Electrical and Computer Systems Engineering", "type": "pc", "total": 30,
+        "req": "IB 30. Needs English, Mathematics, and Chemistry or Physics (IB grade equivalents published by Monash: Maths at least 3 at HL or 4 at SL; English at least 3 at HL or 4 at SL).",
+        "subj": [ {"g":"maths","hlMin":3,"slMin":4}, {"g":"english","hlMin":3,"slMin":4} ] }
+    ] },
+  { "name": "The University of Queensland", "city": "Brisbane (St Lucia)",
+    "url": "https://study.uq.edu.au/study-options/programs/bachelor-computer-science-2559?studentType=international&utm_source=PANTHEON_STRIPPED&utm_medium=PANTHEON_STRIPPED&utm_campaign=PANTHEON_STRIPPED",
+    "courses": [
+      { "name": "Bachelor of Computer Science", "type": "pc", "total": 32,
+        "req": "IB 32 — UQ's entry score threshold: the lowest score that received an offer in Semester 1, 2026. Meeting it does not guarantee a place. Needs English and Mathematical Methods (or equivalent)." },
+      { "name": "Bachelors of Computer Science / Science", "type": "pc", "total": 32,
+        "req": "IB 32 — same threshold basis as above. Needs English, Mathematical Methods, and one of Biology, Chemistry, Earth and Environmental Science, or Physics." }
+    ] },
+  { "name": "Australian National University (ANU)", "city": "Canberra",
+    "url": "https://study.anu.edu.au/apply/undergraduate-program-indicative-entry-requirements/international-baccalaureate-applications",
+    "courses": [
+      { "name": "Bachelor of Science", "type": "pc", "total": 31,
+        "req": "IB 31 — from ANU's own published rank-to-IB table (selection rank 80). There are no formal subject prerequisites for this degree." },
+      { "name": "Bachelor of Advanced Computing (Honours)", "type": "pc", "total": 33,
+        "req": "IB 33 — from ANU's own published rank-to-IB table (selection rank 85). Needs Mathematics: AA at SL or HL, or AI at HL.",
+        "subj": [ {"g":"maths","level":"any","min":null} ] },
+      { "name": "Bachelor of Engineering (Honours)", "type": "pc", "total": 33,
+        "req": "IB 33 — from ANU's own published rank-to-IB table (selection rank 85). Same Mathematics prerequisite as Advanced Computing.",
+        "subj": [ {"g":"maths","level":"any","min":null} ] }
+    ] },
+  { "name": "The University of Western Australia (UWA)", "city": "Perth (Crawley)",
+    "url": "https://www.uwa.edu.au/study/courses/bachelor-of-science",
+    "courses": [
+      { "name": "Bachelor of Science · Bachelor of Advanced Computer Science (Honours)", "type": "np",
+        "note": "Entry is published in ATAR (Science 70; Advanced Computer Science 90, which also needs Mathematics Methods). UWA publishes a general IB minimum of 24 and its own IB-to-ATAR equivalence table, but no per-course IB score — so there is no badge here. IB English counts for English competence at SL 4 or HL 3." }
+    ] },
+  { "name": "Adelaide University", "city": "Adelaide",
+    "url": "https://adelaide.edu.au/study/international-students/how-to-apply/entry-requirements/",
+    "courses": [
+      { "name": "Bachelor of Computer Science (incl. Artificial Intelligence and Machine Learning major)", "type": "gen", "total": 25,
+        "req": "General requirement: an IB Diploma with a minimum total score of 25. No per-course IB score is published for this degree." }
+    ] },
+  { "name": "University of Technology Sydney (UTS)", "city": "Sydney",
+    "url": "http://optimizely.uat.uts.edu.au/for-students/admissions-entry/how-to-apply/international-applicants/international-guides-and-brochures/contentassets/utsi-listing-grid-international-undergraduate-course-summary-table.pdf",
+    "courses": [
+      { "name": "Bachelor of Computing Science", "type": "pc", "total": 27,
+        "req": "IB 27 / Predicted IB 32 — the pair of scores published in UTS's 2027 international course table. UTS has no subject prerequisites for this course. The badge uses the IB figure (27)." },
+      { "name": "Bachelor of Engineering (Honours) — incl. Electrical, Electronic, Software and Data Engineering", "type": "pc", "total": 27,
+        "req": "IB 27 / Predicted IB 32 — the pair published in UTS's 2027 international course table. No subject prerequisites; assumed knowledge includes Mathematics and Physics. The badge uses the IB figure (27)." },
+      { "name": "Bachelor of Economics", "type": "pc", "total": 29,
+        "req": "IB 29 / Predicted IB 34 — the pair published in UTS's 2027 international course table. The badge uses the IB figure (29)." }
+    ] },
+  { "name": "RMIT University", "city": "Melbourne",
+    "url": "https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bp094",
+    "courses": [
+      { "name": "Bachelor of Computer Science · Bachelor of Engineering (Electronic and Computer Systems Engineering) (Honours) / Bachelor of Computer Science", "type": "np",
+        "note": "No IB score is published for these courses — entry is competitive and ranked on ATAR. Published prerequisites (VCE): an English study score of at least 25 and a Maths study score of at least 20, or equivalent studies. RMIT recognises the IB Diploma as equivalent to the VCE, but publishes no IB points figure." }
+    ] }
+] },
+"NZ": { "label": "New Zealand", "unis": [
+  { "name": "University of Auckland", "city": "Auckland",
+    "url": "https://www.auckland.ac.nz/en/study/applications-and-admissions/entry-requirements/undergraduate-entry-requirements/new-zealand-secondary-school-applicants/international-baccalaureate.html",
+    "courses": [
+      { "name": "Bachelor of Science (BSc) — Computer Science, Data Science, Mathematics, Physics majors", "type": "pc", "total": 26,
+        "req": "IB 26 — the published 2027 rank score for the BSc. (University Entrance itself needs 24 points, English as Language A at HL or SL, and any mathematics subject.)" },
+      { "name": "Bachelor of Commerce (BCom) — Economics", "type": "pc", "total": 27,
+        "req": "IB 27 — the published 2027 rank score for the BCom." },
+      { "name": "Bachelor of Engineering (Honours) (BE(Hons)) — incl. Electrical & Electronic and Software Engineering", "type": "pc", "total": 32,
+        "req": "IB 32 — the published 2027 rank score, with Mathematics and Physics at HL level. Conjoint BE(Hons) degrees ask for 34.",
+        "subj": [ {"g":"maths","level":"HL","min":null}, {"g":"physics","level":"HL","min":null} ] }
+    ] },
+  { "name": "University of Otago", "city": "Dunedin",
+    "url": "https://www.otago.ac.nz/future-students/entry-requirements/admission-from-international-baccalaureate",
+    "courses": [
+      { "name": "Bachelor of Science (BSc) — Computer Science, Data Science, Mathematics, Statistics, Physics majors · Bachelor of Commerce (BCom) — Economics", "type": "gen", "total": 24,
+        "req": "General requirement: the IB Diploma with at least 24 points. English (Language A, SL or HL) and any mathematics subject cover literacy and numeracy. No higher score is published for these degrees. Otago does not offer an undergraduate Engineering degree." }
+    ] },
+  { "name": "Victoria University of Wellington", "city": "Wellington",
+    "url": "https://www.wgtn.ac.nz/international/applying/entry-requirements",
+    "courses": [
+      { "name": "Bachelor of Engineering with Honours (BE(Hons)) — Electrical and Electronic, Software, Cybersecurity Engineering · Bachelor of Science (BSc) — Computer Science, Data Science", "type": "gen", "total": 24,
+        "req": "General requirement: IB Diploma with a minimum of 24 points. All bachelor's degrees share the same academic entry criteria, so this standard covers Engineering and Computer Science too." }
+    ] },
+  { "name": "University of Canterbury", "city": "Christchurch",
+    "url": "http://www.canterbury.ac.nz/study/getting-started/admission-and-enrolment/admission-pathways/ib-international-baccalaureate-diploma",
+    "courses": [
+      { "name": "Bachelor of Science (BSc) — Computer Science major · Bachelor of Science / Bachelor of Data Science", "type": "gen", "total": 24,
+        "req": "General requirement: University Entrance through the awarded IB Diploma (24 points minimum), with English for literacy and any IB mathematics subject for numeracy." },
+      { "name": "Bachelor of Engineering with Honours (BE(Hons)) — Electrical and Electronic, Computer, Software Engineering", "type": "pc",
+        "req": "Subject requirements (no higher IB total is published): Maths — at least 4 at HL (or 5 at SL), HL recommended; Physics — at least 4 at HL (or 6 at SL), HL recommended. Chemistry is also listed, but it is NOT required for Computer, Electrical and Electronic, Mechatronics or Software Engineering.",
+        "subj": [ {"g":"maths","hlMin":4,"slMin":5}, {"g":"physics","hlMin":4,"slMin":6} ] }
+    ] },
+  { "name": "Massey University", "city": "Palmerston North, Auckland and Wellington",
+    "url": "https://www.massey.ac.nz/study/entry-requirements-to-study-at-massey/entry-requirements-for-international-students/",
+    "courses": [
+      { "name": "Bachelor of Information Sciences (BInfSc) — Computer Science, Data Science majors · Bachelor of Science (BSc) — Mathematics, Physics majors", "type": "gen", "total": 24,
+        "req": "General requirement: a complete IB Diploma of 24 points. No higher score is published for these degrees." }
+    ] },
+  { "name": "University of Waikato", "city": "Hamilton (also Tauranga)",
+    "url": "https://www.waikato.ac.nz/study/apply/international/entry-requirements-for-international-students/",
+    "courses": [
+      { "name": "Bachelor of Computer Science (BCompSc) · Bachelor of Engineering with Honours (BE(Hons)) · Bachelor of Science (BSc) — Data Analytics, Computer Science, Mathematics", "type": "gen", "total": 24,
+        "req": "General requirement: a completed IB Diploma with a minimum of 24 points. No higher score is published for these degrees. The IB Diploma at 24 points also meets Waikato's English language criteria for bachelor's degrees." }
+    ] },
+  { "name": "AUT (Auckland University of Technology)", "city": "Auckland",
+    "url": "https://www.aut.ac.nz/study/entry-requirements/international-student-entry-requirements",
+    "courses": [
+      { "name": "Bachelor of Computer and Information Sciences (BCIS) — Computer Science, Data Science, Software Development · Bachelor of Science (BSc) — Analytics", "type": "gen", "total": 24,
+        "req": "General requirement: IB Diploma with a minimum of 24 points, plus English for literacy and any mathematics subject for numeracy." },
+      { "name": "Bachelor of Engineering (Honours) (BE(Hons)) — Electrical and Electronic, Software, Mechatronics Engineering", "type": "pc", "total": 33,
+        "req": "IB rank score of 33 (published as the guaranteed score for this degree), with a grade of 4 or better in Mathematics and Physics.",
+        "subj": [ {"g":"maths","level":"any","min":4}, {"g":"physics","level":"any","min":4} ] }
+    ] }
+] },
+"DE": { "label": "Germany", "germany": true,
+  "bannerTitle": "How Germany recognises the IB — read this first",
+  "bannerText": "Germany does not use a simple points cut-off. Under the national KMK rules (summarised by DAAD), an IB Diploma gives direct university entry only if conditions are met: at least 24 points in total, grade 4 or more in every subject (one grade 3 can be balanced by a grade 5 at the same or higher level), 12 consecutive years of schooling, and the right subject mix. Your mix — HL Maths AA, Physics and English, with SL Economics, Computer Science and French — meets the published subject conditions. German-taught programmes also need separate proof of German.",
+  "unis": [
+  { "name": "Technical University of Munich (TUM)", "city": "Munich",
+    "url": "https://www.tum.de/en/studies/application/application-info-portal/applicants-with-international-baccalaureate",
+    "courses": [
+      { "name": "BSc Aerospace · BSc Management and Data Science · BSc Management and Technology", "type": "gen",
+        "note": "No IB points score is published. Direct entry only if the KMK conditions (see top) are met. BSc Aerospace is fully taught in English. Only an IB with German A at HL counts as proof of German — German-taught courses (like Informatics, Electrical Engineering, Physics, Mathematics) need separate German proof, and no English-taught status was stated for them." }
+    ] },
+  { "name": "RWTH Aachen University", "city": "Aachen",
+    "url": "https://www.rwth-aachen.de/go/id/bxip/lidx/1?mobile=1",
+    "courses": [
+      { "name": "BSc Computer Science · BSc Electrical Engineering and Information Technology · BSc Mathematics · BSc Mechanical Engineering · BSc Computational Engineering Science · BSc Computer Engineering", "type": "gen",
+        "note": "No IB points score is published. For non-EU applicants, RWTH's general rule is an average grade of 2.5 or better in the entrance qualification (a lower grade can be balanced by a TestAS result). Important: RWTH states it does not offer any fully English-taught bachelor's degrees — some are taught in German and English. The KMK conditions (see top) apply." }
+    ] },
+  { "name": "Karlsruhe Institute of Technology (KIT)", "city": "Karlsruhe",
+    "url": "https://www.sle.kit.edu/english/vorstudium/bachelor-mechanical-engineering-international.php",
+    "courses": [
+      { "name": "BSc Mechanical Engineering (International) — taught entirely in English", "type": "pc",
+        "req": "The IB is listed as an accepted entrance qualification, with published IB conditions: Mathematics HL; Physics HL or SL; two languages at A or B with at least one foreign language at Language A or B HL; one social science subject (Economics counts); the sixth subject may be Computer Science. No IB points total is published. The badge checks these subject conditions only.",
+        "subj": [ {"g":"maths","level":"HL","min":null}, {"g":"physics","level":"any","min":null}, {"g":"english","level":"HL","min":null}, {"g":"economics","level":"any","min":null}, {"g":"cs","level":"any","min":null} ],
+        "note": "Also needed for this programme: an aptitude test result (SAT at least 1200, ACT at least 24, or TestAS at least 75%), a motivation letter, and English at B2 — the English test is waived if you have grade 5 or more in IB English. Winter term only, 125 places, application deadline 30 April." }
+    ] },
+  { "name": "Technical University of Berlin (TU Berlin)", "city": "Berlin",
+    "url": "https://www.tu.berlin/en/",
+    "courses": [
+      { "name": "Programmes not verified", "type": "np",
+        "note": "Could not verify: TU Berlin's official admissions and programme pages could not be retrieved for this check, so no courses, language claims or IB figures are recorded here. Check tu.berlin directly before using this entry." }
+    ] },
+  { "name": "Ludwig Maximilian University of Munich (LMU)", "city": "Munich",
+    "url": "https://www.lmu.de/en/study/degree-students/applications-for-admission/",
+    "courses": [
+      { "name": "Bachelor's programmes incl. Physics, Mathematics, Computer Science / Informatics, Economics", "type": "gen",
+        "note": "No IB points score is published, and no English-taught status was stated for LMU bachelor's programmes. IB holders who have not yet received their final certificate need a recognition letter from the Bavarian ZAST office, and from summer 2027 a uni-assist preliminary review (VPD) before applying. Evidence of German proficiency is the default for bachelor's applicants. The KMK conditions (see top) apply." }
+    ] },
+  { "name": "Heidelberg University", "city": "Heidelberg",
+    "url": "https://www.uni-heidelberg.de/en/study/application-enrolment/study-requirements/studienkolleg-and-feststellungsprufung",
+    "courses": [
+      { "name": "Undergraduate subjects incl. Mathematics, Computer Science, Physics, Economics", "type": "np",
+        "note": "No IB points score or IB-specific wording is published on the page checked, and no English-taught bachelor's status was stated. Heidelberg's general rule: if your qualification is recognised as equivalent to the German Abitur, you can apply directly; if it is only partly comparable, you must first pass the Feststellungsprüfung at a Studienkolleg. For the IB, equivalence is decided under the KMK conditions (see top)." }
+    ] },
+  { "name": "University of Freiburg", "city": "Freiburg im Breisgau",
+    "url": "https://uni-freiburg.de/en/studies/degree-programmes/degree-programme/391/",
+    "courses": [
+      { "name": "Liberal Arts and Sciences (LAS), BA / BSc — taught in English", "type": "np",
+        "note": "LAS is Freiburg's verified English-taught bachelor's degree — but its majors (Culture and History, Governance, Life Sciences, Environmental and Sustainability Sciences) are not your target subjects. Freiburg's named BSc programmes in Computer Science, Physics and Mathematics were not shown as English-taught. No IB points score is published for LAS. The KMK conditions (see top) apply." }
+    ] },
+  { "name": "Technical University of Darmstadt (TU Darmstadt)", "city": "Darmstadt",
+    "url": "https://www.informatik.tu-darmstadt.de/studium_fb20/im_studium/studiengaenge_liste/informatik_bsc.en.jsp",
+    "courses": [
+      { "name": "BSc Informatik (Computer Science) — teaching language: German", "type": "gen",
+        "note": "No IB points score is published. The programme page states there are no course-specific admission requirements beyond a recognised university entrance qualification. It is taught in German. The KMK conditions (see top) decide whether an IB counts as that qualification." }
+    ] },
+  { "name": "University of Bonn", "city": "Bonn",
+    "url": "https://www.uni-bonn.de/en/studying/degree-programs/degree-programs-a-z?active_layout=masonry&leading_letter&SearchableText&submit&graduation=bachelor_of_science",
+    "courses": [
+      { "name": "BSc Computer Science · BSc Economics · BSc Economics and Computer Science · BSc Mathematics · BSc Physics", "type": "np",
+        "note": "No IB points score or IB-specific requirement is published on the pages checked. Bonn's official brochure states all undergraduate programmes (except English Studies) are taught predominantly in German. The KMK conditions (see top) apply." }
+    ] },
+  { "name": "Constructor University", "city": "Bremen",
+    "url": "https://constructor.university/admission-aid/application-information-undergraduate",
+    "courses": [
+      { "name": "Computer Science · Software, Data and Technology · Mathematics, Modelling and Data Analytics · Physics and Data Science · Electrical and Computer Engineering", "type": "gen",
+        "note": "A private, English-medium university — German is not required for undergraduate admission. No IB points total is published. All applicants need proof of English: IB English A Literature or Language and Literature at 6 or 7 is one accepted route (IELTS 6.5 or TOEFL iBT 90 also work). Constructor does not require SAT/ACT — but if a school diploma does not give direct German university admission, enrolment may require standardised testing, so the KMK conditions (see top) still matter." }
+    ] }
+] },
+"SG": { "label": "Singapore", "unis": [
+  { "name": "National University of Singapore (NUS)", "city": "Singapore",
+    "url": "http://www.nus.edu.sg/oam/admissions/ib-diploma/admission-requirements",
+    "courses": [
+      { "name": "Computer Science", "type": "pc",
+        "req": "Subject prerequisite: a pass in HL Mathematics: Analysis and Approaches. No IB total cut-off is published — NUS also requires English to be one of your subjects and considers applications holistically. The badge checks the subject prerequisite only.",
+        "subj": [ {"g":"maa","level":"HL","min":null} ] },
+      { "name": "Engineering / Electrical Engineering · Computer Engineering", "type": "pc",
+        "req": "Subject prerequisite: a pass in HL Mathematics: Analysis and Approaches. No IB total cut-off is published. The badge checks the subject prerequisite only.",
+        "subj": [ {"g":"maa","level":"HL","min":null} ] },
+      { "name": "Data Science and Economics", "type": "pc",
+        "req": "Subject prerequisite: a very good pass in HL Mathematics / Mathematics: Analysis and Approaches. No IB total cut-off is published. The badge checks the subject prerequisite only.",
+        "subj": [ {"g":"maa","level":"HL","min":null} ] }
+    ] },
+  { "name": "Nanyang Technological University (NTU)", "city": "Singapore",
+    "url": "https://www.ntu.edu.sg/admissions/undergraduate/important-links/faqs/admissions",
+    "courses": [
+      { "name": "Engineering (incl. Electrical and Electronic Engineering)", "type": "pc",
+        "req": "Subject requirements: Mathematics at Higher Level, and Physics, Chemistry, Biology or Computer Science at Higher Level. No IB total cut-off is published — IB applicants are assessed against other IB Diploma holders. The badge checks the subject requirements only.",
+        "subj": [ {"g":"maths","level":"HL","min":null}, {"g":"sciOrCs","level":"HL","min":null} ] },
+      { "name": "Computer Science / Data Science", "type": "pc",
+        "req": "Programmes sit under NTU's published minimum subject requirements for IB holders (Engineering-style combinations need HL Mathematics plus an HL science or Computer Science). No IB total cut-off is published. The badge checks those subject requirements only.",
+        "subj": [ {"g":"maths","level":"HL","min":null}, {"g":"sciOrCs","level":"HL","min":null} ] },
+      { "name": "Economics", "type": "pc",
+        "req": "Subject requirements: a good grade in Mathematics at Standard Level, and a good grade in English at Standard Level. No IB total cut-off is published. The badge checks the subjects only.",
+        "subj": [ {"g":"maths","level":"any","min":null}, {"g":"english","level":"any","min":null} ] },
+      { "name": "Economics and Data Science", "type": "pc",
+        "req": "Subject requirements: a good grade in Mathematics at Higher Level, and a good grade in English at Standard Level. No IB total cut-off is published. The badge checks the subjects only.",
+        "subj": [ {"g":"maths","level":"HL","min":null}, {"g":"english","level":"any","min":null} ] }
+    ] },
+  { "name": "Singapore Management University (SMU)", "city": "Singapore",
+    "url": "https://admissions.smu.edu.sg/admissions-requirements/ib-diploma",
+    "courses": [
+      { "name": "BSc Economics · BSc Computer Science · BSc Information Systems", "type": "gen",
+        "req": "General criteria: an IB Diploma; grade 6 or 7 in English A at Higher or Standard Level; and a good pass in IB Mathematics (HL or SL). No IB total cut-off is published. Shortlisted applicants are interviewed. The badge checks the published English grade.",
+        "subj": [ {"g":"english","level":"any","min":6} ],
+        "note": "SMU also says applicants who fall short of these criteria may still be considered case by case." }
+    ] },
+  { "name": "Singapore University of Technology and Design (SUTD)", "city": "Singapore",
+    "url": "https://www.sutd.edu.sg/admissions/undergraduate/international-baccalaureate-diploma-international/criteria-for-admission/",
+    "courses": [
+      { "name": "Computer Science and Design (CSD) · Engineering Product Development (EPD) · Design and Artificial Intelligence (DAI)", "type": "gen",
+        "note": "No minimum IB score — SUTD states: “We do not have a minimum IB score requirement as we practise a comprehensive review of applications.” It recommends HL Mathematics (AA or AI) and at least one HL science such as Physics — which matches your combination. As an international-school student in Singapore, you use SUTD's international IB route." }
+    ] },
+  { "name": "Singapore Institute of Technology (SIT)", "city": "Singapore",
+    "url": "https://www.singaporetech.edu.sg/admissions/undergraduate/requirements/international-baccalaureate",
+    "note": "SIT also states that international students in privately-funded schools (OWIS is one) are not required to fulfil the Mother Tongue requirement — check this again when you apply.",
+    "courses": [
+      { "name": "BSc (Hons) Computer Science in Real-Time Interactive Simulation (SIT & DigiPen)", "type": "pc", "check": "sit",
+        "req": "General SIT minimum: grade 5 in at least two Higher Level subjects and one Standard Level subject, plus the IB Diploma. This course adds: a pass in one of HL Mathematics, Physics or Computing — or a pass in SL Mathematics.",
+        "subj": [ {"g":"maths","level":"any","min":null} ] },
+      { "name": "BSc (Hons) Applied Artificial Intelligence · ICT / Software Engineering programmes", "type": "gen", "check": "sit",
+        "req": "General SIT minimum: grade 5 in at least two Higher Level subjects and one Standard Level subject, plus the IB Diploma." }
+    ] },
+  { "name": "Singapore University of Social Sciences (SUSS)", "city": "Singapore",
+    "url": "https://www.suss.edu.sg/admissions/application-process/eligibility/full-time-undergraduate-admission-criteria?utm_source=suss_website&utm_medium=website&utm_campaign=ft_admissions_1&utm_content=admissions",
+    "courses": [
+      { "name": "BSc Business Analytics · BSc Finance (with an ICT second-major option in Business Analytics)", "type": "gen",
+        "note": "No IB total and no IB subject grades are published — the criteria page only asks for “a diploma from an IB School”. SUSS states it adopts a holistic admissions approach and considers every application individually on merit. Business Analytics is the closest fit to your subjects; no standalone Computer Science, Engineering, Economics, Physics or Mathematics degree was verified." }
+    ] },
+  { "name": "James Cook University Singapore (JCU Singapore)", "city": "Singapore",
+    "url": "https://www.jcu.edu.sg/courses-and-study/courses/course/bachelor-of-information-technology",
+    "courses": [
+      { "name": "Bachelor of Information Technology · Bachelor of Science · Bachelor of Business", "type": "np",
+        "note": "No IB points or subject requirement is published on the course page. The published wording is general: applicants must have satisfactorily completed 12 years of schooling or equivalent, plus English requirements (IELTS 6.0, no component lower than 6.0, or equivalents). JCU Singapore does not state an IB points figure — do not assume one." }
+    ] },
+  { "name": "Curtin Singapore (Curtin University, Singapore campus)", "city": "Singapore",
+    "url": "https://www.curtin.edu.sg/how-to-apply/admission-criteria/academic-requirements/",
+    "courses": [
+      { "name": "Bachelor of Science (Data Science) · Bachelor of Information Technology / Computing · Bachelor of Commerce", "type": "gen", "total": 24,
+        "req": "General minimum published by Curtin University: a full IB Diploma with a minimum score of 24 points in six subjects, plus English proficiency and any course prerequisites. The minimum may not be enough for courses with higher requirements — check the individual course page." }
+    ] },
+  { "name": "SIM Global Education (SIM GE)", "city": "Singapore",
+    "url": "https://www.sim.edu.sg/degrees-diplomas/programmes/programme-listing/bachelor-of-science-honours-computer-science-user-experience",
+    "note": "Degrees at SIM are awarded by the partner universities, not by SIM itself.",
+    "courses": [
+      { "name": "BSc (Hons) Computer Science (User Experience) — University of London", "type": "pc",
+        "req": "IB-related requirement published for this programme: English at grade 4 or better in the IB Diploma. No IB total-points entry figure is published for this programme. The badge checks the English grade.",
+        "subj": [ {"g":"english","level":"any","min":4} ] },
+      { "name": "RMIT programmes delivered at SIM", "type": "pc", "total": 25,
+        "req": "SIM's approved international qualifications list for RMIT: IB minimum score 25, and a minimum of 4 in English A1 or A2 to satisfy the English requirement.",
+        "subj": [ {"g":"english","level":"any","min":4} ] },
+      { "name": "University at Buffalo programmes at SIM (e.g. Economics)", "type": "pc",
+        "note": "The published IB figure of 30 points is a credit-exemption threshold (IB Diploma holders can expect up to 30 credit exemptions with a minimum of 30 total points) — it is NOT an entry cut-off, so there is no badge for this one." }
+    ] },
+  { "name": "Kaplan Singapore — Murdoch University programmes", "city": "Singapore",
+    "url": "https://www.kaplan.com.sg/bachelors-degree/bachelor-of-information-technology-in-computer-science-single-major",
+    "courses": [
+      { "name": "Bachelor of Information Technology in Computer Science (Murdoch University) · Double major with Business Intelligence", "type": "np",
+        "note": "No IB-specific requirement is published on the programme page — it lists Kaplan Diploma, Polytechnic Diploma or other equivalent qualifications, plus English (IELTS 6.0, no band below 6.0, or equivalents). Whether an IB Diploma is accepted, and at what points, needs direct confirmation from Kaplan / Murdoch. The degree is awarded by Murdoch University." }
+    ] }
+] },
+"AE": { "label": "Dubai", "unis": [
+  { "name": "University of Birmingham Dubai", "city": "Dubai",
+    "url": "https://www.birmingham.ac.uk/dubai/study/undergraduate/subjects/computer-science-courses/computer-science-bsc",
+    "courses": [
+      { "name": "Computer Science BSc", "type": "pc", "total": 32, "pattern": [6,5,5],
+        "req": "“6,6,6 – 6,5,5 at Higher Level to include 6 in Mathematics, with a minimum of 32 points overall.” The badge uses the lower end of the HL range (6,5,5).",
+        "subj": [ {"g":"maths","level":"HL","min":6} ] },
+      { "name": "Artificial Intelligence and Computer Science BSc · Mechanical Engineering BEng", "type": "np",
+        "note": "No IB figure for these two courses was published on the pages checked — the figure above is for Computer Science BSc only." }
+    ] },
+  { "name": "Heriot-Watt University Dubai", "city": "Dubai",
+    "url": "https://www.hw.ac.uk/dubai/study/undergraduate/computer-systems",
+    "courses": [
+      { "name": "BSc (Hons) Computer Systems · BSc (Hons) Computer Science · BEng (Hons) Electrical and Electronic Engineering", "type": "pc", "total": 24,
+        "req": "Published for Computer Systems, Year 1 entry: “International Baccalaureate Diploma Programme — 24 points (3 HL and 3 SL).” The final decision rests with the course director after evaluating your individual subjects." }
+    ] },
+  { "name": "University of Wollongong in Dubai (UOWD)", "city": "Dubai (Knowledge Park)",
+    "url": "https://www.uowdubai.ac.ae/join-uowd/admission-requirements/bachelors-degrees",
+    "courses": [
+      { "name": "Bachelor degrees — Advanced Entry (3 years), incl. Bachelor of Computer Science and Bachelor of Business Information Systems", "type": "gen", "total": 25,
+        "req": "General requirement: International Baccalaureate Diploma — 25 points for Advanced Entry (3 years). No IB subject grades are stated." },
+      { "name": "Bachelor degrees — Direct Entry (4 years, with integrated Freshman Year)", "type": "gen", "total": 21,
+        "req": "General requirement: International Baccalaureate Diploma — 21 points for Direct Entry (4 years). No IB subject grades are stated." },
+      { "name": "Bachelor of Engineering (Honours) (4 years)", "type": "gen", "total": 25,
+        "req": "General requirement: International Baccalaureate Diploma — 25 points. No IB subject grades are stated." }
+    ] },
+  { "name": "Middlesex University Dubai", "city": "Dubai (Knowledge Park)",
+    "url": "https://www.mdx.ac.ae/courses/course-list/course-detail/bsc-honours-business-information-systems?tab=benefits",
+    "courses": [
+      { "name": "BSc Honours Business Information Systems · BSc Honours Artificial Intelligence and Data Science · BEng Honours Computer Systems Engineering", "type": "pc", "total": 24,
+        "req": "“You must have passed the full IB Diploma with 24 – 28 Points.” Entry requirements may vary by programme, and no IB subject requirements are stated with this figure. The badge uses the lower end (24)." }
+    ] },
+  { "name": "Rochester Institute of Technology Dubai (RIT Dubai)", "city": "Dubai (Silicon Oasis)",
+    "url": "https://www.rit.edu/dubai/undergraduate-admissions",
+    "courses": [
+      { "name": "Engineering programmes, incl. Electrical / Computer Engineering", "type": "pc", "total": 28,
+        "req": "Minimum of 28 points, with a minimum grade of 4 in Mathematics, Physics, and either Chemistry or Biology.",
+        "subj": [ {"g":"maths","level":"any","min":4}, {"g":"physics","level":"any","min":4}, {"g":"chemBio","level":"any","min":4} ] },
+      { "name": "Computing programmes", "type": "pc", "total": 24,
+        "req": "Minimum of 24 points, with Mathematics and one science (Physics or Chemistry preferred) covered at secondary school, and a Mathematics placement test before course registration.",
+        "subj": [ {"g":"maths","level":"any","min":null}, {"g":"science","level":"any","min":null} ] }
+    ] },
+  { "name": "Curtin University Dubai", "city": "Dubai (International Academic City)",
+    "url": "https://curtindubai.ac.ae/cyber-security",
+    "courses": [
+      { "name": "Bachelor of Science in Cyber Security · Bachelor of Science (Information Technology)", "type": "pc", "total": 24,
+        "req": "For Cyber Security: “Indicative cut-off scores: IB: 24 points” — indicative, not a guaranteed offer threshold. Course prerequisite: Mathematics is essential and calculus is desirable." }
+    ] },
+  { "name": "American University in Dubai (AUD)", "city": "Dubai",
+    "url": "https://www.aud.edu/admissions/undergraduate/",
+    "courses": [
+      { "name": "Bachelor of Science in Electrical Engineering · Bachelor of Science in Computer Engineering · BBA — Economics concentration", "type": "np",
+        "note": "No IB points figure is published. AUD asks for an attested high-school transcript “reflecting a good academic standard” and says required averages vary by school system — ask AUD's Admissions Office for the IB figure. Its catalogue requires successful completion of the full IB Diploma with an overall score accepted by its admissions office (number not published). Engineering also needs good standing in Math, Physics and one science subject." }
+    ] },
+  { "name": "Canadian University Dubai", "city": "Dubai (City Walk)",
+    "url": "https://www.cud.ac.ae/programs/undergraduate/engineering-applied-science-and-technology/bachelor-of-science-in-computer-science",
+    "courses": [
+      { "name": "Bachelor of Science in Computer Science · Bachelor of Science in Electrical Engineering · Bachelor of Science in Mechatronics Engineering", "type": "gen", "total": 24,
+        "req": "General requirement (from the university's official Undergraduate Student Handbook): “IB Diploma with completion of six (6) subjects, at least three (3) at the higher level (HL) and a minimum total of 24 points.”" }
+    ] },
+  { "name": "BITS Pilani Dubai", "city": "Dubai (International Academic City)",
+    "url": "http://www.bits-dubai.ac.ae/downloads/website/ADMISSION_BULLETIN.pdf?d=0401",
+    "courses": [
+      { "name": "B.E. Computer Science · B.E. Electrical & Electronics Engineering · B.E. Mathematics and Computing", "type": "np",
+        "note": "No IB points figure is published. The Admission Bulletin accepts the IB Diploma as a qualifying examination. Its percentage rules (minimum 60% aggregate, and 60% in Physics, Mathematics and Chemistry / Biology / Computer Science) are written for Grade 12 marks, and for IB candidates it states at least 3 subjects including Physics and Mathematics must be at Higher/Advanced level. Where grades are awarded instead of marks, the Admissions Committee decides the equivalence." }
+    ] },
+  { "name": "Manipal Academy of Higher Education Dubai (MAHE Dubai)", "city": "Dubai (International Academic City)",
+    "url": "https://www.manipaldubai.com/programs/b-tech-computer-science-engineering",
+    "courses": [
+      { "name": "BTech Computer Science and Engineering · BTech Data Science · BTech Electrical and Electronics Engineering", "type": "np",
+        "note": "No IB points figure is published. The BTech Computer Science page requires successful completion of 10+2 or an equivalent examination, a minimum 60% aggregate in Physics + Mathematics + any one optional subject, and a minimum 60% in English — percentages, not IB points." }
+    ] }
+] },
+"HK": { "label": "Hong Kong", "unis": [
+  { "name": "The University of Hong Kong (HKU)", "city": "Pok Fu Lam, Hong Kong",
+    "url": "https://admissions.hku.hk/apply/international-qualifications",
+    "note": "HKU requires the full IB Diploma Programme, including CAS, TOK and the Extended Essay. Figures are HKU's “expected lower boundary for admissions” — scoring above the boundary is not a guarantee of admission.",
+    "courses": [
+      { "name": "Computing and Data Science (incl. Delta+)", "type": "pc", "total": 38, "req": "Expected lower boundary: IB 38." },
+      { "name": "Bachelor of Arts and Sciences in Applied Artificial Intelligence", "type": "pc", "total": 38, "req": "Expected lower boundary: IB 38." },
+      { "name": "Bachelor of Engineering in Computer Engineering / Electrical Engineering / Electronic Engineering", "type": "pc", "total": 34, "req": "Expected lower boundary: IB 34." },
+      { "name": "Bachelor of Engineering in Data and Systems Engineering", "type": "pc", "total": 34, "req": "Expected lower boundary: IB 34." },
+      { "name": "Bachelor of Science (Physics / Mathematics majors)", "type": "pc", "total": 34, "req": "Expected lower boundary: IB 34." },
+      { "name": "Bachelor of Economics / Bachelor of Economics and Finance", "type": "pc", "total": 38, "req": "Expected lower boundary: IB 38." }
+    ] },
+  { "name": "The Chinese University of Hong Kong (CUHK)", "city": "Sha Tin, Hong Kong",
+    "url": "https://admission.cuhk.edu.hk/application/non-jupas/general-requirements/",
+    "courses": [
+      { "name": "Computer Science and Engineering · Computational Data Science · Economics · Artificial Intelligence: Systems and Technologies · Mathematics / Science", "type": "gen", "total": 30,
+        "req": "General minimum: IB Diploma — 30 points out of 45. CUHK states general minimums are for guidance only and admission is competitive. Published subject preferences (not requirements) for IB candidates include any Mathematics subject at HL for Computer Science and Engineering and for Computational Data Science." }
+    ] },
+  { "name": "The Hong Kong University of Science and Technology (HKUST)", "city": "Clear Water Bay, Hong Kong",
+    "url": "https://join.hkust.edu.hk",
+    "courses": [
+      { "name": "Business School — school-based admissions (Business and Management)", "type": "pc", "total": 34,
+        "req": "Reference boundary: IBDP 34 or above. HKUST states these boundaries are for general reference only, with holistic assessment." },
+      { "name": "Business School — programme-based admissions", "type": "pc", "total": 36,
+        "req": "Reference boundary: IBDP 36 to 42 depending on the programme. For general reference only, with holistic assessment. The badge uses the lower end (36)." },
+      { "name": "BSc Economics and Finance · BSc Quantitative Finance · BSc Risk Management and Business Intelligence", "type": "pc",
+        "req": "Subject requirement published by the Business School: HL Mathematics. (BBA Economics, BBA Finance and BSc Sustainable and Green Finance ask for SL Mathematics: Analysis and Approaches or HL Mathematics.) The badge checks the subject requirement only.",
+        "subj": [ {"g":"maths","level":"HL","min":null} ] },
+      { "name": "Science and Engineering programmes — Computer Science, Electronic and Computer Engineering, Data Science and Technology, Physics, Mathematics", "type": "np",
+        "note": "No per-programme IB total for Science or Engineering programmes was published on the official HKUST pages checked — do not assume the Business School figures apply to these programmes." }
+    ] },
+  { "name": "City University of Hong Kong (CityUHK)", "city": "Kowloon Tong, Hong Kong",
+    "url": "https://www.cityu.edu.hk/admo/taxonomy/term/25?page=6",
+    "courses": [
+      { "name": "BSc Computer Science · BSc Data Science · BEng Electronic and Electrical Engineering · Economics and Finance / BBA Business Economics", "type": "gen",
+        "req": "For Year 1 entry, CityUHK requires an IB Diploma — no total point score is published for Year 1 entry. (A minimum of 30 points is published for Advanced Standing I entry, and CityUHK's 2027 international flyer also states a minimum diploma score of 30.) English requirement: Grade 4 or above in English A: Language and Literature or English A: Literature (HL/SL), or English B (HL), or Grade 5 or above in English B (SL). The badge checks the English requirement only.",
+        "subj": [ {"g":"english","level":"any","min":4} ] }
+    ] },
+  { "name": "The Hong Kong Polytechnic University (PolyU)", "city": "Hung Hom, Hong Kong",
+    "url": "https://www.polyu.edu.hk/study",
+    "courses": [
+      { "name": "BSc (Hons) Scheme in Computing and AI · BSc (Hons) Scheme in Data Science and Artificial Intelligence · BEng (Hons) Scheme in Electrical Engineering", "type": "gen", "total": 32,
+        "req": "General requirement: an IB Diploma score of typically 32 or above out of 45. English: Grade 4 or above in IB English / English Literature (HL/SL). No separate per-programme IB totals were published.",
+        "subj": [ {"g":"english","level":"any","min":4} ] }
+    ] },
+  { "name": "Hong Kong Baptist University (HKBU)", "city": "Kowloon Tong, Hong Kong",
+    "url": "https://admissions.hkbu.edu.hk",
+    "courses": [
+      { "name": "BSc (Hons) Computer Science · BSc (Hons) Mathematics and Statistics · BBA (Hons) — Economics and Data Analytics · BSc (Hons) Business Analytics and Artificial Intelligence", "type": "np",
+        "req": "No IB total is published — the IB Diploma is listed as the general entrance qualification. English requirement: Grade 4 in IB English A at HL/SL, or Grade 4 in English B (HL), or Grade 5 in English B (SL). The badge checks the English requirement only.",
+        "subj": [ {"g":"english","level":"any","min":4} ] }
+    ] },
+  { "name": "Lingnan University", "city": "Tuen Mun, Hong Kong",
+    "url": "https://www.ln.edu.hk/admissions/ug",
+    "courses": [
+      { "name": "BSc (Hons) in Data Science · BSocSc (Hons) — Economics · BSocSc (Hons) in Global Economics and Banking · BSocSc (Hons) — Social Data Science", "type": "np",
+        "req": "No IB total is published — the IB Diploma is an accepted international qualification and applicants are holistically assessed. English requirement: Grade 4 in English A: Language and Literature or English A: Literature (HL or SL), or Grade 4 in English B (HL), or Grade 5 in English B (SL). Lingnan accepts all IB Mathematics subjects. The badge checks the English requirement only.",
+        "subj": [ {"g":"english","level":"any","min":4} ] }
+    ] },
+  { "name": "The Education University of Hong Kong (EdUHK)", "city": "Tai Po, Hong Kong",
+    "url": "https://www.apply.eduhk.hk/ug/nonjupas",
+    "note": "EdUHK is included only for the AI and Educational Technology degree below — it is an educational-technology-focused degree, not a straight Computer Science degree. EdUHK offers no standalone degrees in Computer Science, Engineering, Economics, Physics, Mathematics or Data Science outside its education programmes.",
+    "courses": [
+      { "name": "BSc (Hons) in Artificial Intelligence and Educational Technology", "type": "np",
+        "req": "No IB total is published. English requirement for IB holders: Grade 4 in English A: Language and Literature or English A: Literature (HL/SL), Grade 4 in English B (HL), Grade 5 in English B (SL), or Grade 4 in English Literature and Performance (SL). A Chinese Language grade 4 is also listed, but it can be waived case by case for applicants to English-medium programmes. The badge checks the English requirement only.",
+        "subj": [ {"g":"english","level":"any","min":4} ] }
+    ] },
+  { "name": "Hong Kong Metropolitan University (HKMU)", "city": "Ho Man Tin, Hong Kong — self-financing",
+    "url": "https://admissions.hkmu.edu.hk/ug/entry_requirements/",
+    "courses": [
+      { "name": "BSc with Honours in Computer Science · BSc with Honours in Data Science and Artificial Intelligence · BEng with Honours in Electronic and Computer Engineering", "type": "gen", "total": 24,
+        "req": "General requirement: IB Diploma with an overall minimum score of 24. English: Grade 4 or above in IB English.",
+        "subj": [ {"g":"english","level":"any","min":4} ] }
+    ] },
+  { "name": "The Hang Seng University of Hong Kong (HSUHK)", "city": "Siu Lek Yuen, Sha Tin, Hong Kong — self-financing",
+    "url": "https://admission.hsu.edu.hk/undergraduate-admissions/year-1-entry/international-qualification/entrance-requirements/",
+    "courses": [
+      { "name": "BSc (Hons) in Data Science and Business Intelligence · BSc (Hons) in Applied Computing · BA (Hons) in Applied and Human-Centred Computing", "type": "gen", "total": 24, "hlSum": 12,
+        "req": "General requirement (Year 1 entry): 24 points, including 3 subjects at Higher Level and 3 at Standard Level, with 12 points or above obtained from subjects at Higher Level." }
+    ] }
+] }
+};
+
+/* ================= Match badges ================= */
+const TYPE = {
+  pc: ["pc", "Per-course"],
+  gen: ["gen", "General requirement"],
+  credit: ["cred", "Credit policy only"],
+  np: ["np", "Not published"]
+};
+function subjDeficit(r) {
+  const keys = GROUPS[r.g] || [];
+  let best = 99, found = false;
+  for (const k of keys) {
+    const e = P.map[k];
+    if (!e) continue;
+    found = true;
+    let d;
+    if (r.hlMin != null || r.slMin != null) {
+      const need = e.level === "HL" ? (r.hlMin != null ? r.hlMin : r.slMin) : (r.slMin != null ? r.slMin : r.hlMin);
+      d = need - e.grade;
+    } else if (r.min == null) {
+      d = (r.level && r.level !== "any" && e.level !== r.level) ? 99 : 0;
+    } else {
+      if (r.level === "HL" && e.level !== "HL") d = 99;
+      else if (r.level === "SL" && e.level !== "SL") d = 99;
+      else d = r.min - e.grade;
+    }
+    if (d < best) best = d;
+  }
+  return found ? best : 99;
+}
+function patternDeficit(pattern) {
+  const her = P.hlGrades.slice().sort((a,b)=>b-a);
+  let d = -99;
+  pattern.forEach((p, i) => { d = Math.max(d, p - her[i]); });
+  return d;
+}
+function brisPhysDeficit() {
+  let mg = null, pg = null;
+  GROUPS.maths.forEach(k => { const e = P.map[k]; if (e && e.level === "HL") mg = e.grade; });
+  const pe = P.map["physics"];
+  if (pe && pe.level === "HL") pg = pe.grade;
+  if (mg == null || pg == null) return 99;
+  return Math.max(6 - mg, 6 - pg, 7 - Math.max(mg, pg));
+}
+function badgeFor(c) {
+  const pool = [];
+  if (c.total != null) {
+    let td = c.total - P.total;
+    if (c.totalAltHLSum != null) td = Math.min(td, c.totalAltHLSum - P.hlSum);
+    pool.push({d: td, lim: 3});
+  }
+  if (c.hlSum != null) pool.push({d: c.hlSum - P.hlSum, lim: 3});
+  if (c.pattern) pool.push({d: patternDeficit(c.pattern), lim: 1});
+  if (c.minHL != null) pool.push({d: c.minHL - Math.min.apply(null, P.hlGrades), lim: 1});
+  if (c.subj) c.subj.forEach(r => pool.push({d: subjDeficit(r), lim: 1}));
+  if (c.check === "sit") {
+    const hl5 = P.hlGrades.filter(g => g >= 5).length;
+    const sl5 = P.slGrades.filter(g => g >= 5).length;
+    pool.push({d: Math.max(0, 2 - hl5) + Math.max(0, 1 - sl5), lim: 1});
+  }
+  if (c.check === "impComp") {
+    const sevens = P.hlGrades.filter(g => g >= 7).length;
+    pool.push({d: Math.max(0, 2 - sevens), lim: 1});
+  }
+  if (c.check === "brisPhys") pool.push({d: brisPhysDeficit(), lim: 1});
+  if (!pool.length) return null;
+  if (pool.every(x => x.d <= 0)) return {cls: "b-reach", label: "In reach"};
+  if (pool.every(x => x.d <= x.lim)) return {cls: "b-stretch", label: "Stretch"};
+  return {cls: "b-below", label: "Below for now"};
+}
+
+/* ================= Rendering ================= */
+const ORDER = ["US","UK","AU","NZ","DE","SG","AE","HK"];
+function renderCountries() {
+  document.getElementById("countries").innerHTML = ORDER.map(k =>
+    '<button data-k="' + k + '"' + (k === curCountry ? ' class="on"' : "") + ">" + DATA[k].label + "</button>"
+  ).join("");
+  document.querySelectorAll("#countries button").forEach(b => b.addEventListener("click", () => {
+    curCountry = b.dataset.k; renderCountries(); renderResults();
+  }));
+}
+function courseHTML(c) {
+  let h = '<div class="course"><div class="cname">' + c.name + "</div>";
+  if (c.req) {
+    const t = TYPE[c.type] || TYPE.pc;
+    h += '<p class="req"><span class="chip ' + t[0] + '">' + t[1] + "</span>" + c.req + "</p>";
+  }
+  const b = badgeFor(c);
+  if (b) h += '<span class="badge ' + b.cls + '">' + b.label + "</span>";
+  if (c.note) h += '<p class="cnote">' + c.note + "</p>";
+  return h + "</div>";
+}
+function renderResults() {
+  P = computeProfile();
+  document.getElementById("totalNum").textContent = P.total;
+  const cd = DATA[curCountry];
+  const banner = document.getElementById("banner");
+  if (cd.germany) {
+    const all = P.hlGrades.concat(P.slGrades);
+    const minG = Math.min.apply(null, all);
+    let kmk = "";
+    kmk += minG >= 4
+      ? "✔ Every one of your subject grades is 4 or more — that matches the KMK minimum-grade rule.<br>"
+      : "⚠ At least one subject is below grade 4 — the KMK rule needs grade 4 or more in every subject (one grade 3 can be balanced by a grade 5 at the same or higher level).<br>";
+    kmk += P.total >= 24
+      ? "✔ Your projected total is 24 or more — that matches the KMK minimum total."
+      : "⚠ Your projected total is below 24 — the KMK minimum total is 24 points.";
+    banner.innerHTML = "<h3>" + cd.bannerTitle + "</h3>" + cd.bannerText +
+      '<div class="kmk">' + kmk + "</div>";
+    banner.style.display = "block";
+  } else {
+    banner.style.display = "none";
+    banner.innerHTML = "";
+  }
+  let html = "";
+  if (cd.intro) html += '<div style="grid-column:1/-1;background:#eef2ff;border:1px solid #c7d2fe;border-radius:12px;padding:11px 14px;font-size:14.5px;">' + cd.intro + "</div>";
+  html += cd.unis.map(u =>
+    '<article class="card"><h3>' + u.name + '</h3><div class="city">📍 ' + u.city + "</div>" +
+    u.courses.map(courseHTML).join("") +
+    (u.note ? '<div class="uninote">' + u.note + "</div>" : "") +
+    '<div class="cardfoot"><span class="verified">Verified on 17 Nov 2026</span>' +
+    '<a class="visit" href="' + u.url + '" target="_blank" rel="noopener">Official admissions page ↗</a></div></article>'
+  ).join("");
+  document.getElementById("results").innerHTML = html;
+}
+
+/* ================= Passcode gate ================= */
+function tryUnlock() {
+  const v = document.getElementById("pw").value;
+  if (v === "deepanshi2028") {
+    document.getElementById("gate").style.display = "none";
+    document.getElementById("app").style.display = "block";
+    buildProfile();
+    renderCountries();
+    renderResults();
+  } else {
+    document.getElementById("gateErr").style.display = "block";
+  }
+}
+document.getElementById("unlockBtn").addEventListener("click", tryUnlock);
+document.getElementById("pw").addEventListener("keydown", e => { if (e.key === "Enter") tryUnlock(); });
+</script>
+</body>
+</html>
