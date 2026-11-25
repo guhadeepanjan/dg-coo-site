@@ -30,6 +30,9 @@
       }
       * { box-sizing: border-box; }
       html { scroll-behavior: smooth; }
+      /* Touch devices: smooth scrolling makes iOS animate every caret-visibility
+         scroll while typing in the question box, which feels like typing lag. */
+      @media (hover: none) { html { scroll-behavior: auto; } }
       body {
         margin: 0;
         background: var(--bg);
