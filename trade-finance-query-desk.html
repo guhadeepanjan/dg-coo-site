@@ -477,6 +477,7 @@
           <div id="answerContent"></div>
           <div class="answer-actions" id="answerActions" style="display:none">
             <button type="button" class="btn-secondary" id="downloadBtn">Download report (PDF)</button>
+            <button type="button" class="btn-secondary" id="translateBtn">Translate to Hindi</button>
             <button type="button" class="btn-ghost" id="newQuestionBtn">Ask another question</button>
           </div>
           <p class="not-saved" id="notSavedLine" style="display:none">This website does not store your questions.</p>
@@ -500,6 +501,7 @@
          rules, CDCS and CTFC reference material held server-side.
          ============================================================ */
       var API_URL = "https://trade-finance-query-desk.guhadeepanjan.workers.dev/api/ask";
+      var TRANSLATE_URL = "https://trade-finance-translate.guhadeepanjan.workers.dev/";
 
       var PRODUCTS = [
         { id: "documentary-credit", name: "Documentary Credit", img: "tfqd-assets/product-documentary-credit.webp",
@@ -543,7 +545,7 @@
         "Guarantor / Guarantee-Issuing Bank", "Freight Forwarder / Carrier"
       ];
 
-      var state = { product: PRODUCTS[0], role: null, lastAnswerMd: "", lastQuery: "" };
+      var state = { product: PRODUCTS[0], role: null, lastAnswerMd: "", lastAnswerHi: "", showingHi: false, lastQuery: "" };
 
       var productGrid = document.getElementById("productGrid");
       var roleList = document.getElementById("roleList");
@@ -717,9 +719,18 @@
           "<p>Your question is noted above, but the engine that answers from the ICC rules and CDCS material is not live on this page just yet. Please try again shortly — no sign-up is needed.</p></div>";
         showAnswerSection();
       }
+      var translateBtn = document.getElementById("translateBtn");
+      function renderAnswerBody() {
+        var md = state.showingHi && state.lastAnswerHi ? state.lastAnswerHi : state.lastAnswerMd;
+        answerContent.innerHTML = contextTags() + '<div class="answer-body"' +
+          (state.showingHi ? ' lang="hi"' : "") + ">" + renderMarkdown(md) + "</div>";
+        translateBtn.textContent = state.showingHi ? "Show in English" : "Translate to Hindi";
+      }
       function showAnswer(md) {
         state.lastAnswerMd = md;
-        answerContent.innerHTML = contextTags() + '<div class="answer-body">' + renderMarkdown(md) + "</div>";
+        state.lastAnswerHi = "";
+        state.showingHi = false;
+        renderAnswerBody();
         answerActions.style.display = "flex";
         notSavedLine.style.display = "block";
         showAnswerSection();
@@ -765,7 +776,53 @@
         });
       });
 
+      /* ---------- Hindi translation ---------- */
+      translateBtn.addEventListener("click", function () {
+        if (state.showingHi) {
+          state.showingHi = false;
+          renderAnswerBody();
+          return;
+        }
+        if (state.lastAnswerHi) {
+          state.showingHi = true;
+          renderAnswerBody();
+          return;
+        }
+        if (!state.lastAnswerMd) return;
+        translateBtn.disabled = true;
+        translateBtn.textContent = "Translating…";
+        var controller = ("AbortController" in window) ? new AbortController() : null;
+        var timer = controller ? setTimeout(function () { controller.abort(); }, 120000) : null;
+        fetch(TRANSLATE_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text: state.lastAnswerMd }),
+          signal: controller ? controller.signal : undefined
+        }).then(function (res) {
+          if (timer) clearTimeout(timer);
+          if (!res.ok) throw new Error("translate unavailable");
+          return res.json();
+        }).then(function (data) {
+          var hi = data && data.translation;
+          if (!hi || typeof hi !== "string") throw new Error("empty translation");
+          state.lastAnswerHi = hi;
+          state.showingHi = true;
+          renderAnswerBody();
+        }).catch(function () {
+          if (timer) clearTimeout(timer);
+          translateBtn.textContent = "Translation unavailable — try again";
+          setTimeout(function () {
+            if (!state.showingHi) translateBtn.textContent = "Translate to Hindi";
+          }, 3000);
+        }).finally(function () {
+          translateBtn.disabled = false;
+          if (state.showingHi) translateBtn.textContent = "Show in English";
+        });
+      });
+
       document.getElementById("newQuestionBtn").addEventListener("click", function () {
+        state.lastAnswerHi = "";
+        state.showingHi = false;
         answerSection.classList.remove("show");
         queryInput.value = "";
         queryInput.focus();
