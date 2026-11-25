@@ -335,6 +335,11 @@
         text-decoration: underline; text-underline-offset: 3px;
       }
       .not-saved { font-size: 0.88rem; color: var(--muted); margin: 16px 2px 0; }
+      .privacy-note {
+        background: #fdf6e0; border: 1px solid #e8d48a; border-radius: 12px;
+        padding: 12px 14px; font-size: 0.9rem; line-height: 1.55; color: #5c4a12; margin: 14px 0 4px;
+      }
+      .privacy-note strong { color: #43360a; }
 
       /* ---------- Footer ---------- */
       footer.site {
@@ -447,6 +452,7 @@
           <label for="queryInput">Type your question in plain words&hellip;</label>
           <textarea id="queryInput" rows="6" maxlength="3000" placeholder="e.g. Our LC expired on 10 March but the beneficiary shipped on 12 March and presented documents on 15 March, within 21 days of shipment. They say the presentation is fine. Are we obliged to negotiate?"></textarea>
           <p class="query-hint">Dates, amounts, document names and what the other party is claiming all help — the more of the real picture you give, the sharper the answer.</p>
+          <p class="privacy-note"><strong>Please don&rsquo;t type anything sensitive</strong> — no customer names, account numbers or confidential deal details. This website stores nothing, but your question is answered by Google&rsquo;s Gemini AI on its free plan, and Google&rsquo;s terms for free use allow it to keep questions and use them to improve its services.</p>
           <div class="examples">
             <span class="ex-label">Or start from an example:</span>
             <button type="button" class="example-chip" data-example="The bill of lading is dated after the LC expiry date, but the documents were presented within 21 days of shipment. The beneficiary says the presentation is compliant. Do we have to pay?">Late shipment vs LC expiry</button>
@@ -470,7 +476,7 @@
             <button type="button" class="btn-secondary" id="downloadBtn">Download report (PDF)</button>
             <button type="button" class="btn-ghost" id="newQuestionBtn">Ask another question</button>
           </div>
-          <p class="not-saved" id="notSavedLine" style="display:none">Nothing you type here is saved.</p>
+          <p class="not-saved" id="notSavedLine" style="display:none">This website stores nothing. Questions are processed by Google&rsquo;s Gemini AI under its free-plan terms — please keep customer names, account numbers and confidential details out of your questions.</p>
         </section>
 
         <footer class="site">
@@ -706,7 +712,7 @@
         notSavedLine.style.display = "block";
         answerContent.innerHTML = contextTags() +
           '<div class="engine-note"><strong>The answering engine is being connected.</strong>' +
-          "<p>Your question is noted above, but the engine that answers from the ICC rules and CDCS material is not live on this page just yet. Please try again shortly — no sign-up is needed, and nothing you type here is saved.</p></div>";
+          "<p>Your question is noted above, but the engine that answers from the ICC rules and CDCS material is not live on this page just yet. Please try again shortly — no sign-up is needed.</p></div>";
         showAnswerSection();
       }
       function showAnswer(md) {
