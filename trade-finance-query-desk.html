@@ -42,10 +42,10 @@
       button, [role="button"], select, summary, input:not([type="checkbox"], [type="radio"]), textarea { min-height: 2.25rem; }
       :focus-visible { outline: 3px solid rgba(15, 53, 98, 0.45); outline-offset: 2px; border-radius: 6px; }
 
-      .wrap { max-width: 1020px; margin: 0 auto; padding: 0 20px 72px; }
+      .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px 72px; }
 
       /* ---------- Header ---------- */
-      header.hero { text-align: center; padding: 56px 16px 30px; }
+      header.hero { text-align: center; padding: 34px 16px 16px; }
       .hero h1 {
         margin: 0;
         font-size: clamp(2rem, 5.4vw, 3.1rem);
@@ -85,7 +85,8 @@
       .featured img {
         display: block;
         width: 100%;
-        aspect-ratio: 3 / 2;
+        aspect-ratio: 21 / 9;
+        max-height: 290px;
         object-fit: cover;
         transition: opacity 0.35s ease;
       }
@@ -792,51 +793,146 @@
       }
       function pdfEscape(s) {
         return s.replace(/[^\x20-\x7E]/g, function (c) {
-                  return { "—": "--", "–": "-", "‘": "'", "’": "'", "“": '"', "”": '"', "•": "-", "…": "...", "·": "-" }[c] || "?";
+                  return { "\u2014": "\u0097", "\u2013": "\u0096", "\u2018": "\u0091", "\u2019": "\u0092", "\u201C": "\u0093", "\u201D": "\u0094", "\u2022": "\u0095", "\u2026": "\u0085", "\u00B7": "\u00B7" }[c] || "?";
                 })
                 .replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)");
       }
-      function buildPdf() {
-        var dateStr = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
-        var raw = [];
-        raw.push("TRADE FINANCE QUERY DESK - REPORT");
-        raw.push("By Deepanjan Guha - deepanjanguha.work - " + dateStr);
-        raw.push("");
-        raw.push("Product: " + state.product.name + " (" + state.product.rules + ")");
-        raw.push("Your role: " + (state.role || ""));
-        raw.push("");
-        raw.push("QUESTION");
-        raw.push(state.lastQuery);
-        raw.push("");
-        raw.push("ANSWER");
-        mdToPlainLines(state.lastAnswerMd).forEach(function (l) { raw.push(l); });
-        raw.push("");
-        raw.push("Guidance based on ICC rules and CDCS material - not an official ICC opinion or legal advice.");
-
-        var wrapped = [];
-        raw.forEach(function (l) {
-          if (l === "") { wrapped.push(""); return; }
-          wrapLine(l, 94).forEach(function (w) { wrapped.push(w); });
+      function mdToBlocks(md) {
+        function clean(s) {
+          return s.replace(/\*\*([^*]+)\*\*/g, "$1").replace(/\*([^*\n]+)\*/g, "$1")
+                  .replace(/`([^`]+)`/g, "$1").replace(/\[([^\]]+)\]\([^)]*\)/g, "$1").trim();
+        }
+        var blocks = [], para = [];
+        function flush() { if (para.length) { blocks.push({ t: "p", text: para.join(" ") }); para = []; } }
+        (md || "").split(/\r?\n/).forEach(function (line) {
+          var h = line.match(/^#{1,4}\s+(.*)$/);
+          var ul = line.match(/^\s*[-*]\s+(.*)$/);
+          var ol = line.match(/^\s*(\d+)[.)]\s+(.*)$/);
+          if (h) { flush(); blocks.push({ t: "h", text: clean(h[1]) }); }
+          else if (ul) { flush(); blocks.push({ t: "ul", text: clean(ul[1]) }); }
+          else if (ol) { flush(); blocks.push({ t: "ol", n: ol[1], text: clean(ol[2]) }); }
+          else if (/^\s*(-{3,}|\*{3,})\s*$/.test(line)) { flush(); }
+          else if (line.trim() === "") { flush(); }
+          else { var c = clean(line.replace(/^\s*>\s?/, "")); if (c) para.push(c); }
         });
-
-        var perPage = 46, pages = [];
-        for (var i = 0; i < wrapped.length; i += perPage) pages.push(wrapped.slice(i, i + perPage));
-        if (!pages.length) pages.push([""]);
-
+        flush();
+        return blocks.filter(function (b) { return b.text && !/^Guidance based on ICC rules/i.test(b.text); });
+      }
+      function textWidth(s, size, bold) {
+        var w = 0;
+        for (var i = 0; i < s.length; i++) {
+          var c = s.charAt(i), u = 0.50;
+          if (c === " ") u = 0.28;
+          else if ("iljtf.,:;'!|()[]".indexOf(c) >= 0) u = 0.32;
+          else if ("mwMW".indexOf(c) >= 0) u = 0.86;
+          else if (c >= "A" && c <= "Z") u = 0.67;
+          else if (c >= "0" && c <= "9") u = 0.56;
+          else if (c === "-") u = 0.36;
+          w += u;
+        }
+        return w * size * (bold ? 1.05 : 1.0);
+      }
+      function wrapWords(text, size, bold, maxW) {
+        var words = text.split(/\s+/), lines = [], cur = "";
+        words.forEach(function (wd) {
+          var trial = cur ? cur + " " + wd : wd;
+          if (textWidth(trial, size, bold) > maxW && cur) { lines.push(cur); cur = wd; }
+          else { cur = trial; }
+        });
+        if (cur) lines.push(cur);
+        return lines.length ? lines : [""];
+      }
+      function buildPdf() {
+        var W = 595, H = 842, M = 52, CW = W - 2 * M;
+        var NAVY = [0.059, 0.208, 0.384], GOLD = [0.725, 0.541, 0.184],
+            INK = [0.13, 0.13, 0.15], MUTED = [0.43, 0.43, 0.45],
+            FILL = [0.914, 0.937, 0.969], WHITE = [1, 1, 1];
+        var dateStr = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+        var pages = [], ops = null, y = 0;
+        function col(c) { return c[0].toFixed(3) + " " + c[1].toFixed(3) + " " + c[2].toFixed(3); }
+        function rect(x, yTop, w, h, c) { ops.push(col(c) + " rg " + x + " " + (H - yTop - h).toFixed(1) + " " + w + " " + h + " re f"); }
+        function txt(s, x, yBase, font, size, c) {
+          ops.push("BT /" + font + " " + size + " Tf " + col(c) + " rg " + x.toFixed(1) + " " + (H - yBase).toFixed(1) + " Td (" + pdfEscape(s) + ") Tj ET");
+        }
+        function rightTxt(s, font, size, c, yBase) { txt(s, W - M - textWidth(s, size, font === "F2"), yBase, font, size, c); }
+        function newPage(first) {
+          ops = []; pages.push(ops);
+          if (first) {
+            rect(0, 0, W, 106, NAVY); rect(0, 106, W, 4, GOLD);
+            txt("Trade Finance Query Desk", M, 56, "F2", 21, WHITE);
+            txt("Query Report", M, 82, "F3", 12.5, GOLD);
+            rightTxt(dateStr, "F1", 9.5, WHITE, 34);
+            y = 132;
+          } else {
+            rect(0, 0, W, 32, NAVY); rect(0, 32, W, 3, GOLD);
+            txt("Trade Finance Query Desk - Query Report", M, 21, "F2", 9.5, WHITE);
+            y = 58;
+          }
+        }
+        function ensure(price) { if (y + price > H - 66) newPage(false); }
+        newPage(true);
+        /* ---- Info box: product, role, question ---- */
+        var qLines = wrapWords(state.lastQuery || "", 10.5, false, CW - 32);
+        var boxH = 20 + 13 + 17 + 10 + 13 + 17 + 10 + 13 + qLines.length * 15 + 14;
+        rect(M, y, CW, boxH, FILL);
+        var by = y + 24;
+        txt("PRODUCT", M + 16, by, "F2", 8, MUTED); by += 16;
+        txt(state.product.name + "  -  " + state.product.rules, M + 16, by, "F2", 12, NAVY); by += 27;
+        txt("YOUR ROLE", M + 16, by, "F2", 8, MUTED); by += 16;
+        txt(state.role || "", M + 16, by, "F2", 12, NAVY); by += 27;
+        txt("QUESTION", M + 16, by, "F2", 8, MUTED); by += 16;
+        qLines.forEach(function (l, i) { txt(l, M + 16, by + i * 15, "F3", 10.5, INK); });
+        y += boxH + 26;
+        /* ---- Answer blocks ---- */
+        mdToBlocks(state.lastAnswerMd).forEach(function (b) {
+          if (b.t === "h") {
+            ensure(44); y += 12;
+            txt(b.text, M, y + 13, "F2", 13, NAVY);
+            rect(M, y + 19, 34, 2.6, GOLD);
+            y += 30;
+          } else if (b.t === "p") {
+            var ls = wrapWords(b.text, 10.5, false, CW);
+            ls.forEach(function (l) { ensure(16); txt(l, M, y + 11, "F1", 10.5, INK); y += 15.5; });
+            y += 5;
+          } else if (b.t === "ul") {
+            var us = wrapWords(b.text, 10.5, false, CW - 18);
+            us.forEach(function (l, i) {
+              ensure(16);
+              if (i === 0) rect(M + 5, y + 4.5, 4, 4, GOLD);
+              txt(l, M + 18, y + 11, "F1", 10.5, INK); y += 15.5;
+            });
+            y += 3;
+          } else if (b.t === "ol") {
+            var os2 = wrapWords(b.text, 10.5, false, CW - 18);
+            os2.forEach(function (l, i) {
+              ensure(16);
+              if (i === 0) txt(b.n + ".", M + 2, y + 11, "F2", 10.5, NAVY);
+              txt(l, M + 18, y + 11, "F1", 10.5, INK); y += 15.5;
+            });
+            y += 3;
+          }
+        });
+        /* ---- Footers (second pass, page count known) ---- */
+        pages.forEach(function (p, i) {
+          ops = p;
+          rect(M, H - 54, CW, 0.8, [0.84, 0.87, 0.91]);
+          txt("Guidance based on ICC rules and CDCS material - not an official ICC opinion or legal advice.", M, H - 38, "F1", 8, MUTED);
+          rightTxt("Page " + (i + 1) + " of " + pages.length, "F1", 8, MUTED, H - 38);
+        });
+        /* ---- Assemble ---- */
         var objects = [];
         objects[1] = "<< /Type /Catalog /Pages 2 0 R >>";
-        var kids = pages.map(function (_, pi) { return (4 + pi * 2) + " 0 R"; }).join(" ");
+        var kids = pages.map(function (_, pi) { return (6 + pi * 2) + " 0 R"; }).join(" ");
         objects[2] = "<< /Type /Pages /Kids [" + kids + "] /Count " + pages.length + " >>";
         objects[3] = "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>";
-        pages.forEach(function (pageLines, pi) {
-          var pageObj = 4 + pi * 2, contentObj = pageObj + 1;
-          objects[pageObj] = "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents " + contentObj + " 0 R >>";
-          var stream = "BT /F1 10.5 Tf 15 TL 52 790 Td ";
-          pageLines.forEach(function (l) { stream += "(" + pdfEscape(l) + ") Tj T* "; });
-          stream += "ET";
+        objects[4] = "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>";
+        objects[5] = "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Oblique /Encoding /WinAnsiEncoding >>";
+        pages.forEach(function (p, pi) {
+          var pageObj = 6 + pi * 2, contentObj = pageObj + 1;
+          objects[pageObj] = "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents " + contentObj + " 0 R >>";
+          var stream = p.join("\n");
           objects[contentObj] = "<< /Length " + stream.length + " >>\nstream\n" + stream + "\nendstream";
         });
-
         var pdf = "%PDF-1.4\n", offsets = [];
         for (var n = 1; n < objects.length; n++) {
           if (!objects[n]) continue;
@@ -851,7 +947,9 @@
           pdf += off + " 00000 n \n";
         }
         pdf += "trailer\n<< /Size " + objects.length + " /Root 1 0 R >>\nstartxref\n" + xrefPos + "\n%%EOF";
-        return new Blob([pdf], { type: "application/pdf" });
+        var bytes = new Uint8Array(pdf.length);
+        for (var bi = 0; bi < pdf.length; bi++) bytes[bi] = pdf.charCodeAt(bi) & 0xFF;
+        return new Blob([bytes], { type: "application/pdf" });
       }
       document.getElementById("downloadBtn").addEventListener("click", function () {
         var blob = buildPdf();
