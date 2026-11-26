@@ -6,6 +6,17 @@
     <meta name="color-scheme" content="light" />
     <link rel="icon" href="data:," />
     <title>Trade Finance Query Desk</title>
+    <meta name="description" content="Plain-language answers to trade finance questions, grounded in UCP 600, ISBP 821 and other ICC rules — with a worked example and a downloadable report for every answer." />
+    <link rel="canonical" href="https://deepanjanguha.work/trade-finance-query-desk.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Trade Finance Query Desk" />
+    <meta property="og:description" content="Plain-language answers to trade finance questions, grounded in UCP 600, ISBP 821 and other ICC rules — with a worked example and a downloadable report for every answer." />
+    <meta property="og:url" content="https://deepanjanguha.work/trade-finance-query-desk.html" />
+    <meta property="og:image" content="https://deepanjanguha.work/assets/og-cover.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Trade Finance Query Desk" />
+    <meta name="twitter:description" content="Plain-language answers to trade finance questions, grounded in UCP 600, ISBP 821 and other ICC rules — with a worked example and a downloadable report for every answer." />
+    <meta name="twitter:image" content="https://deepanjanguha.work/assets/og-cover.jpg" />
     <style>
       :root {
         --bg: #f5f5f7;
@@ -859,7 +870,7 @@
       }
       function pdfEscape(s) {
         return s.replace(/[^\x20-\x7E]/g, function (c) {
-                  return { "\u2014": "\u0097", "\u2013": "\u0096", "\u2018": "\u0091", "\u2019": "\u0092", "\u201C": "\u0093", "\u201D": "\u0094", "\u2022": "\u0095", "\u2026": "\u0085", "\u00B7": "\u00B7" }[c] || "?";
+                  return { "—": "\u0097", "\u2013": "\u0096", "\u2018": "\u0091", "\u2019": "\u0092", "\u201C": "\u0093", "\u201D": "\u0094", "\u2022": "\u0095", "\u2026": "\u0085", "\u00B7": "\u00B7" }[c] || "?";
                 })
                 .replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)");
       }
