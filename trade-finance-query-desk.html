@@ -12,11 +12,35 @@
     <meta property="og:title" content="Trade Finance Query Desk" />
     <meta property="og:description" content="Plain-language answers to trade finance questions, grounded in UCP 600, ISBP 821 and other ICC rules — with a worked example and a downloadable report for every answer." />
     <meta property="og:url" content="https://deepanjanguha.work/trade-finance-query-desk.html" />
-    <meta property="og:image" content="https://deepanjanguha.work/assets/og-cover.jpg" />
+    <meta property="og:image" content="https://deepanjanguha.work/tfqd-assets/product-documentary-credit.webp" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Trade Finance Query Desk" />
     <meta name="twitter:description" content="Plain-language answers to trade finance questions, grounded in UCP 600, ISBP 821 and other ICC rules — with a worked example and a downloadable report for every answer." />
-    <meta name="twitter:image" content="https://deepanjanguha.work/assets/og-cover.jpg" />
+    <meta name="twitter:image" content="https://deepanjanguha.work/tfqd-assets/product-documentary-credit.webp" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Trade Finance Query Desk",
+      "url": "https://deepanjanguha.work/trade-finance-query-desk.html",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "description": "Plain-language answers to trade finance questions, grounded in UCP 600, ISBP 821 and other ICC rules — with a worked example and a downloadable report for every answer."
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "Is the Trade Finance Query Desk free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. It is free to use, with no sign-up and no OTP. To keep it free and fair for everyone, questions are limited to 10 a day per visitor." } },
+        { "@type": "Question", "name": "Are my questions stored?", "acceptedAnswer": { "@type": "Answer", "text": "No. This website does not store your questions. Please do not type anything sensitive — no customer names, account numbers or confidential deal details." } },
+        { "@type": "Question", "name": "Which rules does the Desk cover?", "acceptedAnswer": { "@type": "Answer", "text": "UCP 600 and ISBP 821 for documentary credits, ISP98 for standbys, URC 522 for collections, URDG 758 for demand guarantees, eUCP v2.1 for electronic presentation, and the CDCS and CTFC study material behind them." } },
+        { "@type": "Question", "name": "Can I rely on an answer for a live transaction?", "acceptedAnswer": { "@type": "Answer", "text": "Treat every answer as guidance, not as an official ICC opinion or legal advice. Check critical points against the official rule texts before you act on a live transaction." } }
+      ]
+    }
+    </script>
     <style>
       :root {
         --bg: #f5f5f7;
@@ -400,7 +424,8 @@
       @media (max-width: 760px) {
         .products { grid-template-columns: repeat(2, 1fr); }
         section.step { padding: 22px 18px 24px; }
-        .step-head .chosen { display: none; }
+        .step-head { flex-wrap: wrap; }
+        .step-head .chosen { margin-left: 0; flex-basis: 100%; text-align: left; font-size: 0.82rem; }
         header.hero { padding-top: 40px; }
         .report-paper { padding: 30px 22px; }
       }
@@ -408,6 +433,50 @@
         html { scroll-behavior: auto; }
         .loading .dots span { animation: none; opacity: 0.7; }
         .featured img { transition: none; }
+      }
+      /* ---------- Added components (review fixes, Nov 2026) ---------- */
+      .char-count { font-size: 0.82rem; color: var(--muted); margin: 6px 2px 0; text-align: right; }
+      .char-count.over { color: var(--danger); font-weight: 600; }
+      .facts-box { border: 1px solid var(--line); border-radius: var(--radius-md); padding: 14px 16px; margin-top: 14px; background: var(--surface-soft); }
+      .facts-box summary { cursor: pointer; font-weight: 600; color: var(--navy); font-size: 0.95rem; }
+      .facts-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 14px; margin-top: 12px; }
+      .fact-field label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--ink-2); margin-bottom: 4px; }
+      .fact-field input { width: 100%; border: 1.5px solid var(--line); border-radius: 10px; padding: 8px 10px; background: #fff; font-size: 0.95rem; }
+      .facts-actions { margin-top: 12px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+      .btn-small { appearance: none; border: 1.5px solid var(--navy); background: #fff; color: var(--navy); font-weight: 600; font-size: 0.88rem; border-radius: 999px; padding: 7px 16px; cursor: pointer; }
+      .btn-small:hover { background: var(--navy-soft); }
+      .engine-note.warn { background: #fdf6e0; color: #5c4a12; }
+      .engine-note.warn strong { color: #7a5c14; }
+      .retry-row { margin-top: 12px; }
+      .followup-box { margin-top: 24px; border-top: 1px solid var(--line); padding-top: 18px; }
+      .followup-box label { display: block; font-weight: 600; font-size: 0.95rem; margin-bottom: 8px; }
+      .followup-box textarea { width: 100%; min-height: 84px; resize: vertical; border: 1.5px solid var(--line); border-radius: var(--radius-md); padding: 12px 14px; font-size: 1rem; background: var(--surface-soft); }
+      .followup-box textarea:focus { outline: none; border-color: var(--navy); background: #fff; box-shadow: 0 0 0 3px rgba(15, 53, 98, 0.15); }
+      .thread { margin-top: 20px; }
+      .thread details, .library details, .faq-list details, .how-panel details { border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px 16px; margin-bottom: 10px; background: var(--surface-soft); }
+      .thread summary, .library summary, .faq-list summary, .how-panel summary { cursor: pointer; font-weight: 600; color: var(--navy); }
+      .library .lib-a, .faq-list .faq-a { margin: 10px 0 2px; color: var(--ink-2); font-size: 0.95rem; }
+      .library h3.lib-group { font-size: 1rem; color: var(--ink); margin: 20px 0 10px; }
+      .tool-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .tool-card { border: 1px solid var(--line); border-radius: var(--radius-md); padding: 16px 18px; background: var(--surface-soft); }
+      .tool-card h3 { margin: 0 0 8px; font-size: 1rem; color: var(--navy); }
+      .tool-card p { font-size: 0.9rem; color: var(--ink-2); margin: 0 0 10px; }
+      .tool-card label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--ink-2); margin: 8px 0 4px; }
+      .tool-card input[type="date"], .tool-card select { width: 100%; border: 1.5px solid var(--line); border-radius: 10px; padding: 8px 10px; background: #fff; font-size: 0.95rem; }
+      .calc-out { font-size: 0.95rem; color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; margin-top: 12px; display: none; }
+      .calc-out.show { display: block; }
+      .calc-out strong { color: var(--navy); }
+      .checklist-items { list-style: none; margin: 10px 0 0; padding: 0; }
+      .checklist-items li { margin-bottom: 8px; font-size: 0.93rem; color: var(--ink-2); }
+      .checklist-items input { margin-right: 8px; }
+      .dc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+      .dc-grid label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--ink-2); margin-bottom: 4px; }
+      .dc-grid textarea { width: 100%; min-height: 74px; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; background: #fff; font-size: 0.95rem; resize: vertical; }
+      .watch-note { font-size: 0.95rem; color: var(--ink-2); }
+      .watch-note strong { color: var(--navy); }
+      .flag-line { font-size: 0.88rem; color: var(--muted); margin: 14px 2px 0; }
+      @media (max-width: 760px) {
+        .facts-grid, .tool-grid, .dc-grid { grid-template-columns: 1fr; }
       }
       @media print {
         body { background: #fff; }
@@ -426,7 +495,7 @@
           <p class="sub">Plain-language answers on trade finance, grounded in the ICC rules and CDCS guidance.</p>
           <p class="sub" style="font-size:0.92rem;margin-top:6px">Answers are generated automatically from the rule summaries and study material described below — check critical points against the official texts.</p>
           <p class="byline">By <strong>Deepanjan Guha</strong> · deepanjanguha.work</p>
-          <p class="free-line">Free to use — no sign-up, no OTP. Pick a product, pick your role, ask your question.</p>
+          <p class="free-line">Free to use — no sign-up, no OTP. Pick a product, pick your role, ask your question. Questions are limited to 10 a day per visitor, so the Desk stays free and fair for everyone.</p>
         </header>
 
         <div class="featured" aria-live="polite">
@@ -465,20 +534,34 @@
             <h2 id="step3Title">Ask your question</h2>
           </div>
           <label for="queryInput">Type your question in plain words&hellip;</label>
-          <textarea id="queryInput" rows="6" maxlength="3000" placeholder="e.g. Our LC expired on 10 March but the beneficiary shipped on 12 March and presented documents on 15 March, within 21 days of shipment. They say the presentation is fine. Are we obliged to negotiate?"></textarea>
+          <textarea id="queryInput" rows="6" maxlength="2000" placeholder="e.g. Our LC expired on 10 March but the beneficiary shipped on 12 March and presented documents on 15 March, within 21 days of shipment. They say the presentation is fine. Are we obliged to negotiate?"></textarea>
           <p class="query-hint">Dates, amounts, document names and what the other party is claiming all help — the more of the real picture you give, the sharper the answer.</p>
+          <p class="char-count" id="charCount">0 / 2,000 characters</p>
+          <details class="facts-box" id="factsBox">
+            <summary>Add the key facts (dates and amounts sharpen the answer)</summary>
+            <div class="facts-grid">
+              <div class="fact-field"><label for="factAmount">Amount and currency</label><input id="factAmount" type="text" placeholder="e.g. USD 250,000" /></div>
+              <div class="fact-field"><label for="factDoc">Main document involved</label><input id="factDoc" type="text" placeholder="e.g. Bill of lading" /></div>
+              <div class="fact-field"><label for="factExpiry">Credit / guarantee expiry date</label><input id="factExpiry" type="date" /></div>
+              <div class="fact-field"><label for="factShip">Latest shipment date</label><input id="factShip" type="date" /></div>
+              <div class="fact-field"><label for="factPresented">Presentation date</label><input id="factPresented" type="date" /></div>
+              <div class="fact-field"><label for="factClaim">What the other party is claiming</label><input id="factClaim" type="text" placeholder="e.g. Says the presentation complies" /></div>
+            </div>
+            <div class="facts-actions">
+              <button type="button" class="btn-small" id="factsInsertBtn">Insert these facts into my question</button>
+              <span class="submit-meta">They are added as one short line at the end of your question.</span>
+            </div>
+          </details>
           <p class="privacy-note"><strong>Please don&rsquo;t type anything sensitive</strong> — no customer names, account numbers or confidential deal details. This website does not store your questions.</p>
           <div class="examples">
             <span class="ex-label">Or start from an example:</span>
-            <button type="button" class="example-chip" data-example="The bill of lading is dated after the LC expiry date, but the documents were presented within 21 days of shipment. The beneficiary says the presentation is compliant. Do we have to pay?">Late shipment vs LC expiry</button>
-            <button type="button" class="example-chip" data-example="The invoice shows a different port of loading from the bill of lading, though both are in the same country. Is that a discrepancy we can refuse on?">Invoice vs B/L port mismatch</button>
-            <button type="button" class="example-chip" data-example="Our applicant wants us to waive all discrepancies and pay, but the goods description on the invoice looks inflated compared to market prices. What should we check before honouring?">Waive discrepancies — or check first?</button>
+            <span id="exampleChips"></span>
           </div>
           <p class="step-note" id="queryNote">Please type your question first — a sentence or two about the situation is enough.</p>
           <p class="disclaimer" style="margin:18px 0 0">Guidance based on ICC rules and CDCS material — not an official ICC opinion or legal advice.</p>
           <div class="submit-row">
             <button type="button" class="btn-primary" id="submitBtn">Get my answer</button>
-            <span class="submit-meta">Built on the CDCS and CTFC study texts, with summaries of UCP 600, ISBP 821, URC 522, URDG 758, ISP98 and eUCP v2.1 compiled from ICC publications.</span>
+            <span class="submit-meta">Built on the CDCS and CTFC study texts, with summaries of UCP 600, ISBP 821, URC 522, URDG 758, ISP98 and eUCP v2.1 compiled from ICC publications. <span id="visitCount"></span></span>
           </div>
         </section>
 
@@ -487,13 +570,149 @@
             <span class="step-num" aria-hidden="true">&#10003;</span>
             <h2 id="answerTitle">Your answer</h2>
           </div>
-          <div id="answerContent"></div>
+          <div id="answerContent" aria-live="polite" aria-atomic="false"></div>
           <div class="answer-actions" id="answerActions" style="display:none">
             <button type="button" class="btn-secondary" id="downloadBtn">Download report (PDF)</button>
+            <button type="button" class="btn-secondary" id="copyBtn">Copy answer</button>
+            <button type="button" class="btn-secondary" id="shareBtn">Share</button>
             <button type="button" class="btn-secondary" id="translateBtn">Translate to Hindi</button>
+            <button type="button" class="btn-secondary" id="translateBnBtn">Translate to Bangla</button>
+            <button type="button" class="btn-secondary" id="translateUrBtn">Translate to Urdu</button>
             <button type="button" class="btn-ghost" id="newQuestionBtn">Ask another question</button>
           </div>
+          <p class="not-saved" id="pdfLangNote" style="display:none">The PDF report is always in English — the report writer cannot print Hindi, Bangla or Urdu script yet. Use <strong>Copy answer</strong> to take the translated text with you.</p>
+          <div class="followup-box" id="followupBox" style="display:none">
+            <label for="followupInput">Follow up on this answer</label>
+            <textarea id="followupInput" rows="3" maxlength="2000" placeholder="e.g. The bill of lading was also claused — does that change anything?"></textarea>
+            <div class="submit-row" style="margin-top:12px">
+              <button type="button" class="btn-primary" id="followupBtn" style="padding:11px 26px;font-size:0.97rem">Ask follow-up</button>
+              <span class="submit-meta">Your follow-up is sent together with the earlier question, so the answer builds on it. It counts as one of today&rsquo;s questions.</span>
+            </div>
+          </div>
+          <div class="thread" id="threadBox" style="display:none"></div>
+          <p class="flag-line" id="flagLine" style="display:none">Spotted something that looks wrong? Answers are generated from the rule summaries described below — for anything critical, check the point against the official text.</p>
           <p class="not-saved" id="notSavedLine" style="display:none">This website does not store your questions.</p>
+        </section>
+
+        <section class="step" aria-labelledby="dcTitle">
+          <div class="step-head">
+            <span class="step-num" aria-hidden="true">&#10003;</span>
+            <h2 id="dcTitle">Check a document against the credit</h2>
+          </div>
+          <p style="margin:0 0 14px;color:var(--ink-2)">The daily desk task, in a form: what the credit requires, side by side with what the document actually shows. The Desk checks each point against UCP 600 and ISBP 821 and tells you, point by point, whether it is a discrepancy. Pick your product and role above first.</p>
+          <div class="dc-grid">
+            <div>
+              <label for="dcDoc">Document</label>
+              <select id="dcDoc" style="width:100%;border:1.5px solid var(--line);border-radius:10px;padding:9px 10px;background:#fff;font-size:0.95rem">
+                <option>Bill of lading</option>
+                <option>Commercial invoice</option>
+                <option>Insurance document</option>
+                <option>Certificate of origin</option>
+                <option>Packing list</option>
+                <option>Bill of exchange / draft</option>
+                <option>Other document</option>
+              </select>
+            </div>
+            <div></div>
+            <div><label for="dcReq1">Point 1 — the credit requires</label><textarea id="dcReq1" placeholder="e.g. Port of loading: Shanghai"></textarea></div>
+            <div><label for="dcGot1">Point 1 — the document shows</label><textarea id="dcGot1" placeholder="e.g. Port of loading: Ningbo"></textarea></div>
+            <div><label for="dcReq2">Point 2 — the credit requires (optional)</label><textarea id="dcReq2"></textarea></div>
+            <div><label for="dcGot2">Point 2 — the document shows (optional)</label><textarea id="dcGot2"></textarea></div>
+            <div><label for="dcReq3">Point 3 — the credit requires (optional)</label><textarea id="dcReq3"></textarea></div>
+            <div><label for="dcGot3">Point 3 — the document shows (optional)</label><textarea id="dcGot3"></textarea></div>
+          </div>
+          <p class="step-note" id="dcNote">Add at least one pair — what the credit requires, and what the document shows.</p>
+          <div class="submit-row">
+            <button type="button" class="btn-primary" id="dcBtn" style="padding:11px 26px;font-size:0.97rem">Check this document</button>
+            <span class="submit-meta">Counts as one of today&rsquo;s questions.</span>
+          </div>
+        </section>
+
+        <section class="step" aria-labelledby="toolsTitle">
+          <div class="step-head">
+            <span class="step-num" aria-hidden="true">&#9874;</span>
+            <h2 id="toolsTitle">Desk tools — checklists and deadline calculators</h2>
+          </div>
+          <div class="tool-grid">
+            <div class="tool-card">
+              <h3>Product checklists</h3>
+              <p>One-page working checklists, built from the rules. Tick items off on screen, or download the list as a PDF.</p>
+              <label for="checklistSelect">Checklist for</label>
+              <select id="checklistSelect"></select>
+              <ul class="checklist-items" id="checklistItems"></ul>
+              <div class="facts-actions"><button type="button" class="btn-small" id="checklistPdfBtn">Download checklist (PDF)</button></div>
+            </div>
+            <div>
+              <div class="tool-card" style="margin-bottom:16px">
+                <h3>Five banking days — examination deadline</h3>
+                <p>UCP 600 Art. 14(b): the bank has a maximum of five banking days following the day of presentation to decide whether a presentation complies.</p>
+                <label for="calc5Date">Presentation date</label>
+                <input type="date" id="calc5Date" />
+                <div class="facts-actions"><button type="button" class="btn-small" id="calc5Btn">Work out the deadline</button></div>
+                <p class="calc-out" id="calc5Out"></p>
+              </div>
+              <div class="tool-card">
+                <h3>Extend-or-pay — suspension deadline</h3>
+                <p>URDG 758 Art. 23: faced with an extend-or-pay demand, the guarantor may suspend payment for up to 30 calendar days while the extension is sorted out.</p>
+                <label for="calcEopDate">Date the extend-or-pay demand was received</label>
+                <input type="date" id="calcEopDate" />
+                <div class="facts-actions"><button type="button" class="btn-small" id="calcEopBtn">Work out the deadline</button></div>
+                <p class="calc-out" id="calcEopOut"></p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="step library" aria-labelledby="libTitle">
+          <div class="step-head">
+            <span class="step-num" aria-hidden="true">&#9783;</span>
+            <h2 id="libTitle">Questions the Desk answers well</h2>
+          </div>
+          <p style="margin:0;color:var(--ink-2)">A short library to browse — the kind of question the Desk is built for, with the short answer. For the full worked answer on your own facts, ask the Desk above.</p>
+          <h3 class="lib-group">Documentary credits</h3>
+          <details><summary>The goods were shipped in time, but documents reached us 25 days after shipment. Refuse?</summary><p class="lib-a">Yes — a presentation that includes an original transport document must be made no later than 21 calendar days after the date of shipment, and in any event by the expiry date (UCP 600 Art. 14(c)). Day 25 is late presentation, even though shipment itself was timely. Refuse under Art. 16, or seek the applicant&rsquo;s waiver — the choice is the bank&rsquo;s, not the applicant&rsquo;s to impose.</p></details>
+          <details><summary>The invoice describes the goods slightly differently from the credit. Is that fatal?</summary><p class="lib-a">On the invoice, yes, it can be: the description of the goods in the commercial invoice must correspond with the description in the credit (Art. 18(c)). Other documents may show the goods in general terms not conflicting with the credit (Art. 14(e)). Same word order is not required — but a different product, grade or specification on the invoice is a discrepancy.</p></details>
+          <details><summary>We found discrepancies on a Friday. When must our refusal notice be sent?</summary><p class="lib-a">By close of business on the fifth banking day following the day of presentation (Art. 14(b) and Art. 16(d)). One single notice, stating every discrepancy and how the documents are being held (Art. 16(c)). Miss the deadline or the content, and the bank is precluded from claiming the documents are discrepant (Art. 16(f)) — it must honour.</p></details>
+          <h3 class="lib-group">Standbys and guarantees</h3>
+          <details><summary>A complying demand under our guarantee arrived two days after expiry. Do we pay?</summary><p class="lib-a">No. Under URDG 758 a demand must be presented at the place of issue on or before expiry (Art. 14 and Art. 25); a demand after expiry is not a complying demand, however genuine the underlying default. The guarantee has expired — the beneficiary&rsquo;s remedy lies against the applicant, not the guarantor.</p></details>
+          <details><summary>The beneficiary says &ldquo;extend or pay&rdquo;. What are our options and how long do we have?</summary><p class="lib-a">Under URDG 758 Art. 23 the guarantor may suspend payment for up to 30 calendar days while it seeks the applicant&rsquo;s agreement to extend. If the guarantee is extended, the demand falls away; if not, the guarantor must pay the demand within that window. Under an ISP98 standby the same idea appears in the extend-or-pay rules — the issuer may treat the demand as a demand for payment if it does not extend.</p></details>
+          <details><summary>The demand is in the right form but there is no statement that the applicant is in breach. Complying?</summary><p class="lib-a">Under URDG 758, no: a demand must be supported by a statement indicating in what respect the applicant is in breach of the underlying relationship (Art. 15(a)), unless the guarantee itself excludes it. Under ISP98 a standby may require no statement at all — it depends on what the standby calls for. Read the instrument first; the rules fill gaps, they do not rewrite it.</p></details>
+          <h3 class="lib-group">Collections, transfers and revolving credits</h3>
+          <details><summary>Under a D/P collection the buyer asks us to release the documents against his trust receipt. Can we?</summary><p class="lib-a">Only if the collection instruction authorises it. Under URC 522 the collecting bank releases documents strictly on the terms of the collection instruction; documents against payment means against payment. Releasing against a trust receipt without authority is the bank&rsquo;s own risk — if the buyer then defaults, the bank answers to the remitting bank.</p></details>
+          <details><summary>Can a transferable credit be transferred a second time?</summary><p class="lib-a">No. A second beneficiary cannot transfer onward (UCP 600 Art. 38(d)) — the exception is a transfer back to the first beneficiary. The first beneficiary may substitute its own invoices and drafts for the second beneficiary&rsquo;s, within the limits and mechanics of Art. 38, and keeps the difference as its margin.</p></details>
+          <details><summary>Our revolving credit is &ldquo;cumulative&rdquo;. What does that change?</summary><p class="lib-a">Any amount not drawn in one period carries forward and can be drawn in later periods, on top of that period&rsquo;s amount — total exposure grows if drawings bunch up. In a non-cumulative credit, an undrawn amount simply lapses. Either way, control the aggregate: the credit should state an overall cap, and reinstatement after a drawing happens only on the terms the credit sets out.</p></details>
+          <details><summary>We advanced money under a red clause and the beneficiary never shipped. Who repays us?</summary><p class="lib-a">The advance is made at the issuing bank&rsquo;s risk under the clause: a bank that advances in good faith against the beneficiary&rsquo;s receipt and undertaking is entitled to reimbursement from the issuing bank even if the goods are never shipped, and the issuing bank looks to its applicant. That protection is exactly why the clause&rsquo;s wording — amount, documents, undertaking — must be followed to the letter.</p></details>
+        </section>
+
+        <section class="step how-panel" aria-labelledby="howTitle">
+          <div class="step-head">
+            <span class="step-num" aria-hidden="true">?</span>
+            <h2 id="howTitle">How this Desk works</h2>
+          </div>
+          <p style="margin:0 0 12px;color:var(--ink-2)"><strong>Sources.</strong> Answers are generated automatically from summaries of UCP 600 and ISBP 821 (documentary credits), ISP98 (standbys), URC 522 (collections), URDG 758 (demand guarantees), eUCP v2.1 (electronic presentation) and URR 725 (reimbursements), together with the CDCS study text (2021 edition) and the CTFC trade-based financial crime compliance text. Reference material last reviewed: November 2026.</p>
+          <p style="margin:0 0 12px;color:var(--ink-2)"><strong>Known limits, stated plainly.</strong> The UCP 600 and ISBP material is detailed; the ISP98 and URR 725 material is held at summary level, so answers resting on those rules carry a note to check the official text. The Desk gives the ICC position only — it does not cover local law or a local regulator&rsquo;s practice, which can change the outcome where you sit. Topics outside the eight products above — forfaiting, Islamic trade finance structures, supply-chain finance — are outside the Desk&rsquo;s reference material; the Desk will say so rather than improvise.</p>
+          <p style="margin:0 0 12px;color:var(--ink-2)"><strong>Check the rules yourself.</strong> The official texts are published by the ICC — see the <a href="https://academy.iccwbo.org/" target="_blank" rel="noopener noreferrer">ICC Academy</a> and <a href="https://iccwbo.org/" target="_blank" rel="noopener noreferrer">ICC</a> websites. Where an answer turns on a pinpoint sub-paragraph the Desk could not verify, it cites the article alone rather than guess.</p>
+          <p style="margin:0 0 12px;color:var(--ink-2)"><strong>Curator.</strong> The Desk is curated by Deepanjan Guha, a senior banking operations head specialising in trade finance. Corrections, when made, are logged below.</p>
+          <details><summary>Corrections log</summary><p class="lib-a">26 November 2026 — a full critical review of the Desk: two pinpoint citations found in test answers (an advising-bank sub-paragraph and standby sub-rules) were corrected, the answering instructions were tightened so unverified sub-paragraphs are never cited, and error messages on this page were rewritten to say honestly what went wrong.</p></details>
+        </section>
+
+        <section class="step faq-list" aria-labelledby="faqTitle">
+          <div class="step-head">
+            <span class="step-num" aria-hidden="true">?</span>
+            <h2 id="faqTitle">Common questions</h2>
+          </div>
+          <details><summary>Is the Trade Finance Query Desk free?</summary><p class="faq-a">Yes. It is free to use, with no sign-up and no OTP. To keep it free and fair for everyone, questions are limited to 10 a day per visitor.</p></details>
+          <details><summary>Are my questions stored?</summary><p class="faq-a">No. This website does not store your questions. Please do not type anything sensitive — no customer names, account numbers or confidential deal details.</p></details>
+          <details><summary>Which rules does the Desk cover?</summary><p class="faq-a">UCP 600 and ISBP 821 for documentary credits, ISP98 for standbys, URC 522 for collections, URDG 758 for demand guarantees, eUCP v2.1 for electronic presentation, and the CDCS and CTFC study material behind them.</p></details>
+          <details><summary>Can I rely on an answer for a live transaction?</summary><p class="faq-a">Treat every answer as guidance, not as an official ICC opinion or legal advice. Check critical points against the official rule texts before you act on a live transaction.</p></details>
+        </section>
+
+        <section class="step" aria-labelledby="watchTitle">
+          <div class="step-head">
+            <span class="step-num" aria-hidden="true">&#9998;</span>
+            <h2 id="watchTitle">Trade rules watch — November 2026</h2>
+          </div>
+          <p class="watch-note"><strong>Current editions the Desk works from:</strong> UCP 600 (2007) with ISBP 821 for document examination; eUCP v2.1 for electronic presentation; URDG 758 for demand guarantees; ISP98 for standbys; URC 522 for collections. No revision to these rule sets has been published since the Desk&rsquo;s reference material was reviewed in November 2026. When the ICC publishes new rules, opinions or practice guidance, this note and the Desk&rsquo;s material are updated together.</p>
         </section>
 
         <footer class="site">
@@ -558,7 +777,7 @@
         "Guarantor / Guarantee-Issuing Bank", "Freight Forwarder / Carrier"
       ];
 
-      var state = { product: PRODUCTS[0], role: null, lastAnswerMd: "", lastAnswerHi: "", showingHi: false, lastQuery: "" };
+      var state = { product: PRODUCTS[0], role: null, lastAnswerMd: "", lastQuery: "", thread: [], translations: {}, showingLang: "", pendingQuery: "", askedCount: 0 };
 
       var productGrid = document.getElementById("productGrid");
       var roleList = document.getElementById("roleList");
@@ -587,7 +806,7 @@
 
         var img = document.createElement("img");
         img.src = p.img;
-        img.alt = "";
+        img.alt = p.alt;
         img.loading = "lazy";
         img.decoding = "async";
         img.loading = "lazy";
@@ -626,34 +845,117 @@
         featuredRules.textContent = p.rules;
         featuredDesc.textContent = p.desc;
         chosenProduct.textContent = p.name;
+        renderRoles(p);
+        renderExamples(p);
       }
 
-      /* ---------- Build role pills ---------- */
-      ROLES.forEach(function (r) {
-        var btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "role-pill";
-        btn.setAttribute("aria-pressed", "false");
-        btn.textContent = r;
-        btn.addEventListener("click", function () {
-          state.role = r;
-          roleList.querySelectorAll(".role-pill").forEach(function (pill) {
-            pill.setAttribute("aria-pressed", pill === btn ? "true" : "false");
+      /* ---------- Build role pills (filtered by product — only roles that
+         actually exist in the selected product are offered) ---------- */
+      var PRODUCT_ROLES = {
+        "documentary-credit": ["Issuing Bank", "Advising Bank", "Confirming Bank", "Negotiating Bank", "Nominated Bank", "Presenting Bank", "Reimbursing Bank", "Applicant (Importer)", "Beneficiary (Exporter)", "Freight Forwarder / Carrier"],
+        "standby-lc": ["Issuing Bank", "Advising Bank", "Confirming Bank", "Presenting Bank", "Applicant (Importer)", "Beneficiary (Exporter)"],
+        "documentary-collection": ["Remitting Bank", "Collecting Bank", "Presenting Bank", "Applicant (Importer)", "Beneficiary (Exporter)"],
+        "demand-guarantee": ["Guarantor / Guarantee-Issuing Bank", "Presenting Bank", "Applicant (Importer)", "Beneficiary (Exporter)"],
+        "back-to-back-lc": ["Issuing Bank", "Advising Bank", "Confirming Bank", "Negotiating Bank", "Nominated Bank", "Applicant (Importer)", "Beneficiary (Exporter)"],
+        "transferable-lc": ["Issuing Bank", "Advising Bank", "Confirming Bank", "Negotiating Bank", "Nominated Bank", "Presenting Bank", "Reimbursing Bank", "Applicant (Importer)", "Beneficiary (Exporter)"],
+        "red-green-clause": ["Issuing Bank", "Advising Bank", "Confirming Bank", "Negotiating Bank", "Nominated Bank", "Applicant (Importer)", "Beneficiary (Exporter)"],
+        "revolving-lc": ["Issuing Bank", "Advising Bank", "Confirming Bank", "Negotiating Bank", "Nominated Bank", "Presenting Bank", "Reimbursing Bank", "Applicant (Importer)", "Beneficiary (Exporter)"]
+      };
+      function renderRoles(p) {
+        var list = PRODUCT_ROLES[p.id] || ROLES;
+        if (state.role && list.indexOf(state.role) === -1) {
+          state.role = null;
+          chosenRole.textContent = "—";
+        }
+        roleList.innerHTML = "";
+        list.forEach(function (r) {
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "role-pill";
+          btn.setAttribute("aria-pressed", state.role === r ? "true" : "false");
+          btn.textContent = r;
+          btn.addEventListener("click", function () {
+            state.role = r;
+            roleList.querySelectorAll(".role-pill").forEach(function (pill) {
+              pill.setAttribute("aria-pressed", pill === btn ? "true" : "false");
+            });
+            chosenRole.textContent = r;
+            roleNote.classList.remove("show");
           });
-          chosenRole.textContent = r;
-          roleNote.classList.remove("show");
+          roleList.appendChild(btn);
         });
-        roleList.appendChild(btn);
-      });
+      }
+      renderRoles(state.product);
 
-      /* ---------- Example chips ---------- */
-      document.querySelectorAll(".example-chip").forEach(function (chip) {
-        chip.addEventListener("click", function () {
-          queryInput.value = chip.dataset.example;
-          queryNote.classList.remove("show");
-          queryInput.focus();
+      /* ---------- Example chips (three per product) ---------- */
+      var EXAMPLES = {
+        "documentary-credit": [
+          ["Late shipment vs LC expiry", "The bill of lading is dated after the LC expiry date, but the documents were presented within 21 days of shipment. The beneficiary says the presentation is compliant. Do we have to pay?"],
+          ["Invoice vs B/L port mismatch", "The invoice shows a different port of loading from the bill of lading, though both are in the same country. Is that a discrepancy we can refuse on?"],
+          ["Waive discrepancies — or check first?", "Our applicant wants us to waive all discrepancies and pay, but the goods description on the invoice looks inflated compared to market prices. What should we check before honouring?"]
+        ],
+        "standby-lc": [
+          ["Extend-or-pay on a standby", "We received an extend-or-pay demand under our standby two days before expiry. What are our options, and what deadlines run from here?"],
+          ["Demand dated before expiry, presented after", "The demand letter is dated before the standby expired but reached us three days after expiry. Must we pay?"],
+          ["Standby silent on which rules apply", "Our standby does not say whether ISP98 or UCP 600 applies. Does it matter in practice, and what should we do at issuance next time?"]
+        ],
+        "documentary-collection": [
+          ["Release against a trust receipt?", "Under a D/P collection the buyer asks us to release the documents against his trust receipt because his funds arrive next week. Can we agree?"],
+          ["Drawee will not accept the D/A draft", "We presented a D/A collection and the drawee refuses to accept the draft. What should we do, and what do we tell the remitting bank?"],
+          ["Goods arrived before the documents", "The goods have reached the port but the collection documents have not arrived, and storage charges are building up. What is our position as collecting bank?"]
+        ],
+        "demand-guarantee": [
+          ["Demand without a breach statement", "The beneficiary's demand is in the form the guarantee requires, but there is no statement of how the applicant is in breach. Is it a complying demand under URDG 758?"],
+          ["Extend-or-pay — how long can we suspend?", "We have an extend-or-pay demand under a URDG 758 guarantee. How long can we suspend payment, and what must happen before the window closes?"],
+          ["Demand arrived after expiry", "A complying-looking demand reached us two days after the guarantee expired. The beneficiary says the default happened before expiry. Do we pay?"]
+        ],
+        "back-to-back-lc": [
+          ["Baby credit outlives the master", "The baby credit we issued expires three weeks after the master credit in our favour. Where exactly is our risk, and how do we fix the dates?"],
+          ["Substituted invoice exceeds the master amount", "The second beneficiary shipped in full, but after our first beneficiary substitutes its invoice the total exceeds what the master credit allows. What happens?"],
+          ["Master applicant defaults — are we still liable?", "The applicant under the master credit has gone into liquidation. Are we still bound to honour under the baby credit we issued?"]
+        ],
+        "transferable-lc": [
+          ["First beneficiary wants to substitute invoices", "The first beneficiary asks to substitute its own invoices for the second beneficiary's. What must we check before allowing it, and what happens if it fails to substitute on first demand?"],
+          ["Can the credit be transferred twice?", "The second beneficiary wants to transfer the credit onward to its own supplier. Is a second transfer allowed under UCP 600?"],
+          ["Who pays the transfer charges?", "The first beneficiary and the transferring bank disagree about who bears the cost of the transfer. What does UCP 600 say?"]
+        ],
+        "red-green-clause": [
+          ["Advance paid, goods never shipped", "We advanced 80% under a red clause against the beneficiary's receipt and undertaking, and the goods were never shipped. Who repays us, and what do we check first?"],
+          ["Green clause — storage period expired", "Under a green clause the goods are still in the warehouse past the insured storage period. What is our exposure and what should we do now?"],
+          ["How much can we safely advance?", "The credit has a red clause but does not state a maximum advance. How do we decide how much to advance before shipment?"]
+        ],
+        "revolving-lc": [
+          ["Cumulative — can last month's balance be drawn?", "Our revolving credit is cumulative and the beneficiary drew nothing last month. Can it draw double this month?"],
+          ["Capping total exposure", "We issue time-revolving credits for a regular buyer. How should the credit be worded so our total exposure is capped?"],
+          ["Reinstatement after a drawing was refused", "A drawing under our revolving credit was refused for discrepancies. Does the credit still reinstate for the next period?"]
+        ]
+      };
+      function renderExamples(p) {
+        var box = document.getElementById("exampleChips");
+        box.innerHTML = "";
+        (EXAMPLES[p.id] || []).forEach(function (ex) {
+          var chip = document.createElement("button");
+          chip.type = "button";
+          chip.className = "example-chip";
+          chip.textContent = ex[0];
+          chip.addEventListener("click", function () {
+            queryInput.value = ex[1];
+            queryNote.classList.remove("show");
+            updateCharCount();
+            queryInput.focus();
+          });
+          box.appendChild(chip);
+          box.appendChild(document.createTextNode(" "));
         });
-      });
+      }
+      function updateCharCount() {
+        var cc = document.getElementById("charCount");
+        if (!cc) return;
+        cc.textContent = queryInput.value.length + " / 2,000 characters";
+        cc.classList.toggle("over", queryInput.value.length >= 2000);
+      }
+      queryInput.addEventListener("input", updateCharCount);
+      renderExamples(state.product);
 
       /* ---------- Minimal, safe markdown renderer ---------- */
       function escapeHtml(s) {
@@ -714,42 +1016,141 @@
                '<p class="answer-question"><span class="q-label">Your question</span>' +
                escapeHtml(state.lastQuery) + "</p>";
       }
+      var loadTimer = null;
+      function stopLoadProgress() { if (loadTimer) { clearInterval(loadTimer); loadTimer = null; } }
       function showLoading() {
         answerActions.style.display = "none";
         notSavedLine.style.display = "none";
+        document.getElementById("followupBox").style.display = "none";
+        document.getElementById("flagLine").style.display = "none";
         answerContent.innerHTML =
           '<div class="loading"><div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>' +
           "<p><strong>Working on your answer&hellip;</strong></p>" +
-          '<p class="load-sub">Checking the ICC rules, CDCS guidance and the compliance angles for a ' +
-          escapeHtml(state.role || "") + " on a " + escapeHtml(state.product.name.toLowerCase()) + ".</p></div>";
+          '<p class="load-sub" id="loadMsg">Reading your question&hellip;</p>' +
+          '<p class="load-sub">A full answer can take a couple of minutes — please keep this page open.</p></div>';
         showAnswerSection();
+        var msgs = [
+          "Reading your question\u2026",
+          "Checking the rules for a " + (state.role || "bank") + " on a " + state.product.name.toLowerCase() + "\u2026",
+          "Working through a concrete example\u2026",
+          "Checking the risk and compliance angles\u2026",
+          "Still working — careful answers take a little time\u2026"
+        ];
+        var mi = 0;
+        stopLoadProgress();
+        loadTimer = setInterval(function () {
+          mi = Math.min(mi + 1, msgs.length - 1);
+          var el = document.getElementById("loadMsg");
+          if (el) el.textContent = msgs[mi];
+        }, 9000);
       }
-      function showEngineNote() {
+      var ERROR_STATES = {
+        busy: { warn: true, title: "The Desk is busy just now.",
+          body: "A lot of people are asking questions at the moment, and this one did not get through. Your question is safe above — wait a minute and try again." },
+        limit: { warn: true, title: "You have used today's questions.",
+          body: "The Desk allows 10 questions a day per visitor, so it stays free and fair for everyone. Your allowance resets tomorrow — please come back then." },
+        timeout: { warn: true, title: "That took too long.",
+          body: "The answer did not arrive in time, so nothing was counted. Your question is safe above — please try again." },
+        unavailable: { warn: false, title: "The Desk cannot be reached just now.",
+          body: "Something is wrong at our end, not yours. Your question is safe above — please try again shortly." }
+      };
+      function showError(kind) {
+        stopLoadProgress();
+        var e = ERROR_STATES[kind] || ERROR_STATES.unavailable;
         answerActions.style.display = "none";
+        document.getElementById("followupBox").style.display = "none";
+        document.getElementById("flagLine").style.display = "none";
         notSavedLine.style.display = "block";
         answerContent.innerHTML = contextTags() +
-          '<div class="engine-note"><strong>The answering engine is being connected.</strong>' +
-          "<p>Your question is noted above, but the engine that answers from the ICC rules and CDCS material is not live on this page just yet. Please try again shortly — no sign-up is needed.</p></div>";
+          '<div class="engine-note' + (e.warn ? " warn" : "") + '"><strong>' + e.title + "</strong>" +
+          "<p>" + e.body + "</p>" +
+          (kind === "limit" ? "" : '<p class="retry-row"><button type="button" class="btn-secondary" id="retryBtn">Try again</button></p>') +
+          "</div>";
         showAnswerSection();
+        var rb = document.getElementById("retryBtn");
+        if (rb) rb.addEventListener("click", function () { submitQuery(state.pendingQuery); });
       }
       var translateBtn = document.getElementById("translateBtn");
+      var translateBnBtn = document.getElementById("translateBnBtn");
+      var translateUrBtn = document.getElementById("translateUrBtn");
       function renderAnswerBody() {
-        var md = state.showingHi && state.lastAnswerHi ? state.lastAnswerHi : state.lastAnswerMd;
-        answerContent.innerHTML = contextTags() + '<div class="answer-body"' +
-          (state.showingHi ? ' lang="hi"' : "") + ">" + renderMarkdown(md) + "</div>";
-        translateBtn.textContent = state.showingHi ? "Show in English" : "Translate to Hindi";
+        var lang = state.showingLang;
+        var md = lang && state.translations[lang] ? state.translations[lang] : state.lastAnswerMd;
+        var attrs = lang ? ' lang="' + lang + '"' + (lang === "ur" ? ' dir="rtl"' : "") : "";
+        answerContent.innerHTML = contextTags() + '<div class="answer-body"' + attrs + ">" + renderMarkdown(md) + "</div>";
+        translateBtn.textContent = lang === "hi" ? "Show in English" : "Translate to Hindi";
+        translateBnBtn.textContent = lang === "bn" ? "Show in English" : "Translate to Bangla";
+        translateUrBtn.textContent = lang === "ur" ? "Show in English" : "Translate to Urdu";
+        document.getElementById("pdfLangNote").style.display = lang ? "block" : "none";
+      }
+      function threadPdfMd() {
+        if (state.thread.length <= 1) return state.lastAnswerMd;
+        var out = state.thread[0].a;
+        for (var i = 1; i < state.thread.length; i++) {
+          out += "\n\n## Follow-up question\n\n" + state.thread[i].q + "\n\n" + state.thread[i].a;
+        }
+        return out;
+      }
+      function renderThread() {
+        var box = document.getElementById("threadBox");
+        if (state.thread.length <= 1) { box.style.display = "none"; box.innerHTML = ""; return; }
+        var html = "<h3 style=\"margin:0 0 10px;font-size:1rem;color:var(--navy)\">Conversation so far</h3>";
+        for (var i = 0; i < state.thread.length - 1; i++) {
+          html += "<details><summary>" + escapeHtml(state.thread[i].q.slice(0, 110)) + (state.thread[i].q.length > 110 ? "\u2026" : "") + "</summary>" +
+                  '<div class="answer-body">' + renderMarkdown(state.thread[i].a) + "</div></details>";
+        }
+        box.innerHTML = html;
+        box.style.display = "block";
       }
       function showAnswer(md) {
+        stopLoadProgress();
+        state.thread.push({ q: state.lastQuery, a: md });
         state.lastAnswerMd = md;
-        state.lastAnswerHi = "";
-        state.showingHi = false;
+        state.translations = {};
+        state.showingLang = "";
+        state.askedCount += 1;
+        document.getElementById("visitCount").textContent = " Questions asked this visit: " + state.askedCount + ".";
         renderAnswerBody();
+        renderThread();
         answerActions.style.display = "flex";
+        document.getElementById("followupBox").style.display = "block";
+        document.getElementById("flagLine").style.display = "block";
         notSavedLine.style.display = "block";
         showAnswerSection();
       }
 
       /* ---------- Submit ---------- */
+      function submitQuery(query) {
+        state.pendingQuery = query;
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Working\u2026";
+        showLoading();
+        var controller = ("AbortController" in window) ? new AbortController() : null;
+        var timer = controller ? setTimeout(function () { controller.abort(); }, 180000) : null;
+        var kind = null;
+        fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ product: state.product.name, role: state.role, query: query }),
+          signal: controller ? controller.signal : undefined
+        }).then(function (res) {
+          if (timer) clearTimeout(timer);
+          if (res.status === 429) { kind = "limit"; throw new Error("limit"); }
+          if (!res.ok) { kind = res.status >= 500 ? "busy" : "unavailable"; throw new Error("http " + res.status); }
+          return res.json();
+        }).then(function (data) {
+          var md = data && (data.answer || data.markdown || data.text);
+          if (!md || typeof md !== "string") { kind = "busy"; throw new Error("empty answer"); }
+          showAnswer(md);
+        }).catch(function (err) {
+          if (timer) clearTimeout(timer);
+          if (!kind) kind = (err && err.name === "AbortError") ? "timeout" : "unavailable";
+          showError(kind);
+        }).finally(function () {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Get my answer";
+        });
+      }
       submitBtn.addEventListener("click", function () {
         var query = queryInput.value.trim();
         var ok = true;
@@ -759,85 +1160,65 @@
           (state.role ? queryInput : roleList).scrollIntoView({ behavior: "smooth", block: "center" });
           return;
         }
+        state.thread = [];
         state.lastQuery = query;
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Working…";
-        showLoading();
-
-        var controller = ("AbortController" in window) ? new AbortController() : null;
-        var timer = controller ? setTimeout(function () { controller.abort(); }, 120000) : null;
-
-        fetch(API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ product: state.product.name, role: state.role, query: query }),
-          signal: controller ? controller.signal : undefined
-        }).then(function (res) {
-          if (timer) clearTimeout(timer);
-          if (!res.ok) throw new Error("engine unavailable");
-          return res.json();
-        }).then(function (data) {
-          var md = data && (data.answer || data.markdown || data.text);
-          if (!md || typeof md !== "string") throw new Error("empty answer");
-          showAnswer(md);
-        }).catch(function () {
-          if (timer) clearTimeout(timer);
-          showEngineNote();
-        }).finally(function () {
-          submitBtn.disabled = false;
-          submitBtn.textContent = "Get my answer";
-        });
+        submitQuery(query);
       });
 
-      /* ---------- Hindi translation ---------- */
-      translateBtn.addEventListener("click", function () {
-        if (state.showingHi) {
-          state.showingHi = false;
-          renderAnswerBody();
-          return;
-        }
-        if (state.lastAnswerHi) {
-          state.showingHi = true;
-          renderAnswerBody();
-          return;
-        }
+      /* ---------- Translation (Hindi today; Bangla and Urdu wired the same
+         way and switch on automatically when the service returns them) ---- */
+      function translateTo(lang, btn, label) {
+        if (state.showingLang === lang) { state.showingLang = ""; renderAnswerBody(); return; }
+        if (state.translations[lang]) { state.showingLang = lang; renderAnswerBody(); return; }
         if (!state.lastAnswerMd) return;
-        translateBtn.disabled = true;
-        translateBtn.textContent = "Translating…";
+        btn.disabled = true;
+        var restore = btn.textContent;
+        btn.textContent = "Translating\u2026";
         var controller = ("AbortController" in window) ? new AbortController() : null;
         var timer = controller ? setTimeout(function () { controller.abort(); }, 120000) : null;
         fetch(TRANSLATE_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text: state.lastAnswerMd }),
+          body: JSON.stringify({ text: state.lastAnswerMd, lang: lang }),
           signal: controller ? controller.signal : undefined
         }).then(function (res) {
           if (timer) clearTimeout(timer);
           if (!res.ok) throw new Error("translate unavailable");
           return res.json();
         }).then(function (data) {
-          var hi = data && data.translation;
-          if (!hi || typeof hi !== "string") throw new Error("empty translation");
-          state.lastAnswerHi = hi;
-          state.showingHi = true;
+          var t = data && data.translation;
+          if (!t || typeof t !== "string") throw new Error("empty translation");
+          if (lang !== "hi" && data.lang !== lang) {
+            btn.textContent = label + " translation is not available yet \u2014 Hindi works today";
+            setTimeout(function () { btn.textContent = restore; }, 4000);
+            return;
+          }
+          state.translations[lang] = t;
+          state.showingLang = lang;
           renderAnswerBody();
         }).catch(function () {
           if (timer) clearTimeout(timer);
-          translateBtn.textContent = "Translation unavailable — try again";
-          setTimeout(function () {
-            if (!state.showingHi) translateBtn.textContent = "Translate to Hindi";
-          }, 3000);
+          btn.textContent = "Translation unavailable \u2014 try again";
+          setTimeout(function () { btn.textContent = restore; }, 3000);
         }).finally(function () {
-          translateBtn.disabled = false;
-          if (state.showingHi) translateBtn.textContent = "Show in English";
+          btn.disabled = false;
         });
-      });
+      }
+      translateBtn.addEventListener("click", function () { translateTo("hi", translateBtn, "Hindi"); });
+      translateBnBtn.addEventListener("click", function () { translateTo("bn", translateBnBtn, "Bangla"); });
+      translateUrBtn.addEventListener("click", function () { translateTo("ur", translateUrBtn, "Urdu"); });
 
       document.getElementById("newQuestionBtn").addEventListener("click", function () {
-        state.lastAnswerHi = "";
-        state.showingHi = false;
+        state.thread = [];
+        state.translations = {};
+        state.showingLang = "";
+        document.getElementById("threadBox").style.display = "none";
+        document.getElementById("followupBox").style.display = "none";
+        document.getElementById("flagLine").style.display = "none";
+        document.getElementById("followupInput").value = "";
         answerSection.classList.remove("show");
         queryInput.value = "";
+        updateCharCount();
         queryInput.focus();
         queryInput.scrollIntoView({ behavior: "smooth", block: "center" });
       });
@@ -951,7 +1332,7 @@
         function ensure(price) { if (y + price > H - 66) newPage(false); }
         newPage(true);
         /* ---- Info box: product, role, question ---- */
-        var qLines = wrapWords(state.lastQuery || "", 10.5, false, CW - 32);
+        var qLines = wrapWords(state.thread.length ? state.thread[0].q : (state.lastQuery || ""), 10.5, false, CW - 32);
         var boxH = 20 + 13 + 17 + 10 + 13 + 17 + 10 + 13 + qLines.length * 15 + 14;
         rect(M, y, CW, boxH, FILL);
         var by = y + 24;
@@ -963,7 +1344,7 @@
         qLines.forEach(function (l, i) { txt(l, M + 16, by + i * 15, "F3", 10.5, INK); });
         y += boxH + 26;
         /* ---- Answer blocks ---- */
-        mdToBlocks(state.lastAnswerMd).forEach(function (b) {
+        mdToBlocks(threadPdfMd()).forEach(function (b) {
           if (b.t === "h") {
             ensure(44); y += 12;
             txt(b.text, M, y + 13, "F2", 13, NAVY);
@@ -1030,17 +1411,211 @@
         for (var bi = 0; bi < pdf.length; bi++) bytes[bi] = pdf.charCodeAt(bi) & 0xFF;
         return new Blob([bytes], { type: "application/pdf" });
       }
+      function slugify(s) { return (s || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""); }
       document.getElementById("downloadBtn").addEventListener("click", function () {
         var blob = buildPdf();
         var url = URL.createObjectURL(blob);
         var a = document.createElement("a");
         a.href = url;
-        a.download = "trade-finance-query-desk-report.pdf";
+        var d = new Date();
+        var ymd = d.getFullYear() + String(d.getMonth() + 1).padStart(2, "0") + String(d.getDate()).padStart(2, "0");
+        a.download = "trade-finance-" + slugify(state.product.name) + "-" + slugify(state.role || "desk") + "-" + ymd + ".pdf";
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
         setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
       });
+    </script>
+    <script>
+      "use strict";
+      /* ---------- Added tools (review fixes, Nov 2026). Everything here is
+         client-side: nothing is stored or sent anywhere except the same
+         question endpoint the main form already uses. ---------- */
+      (function () {
+        function $(id) { return document.getElementById(id); }
+        function prettyDate(v) {
+          if (!v) return "";
+          var d = new Date(v + "T00:00:00");
+          if (isNaN(d.getTime())) return v;
+          return d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+        }
+        function fullDate(d) {
+          return d.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+        }
+
+        /* ----- Key-facts helper (item 18) ----- */
+        $("factsInsertBtn").addEventListener("click", function () {
+          var bits = [];
+          var amt = $("factAmount").value.trim(), doc = $("factDoc").value.trim(),
+              exp = $("factExpiry").value, ship = $("factShip").value,
+              pres = $("factPresented").value, claim = $("factClaim").value.trim();
+          if (amt) bits.push("amount " + amt);
+          if (doc) bits.push("main document: " + doc);
+          if (exp) bits.push("expiry " + prettyDate(exp));
+          if (ship) bits.push("latest shipment " + prettyDate(ship));
+          if (pres) bits.push("presented " + prettyDate(pres));
+          if (claim) bits.push("the other party claims: " + claim);
+          if (!bits.length) { $("factAmount").focus(); return; }
+          var line = "Key facts \u2014 " + bits.join("; ") + ".";
+          var cur = queryInput.value.replace(/\s+$/, "");
+          queryInput.value = (cur ? cur + "\n" : "") + line;
+          if (queryInput.value.length > 2000) queryInput.value = queryInput.value.slice(0, 2000);
+          updateCharCount();
+          queryInput.focus();
+        });
+
+        /* ----- Discrepancy checker, guided form (item 6) ----- */
+        $("dcBtn").addEventListener("click", function () {
+          var pairs = [];
+          for (var i = 1; i <= 3; i++) {
+            var r = $("dcReq" + i).value.trim(), g = $("dcGot" + i).value.trim();
+            if (r && g) pairs.push("Point " + pairs.length + 1 + " \u2014 the credit requires: " + r + " The document shows: " + g);
+            // fix numbering below (pairs.length already incremented)
+          }
+          pairs = pairs.map(function (p, idx) { return p.replace(/^Point \d+/, "Point " + (idx + 1)); });
+          if (!pairs.length) { $("dcNote").classList.add("show"); $("dcReq1").focus(); return; }
+          $("dcNote").classList.remove("show");
+          if (!state.role) {
+            roleNote.classList.add("show");
+            roleList.scrollIntoView({ behavior: "smooth", block: "center" });
+            return;
+          }
+          var creditLike = ["documentary-credit", "back-to-back-lc", "transferable-lc", "revolving-lc", "red-green-clause"].indexOf(state.product.id) !== -1;
+          var q = "Please check the following document against the credit, point by point. For each point, tell me clearly whether it is a discrepancy" +
+                  (creditLike ? " under UCP 600 and ISBP 821" : " under the rules governing this product") +
+                  ", and why.\nDocument: " + $("dcDoc").value + "\n" + pairs.join("\n");
+          if (q.length > 2000) q = q.slice(0, 2000);
+          state.thread = [];
+          state.lastQuery = q;
+          queryInput.value = q;
+          updateCharCount();
+          submitQuery(q);
+        });
+
+        /* ----- Checklists (item 8) ----- */
+        var CHECKLISTS = {
+          "documentary-credit": ["Presentation is within the credit's expiry date and, where a transport document is presented, within 21 days of shipment (Art. 14(c))", "Documents are the ones the credit calls for, originals and copies as stipulated (Art. 17)", "Data across the documents does not conflict (Art. 14(d))", "Invoice description corresponds with the credit, and the amount is within tolerance (Art. 18 and Art. 30)", "Transport document is clean, on board, and shows the ports and dates the credit requires", "Insurance covers the risks named, for at least 110% of the CIF or CIP value, effective no later than shipment (Art. 28)", "If refusing: one notice stating every discrepancy, sent by close of the fifth banking day (Art. 16)"],
+          "standby-lc": ["Demand presented at the place, and in the form, the standby requires — before expiry", "Any statement or document the standby calls for is included and signed as stipulated", "Partial and multiple drawings used only if the standby does not prohibit them", "Extend-or-pay demand received: the response window the rules give you is diarised", "The standby's own rules clause (ISP98 or UCP) checked before applying either set of rules", "If expiry falls on a day the issuer is closed, the standby's business-day rule checked before treating a demand as late"],
+          "documentary-collection": ["Collection instruction is complete — if it is not, clarification sought before acting (URC 522)", "Documents received match the list in the instruction; any mismatch advised at once", "Documents released only against payment (D/P) or acceptance (D/A), exactly as instructed", "No release against a trust receipt or part payment unless the instruction allows it", "Payment, acceptance, non-payment or dishonour advised without delay", "Charges collected or deducted only as the instruction provides"],
+          "demand-guarantee": ["Demand is in the form the guarantee requires, at the place of issue, before expiry (URDG 758 Art. 14)", "Supporting statement of the applicant's breach is included, unless the guarantee excludes it (Art. 15)", "Non-documentary conditions disregarded (Art. 7)", "Extend-or-pay: the 30-calendar-day suspension clock starts on the day the demand is received (Art. 23)", "Counter-guarantee in place: the separate demand on the counter-guarantor is made in time", "No complying demand by expiry: the guarantee is terminated (Art. 25)"],
+          "back-to-back-lc": ["Baby credit expires before the master credit; shipment and presentation dates step back the same way", "Baby amount sits below the master amount by the intended margin", "Documents required under the baby credit can satisfy the master credit without amendment", "Invoice substitution mechanics agreed with the first beneficiary in writing", "Master credit availability does not depend on the baby credit performing", "Currencies, ports and goods descriptions align across both credits"],
+          "transferable-lc": ["Transfer made only on the original terms, apart from the reductions UCP 600 Art. 38 permits", "No onward transfer by a second beneficiary (Art. 38(d))", "First beneficiary's substitution rights diarised, with the first-demand deadline understood (Art. 38)", "Transfer charges allocated as the credit states", "Amendments advised to every second beneficiary, and acceptances tracked individually", "Second beneficiary's documents checked against the transferred terms, not the original credit"],
+          "red-green-clause": ["Advance made only against the documents the clause names — receipt, warehouse receipt, undertaking", "Advance plus interest stays within the credit amount", "Beneficiary's undertaking to ship and to present documents is on file", "Green clause: warehouse, storage period and insurance verified and diarised", "Shipment deadline diarised; reimbursement position confirmed with the issuing bank if goods are not shipped", "The clause wording followed exactly — the advancing bank's protection depends on it"],
+          "revolving-lc": ["The credit states whether it is cumulative or non-cumulative — aggregate exposure controlled either way", "An overall maximum liability is stated in the credit", "The reinstatement trigger is explicit: on honour, on acceptance, or on a fixed date", "A refused drawing: reinstatement follows the credit's terms, never an assumption", "The notice period for reducing or cancelling future instalments is workable", "Exposure reporting aggregates all periods, not just the current one"]
+        };
+        var clSelect = $("checklistSelect");
+        PRODUCTS.forEach(function (p) {
+          var o = document.createElement("option");
+          o.value = p.id; o.textContent = p.name;
+          clSelect.appendChild(o);
+        });
+        function renderChecklist() {
+          var ul = $("checklistItems");
+          ul.innerHTML = "";
+          (CHECKLISTS[clSelect.value] || []).forEach(function (item) {
+            var li = document.createElement("li");
+            var cb = document.createElement("input");
+            cb.type = "checkbox";
+            li.appendChild(cb);
+            li.appendChild(document.createTextNode(item));
+            ul.appendChild(li);
+          });
+        }
+        clSelect.addEventListener("change", renderChecklist);
+        renderChecklist();
+        $("checklistPdfBtn").addEventListener("click", function () {
+          var p = PRODUCTS.filter(function (x) { return x.id === clSelect.value; })[0] || state.product;
+          var md = "## " + p.name + " \u2014 working checklist\n\n" +
+                   (CHECKLISTS[p.id] || []).map(function (item, i) { return (i + 1) + ". " + item; }).join("\n") +
+                   "\n\n*Guidance based on ICC rules and CDCS material \u2014 not an official ICC opinion or legal advice.*";
+          var saved = { product: state.product, role: state.role, lastQuery: state.lastQuery, lastAnswerMd: state.lastAnswerMd, thread: state.thread };
+          state.product = p;
+          state.role = state.role || "Desk checklist";
+          state.lastQuery = "Document checklist \u2014 " + p.name;
+          state.thread = [];
+          state.lastAnswerMd = md;
+          var blob = buildPdf();
+          state.product = saved.product; state.role = saved.role; state.lastQuery = saved.lastQuery;
+          state.lastAnswerMd = saved.lastAnswerMd; state.thread = saved.thread;
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement("a");
+          a.href = url;
+          a.download = "trade-finance-checklist-" + slugify(p.name) + ".pdf";
+          document.body.appendChild(a); a.click(); document.body.removeChild(a);
+          setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+        });
+
+        /* ----- Calculators (item 8) ----- */
+        $("calc5Btn").addEventListener("click", function () {
+          var v = $("calc5Date").value, out = $("calc5Out");
+          if (!v) { $("calc5Date").focus(); return; }
+          var d = new Date(v + "T00:00:00"), count = 0;
+          while (count < 5) {
+            d.setDate(d.getDate() + 1);
+            if (d.getDay() !== 0 && d.getDay() !== 6) count++;
+          }
+          out.innerHTML = "Presented <strong>" + fullDate(new Date(v + "T00:00:00")) + "</strong>. The fifth banking day after presentation is <strong>" + fullDate(d) + "</strong> \u2014 a refusal notice under UCP 600 Art. 16 must be given by close of business that day. Saturdays and Sundays are skipped; public holidays where your bank sits are not in this count, and a holiday inside the window pushes the last day later, never earlier.";
+          out.classList.add("show");
+        });
+        $("calcEopBtn").addEventListener("click", function () {
+          var v = $("calcEopDate").value, out = $("calcEopOut");
+          if (!v) { $("calcEopDate").focus(); return; }
+          var d = new Date(v + "T00:00:00");
+          d.setDate(d.getDate() + 30);
+          out.innerHTML = "Demand received <strong>" + fullDate(new Date(v + "T00:00:00")) + "</strong>. Payment may be suspended until <strong>" + fullDate(d) + "</strong> \u2014 30 calendar days from receipt. If the guarantee is not extended by then, the demand must be paid. If a counter-guarantee is involved, its suspension window closes earlier \u2014 check URDG 758 Art. 23.";
+          out.classList.add("show");
+        });
+
+        /* ----- Follow-up questions (item 5) ----- */
+        $("followupBtn").addEventListener("click", function () {
+          var f = $("followupInput").value.trim();
+          if (f.length < 5 || !state.thread.length) { $("followupInput").focus(); return; }
+          var prev = state.thread[state.thread.length - 1];
+          var extract = prev.a.replace(/[#>*`]/g, "").replace(/\s+/g, " ").trim();
+          var composed = "Follow-up to my earlier question.\nEarlier question: " + prev.q +
+                         "\nThe answer I was given (extract): " + extract.slice(0, 700) +
+                         "\nMy follow-up question: " + f;
+          if (composed.length > 2000) {
+            var room = 2000 - ("Follow-up to my earlier question.\nEarlier question: " + prev.q + "\nThe answer I was given (extract): " + "\nMy follow-up question: " + f).length;
+            composed = "Follow-up to my earlier question.\nEarlier question: " + prev.q +
+                       "\nThe answer I was given (extract): " + extract.slice(0, Math.max(120, room)) +
+                       "\nMy follow-up question: " + f;
+          }
+          state.lastQuery = f;
+          $("followupInput").value = "";
+          submitQuery(composed);
+        });
+
+        /* ----- Copy, share, flag (items 15 and 16) ----- */
+        function answerText() {
+          return state.showingLang && state.translations[state.showingLang] ? state.translations[state.showingLang] : state.lastAnswerMd;
+        }
+        function copyText(text, btn, doneLabel) {
+          function done() {
+            var old = btn.textContent;
+            btn.textContent = doneLabel;
+            setTimeout(function () { btn.textContent = old; }, 2500);
+          }
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(done).catch(function () { fallback(); });
+          } else { fallback(); }
+          function fallback() {
+            var ta = document.createElement("textarea");
+            ta.value = text;
+            ta.style.position = "fixed"; ta.style.opacity = "0";
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand("copy"); done(); } catch (e) { btn.textContent = "Copy failed \u2014 select the answer text instead"; }
+            document.body.removeChild(ta);
+          }
+        }
+        $("copyBtn").addEventListener("click", function () { copyText(answerText(), $("copyBtn"), "Copied"); });
+        $("shareBtn").addEventListener("click", function () {
+          var payload = { title: "Trade Finance Query Desk", text: "Trade Finance Query Desk \u2014 " + state.product.name + " (" + (state.role || "") + ")", url: window.location.href };
+          if (navigator.share) { navigator.share(payload).catch(function () {}); }
+          else { copyText(window.location.href, $("shareBtn"), "Link copied"); }
+        });
+      })();
     </script>
   </body>
 </html>
